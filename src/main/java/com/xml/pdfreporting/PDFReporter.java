@@ -135,7 +135,7 @@ public class PDFReporter {
 
 
         document.add(executionModelDetails);
-        document.add(new Paragraph("\n"));
+        //document.add(new Paragraph("\n"));
     }
 
     public static PdfPTable setModelDetails(Set<String> keys, JSONObject details) throws DocumentException {
@@ -169,7 +169,7 @@ public class PDFReporter {
         document.add(new Paragraph("\n\n\n"));
         PdfPTable table = new PdfPTable(2);
 
-        PdfPCell summaryCell = setCellFonts(setFont("Summary Report", 22, Font.NORMAL, BaseColor.BLUE), Element.ALIGN_CENTER, Element.ALIGN_CENTER);
+        PdfPCell summaryCell = setCellFonts(setFont("Summary Report", 22, BaseColor.BLUE, Font.NORMAL), Element.ALIGN_CENTER, Element.ALIGN_CENTER);
         summaryCell.setColspan(2);
         table.addCell(summaryCell);
 
@@ -183,15 +183,15 @@ public class PDFReporter {
         table.addCell(imageCell);
 
         PdfPTable summarytable = new PdfPTable(4);
-        summarytable.addCell(setCellFonts(setFont("Total", 14, Font.NORMAL, BaseColor.BLACK), Element.ALIGN_CENTER, Element.ALIGN_CENTER));
-        summarytable.addCell(setCellFonts(setFont("Pass", 14, Font.NORMAL, BaseColor.BLACK), Element.ALIGN_CENTER, Element.ALIGN_CENTER));
-        summarytable.addCell(setCellFonts(setFont("Fail", 14, Font.NORMAL, BaseColor.BLACK), Element.ALIGN_CENTER, Element.ALIGN_CENTER));
-        summarytable.addCell(setCellFonts(setFont("Skip", 14, Font.NORMAL, BaseColor.BLACK), Element.ALIGN_CENTER, Element.ALIGN_CENTER));
+        summarytable.addCell(setCellFonts(setFont("Total", 14, BaseColor.BLACK, Font.NORMAL), Element.ALIGN_CENTER, Element.ALIGN_CENTER));
+        summarytable.addCell(setCellFonts(setFont("Pass", 14, BaseColor.BLACK, Font.NORMAL), Element.ALIGN_CENTER, Element.ALIGN_CENTER));
+        summarytable.addCell(setCellFonts(setFont("Fail", 14, BaseColor.BLACK, Font.NORMAL), Element.ALIGN_CENTER, Element.ALIGN_CENTER));
+        summarytable.addCell(setCellFonts(setFont("Skip", 14, BaseColor.BLACK, Font.NORMAL), Element.ALIGN_CENTER, Element.ALIGN_CENTER));
 
-        summarytable.addCell(setCellFonts(setFont("total", 14, Font.NORMAL, BaseColor.BLACK), Element.ALIGN_CENTER, Element.ALIGN_CENTER));
-        summarytable.addCell(setCellFonts(setFont("pass", 14, Font.NORMAL, BaseColor.BLACK), Element.ALIGN_CENTER, Element.ALIGN_CENTER));
-        summarytable.addCell(setCellFonts(setFont("fail", 14, Font.NORMAL, BaseColor.BLACK), Element.ALIGN_CENTER, Element.ALIGN_CENTER));
-        summarytable.addCell(setCellFonts(setFont("skip", 14, Font.NORMAL, BaseColor.BLACK), Element.ALIGN_CENTER, Element.ALIGN_CENTER));
+        summarytable.addCell(setCellFonts(setFont("total", 14, BaseColor.BLACK, Font.NORMAL), Element.ALIGN_CENTER, Element.ALIGN_CENTER));
+        summarytable.addCell(setCellFonts(setFont("pass", 14, BaseColor.BLACK, Font.NORMAL), Element.ALIGN_CENTER, Element.ALIGN_CENTER));
+        summarytable.addCell(setCellFonts(setFont("fail", 14, BaseColor.BLACK, Font.NORMAL), Element.ALIGN_CENTER, Element.ALIGN_CENTER));
+        summarytable.addCell(setCellFonts(setFont("skip", 14, BaseColor.BLACK, Font.NORMAL), Element.ALIGN_CENTER, Element.ALIGN_CENTER));
 
         table.addCell(new Paragraph("\n\n\n"));
         table.addCell(summarytable);
@@ -243,11 +243,11 @@ public class PDFReporter {
         PdfPTable table = new PdfPTable(new float[]{15, 85});
         table.setWidthPercentage(100);
 
-        table.addCell(setCellFonts(setFont("Test Objective", 14, Font.NORMAL, BaseColor.BLUE), Element.ALIGN_LEFT, Element.ALIGN_MIDDLE));
-        table.addCell(setCellFonts(setFont(objective, 11, Font.NORMAL, BaseColor.BLACK), Element.ALIGN_LEFT, Element.ALIGN_MIDDLE));
+        table.addCell(setCellFonts(setFont("Test Objective", 14, BaseColor.BLUE, Font.NORMAL), Element.ALIGN_LEFT, Element.ALIGN_MIDDLE));
+        table.addCell(setCellFonts(setFont(objective, 11, BaseColor.BLACK, Font.NORMAL), Element.ALIGN_LEFT, Element.ALIGN_MIDDLE));
 
-        table.addCell(setCellFonts(setFont("Test Acceptance", 14, Font.NORMAL, BaseColor.BLUE), Element.ALIGN_LEFT, Element.ALIGN_MIDDLE));
-        table.addCell(setCellFonts(setFont(acceptance, 11, Font.NORMAL, BaseColor.BLACK), Element.ALIGN_LEFT, Element.ALIGN_MIDDLE));
+        table.addCell(setCellFonts(setFont("Test Acceptance", 14, BaseColor.BLUE, Font.NORMAL), Element.ALIGN_LEFT, Element.ALIGN_MIDDLE));
+        table.addCell(setCellFonts(setFont(acceptance, 11, BaseColor.BLACK, Font.NORMAL), Element.ALIGN_LEFT, Element.ALIGN_MIDDLE));
 
         table.setHorizontalAlignment(Element.ALIGN_CENTER);
         document.add(table);
@@ -258,11 +258,11 @@ public class PDFReporter {
         logo.setWidthPercentage(100);
 
 
-        logo.addCell(setCellFonts(setFont("\n" + header + "\n", 18, Font.BOLD, BaseColor.BLACK), Element.ALIGN_CENTER, Element.ALIGN_MIDDLE)).setBorder(0);
+        logo.addCell(setCellFonts(setFont("\n" + header + "\n", 18, BaseColor.BLACK, Font.BOLD), Element.ALIGN_CENTER, Element.ALIGN_MIDDLE)).setBorder(0);
 
-        logo.addCell(setCellFonts(setFont("\n" + "Confidential, Not for Recirculation" + "\n", 12, Font.NORMAL, BaseColor.BLACK), Element.ALIGN_CENTER, Element.ALIGN_MIDDLE)).setBorder(0);
+        logo.addCell(setCellFonts(setFont("\n" + "Confidential, Not for Recirculation" + "\n", 12, BaseColor.BLACK, Font.NORMAL), Element.ALIGN_CENTER, Element.ALIGN_MIDDLE)).setBorder(0);
 
-        logo.addCell(setCellFonts(setFont("\n" + "DOCUMENT #: 119200-TPE-001" + "\n" + "REV #: 00", 12, Font.ITALIC, BaseColor.BLACK), Element.ALIGN_CENTER, Element.ALIGN_MIDDLE)).setBorder(0);
+        logo.addCell(setCellFonts(setFont("\n" + "DOCUMENT #: 119200-TPE-001" + "\n" + "REV #: 00", 12, BaseColor.BLACK, Font.ITALIC), Element.ALIGN_CENTER, Element.ALIGN_MIDDLE)).setBorder(0);
 
 
         Paragraph preface = new Paragraph();

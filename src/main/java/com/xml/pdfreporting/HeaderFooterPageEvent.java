@@ -71,9 +71,9 @@ public class HeaderFooterPageEvent extends PdfPageEventHelper {
         header.setTotalWidth(950);
         header.setLockedWidth(true);
 
-        header.addCell(setCellFonts(setFont("IMAGE", 8, Font.NORMAL, BaseColor.BLACK), Element.ALIGN_LEFT, Element.ALIGN_MIDDLE)).setBorder(Rectangle.BOTTOM);
-        header.addCell(setCellFonts(setFont(getHeader(), 8, Font.NORMAL, BaseColor.BLACK), Element.ALIGN_CENTER, Element.ALIGN_MIDDLE)).setBorder(Rectangle.BOTTOM);
-        header.addCell(setCellFonts(setFont("\n" + "DOCUMENT #: 119200-TPE-001" + "\n" + "REV #: 00", 8, Font.NORMAL, BaseColor.BLACK), Element.ALIGN_RIGHT, Element.ALIGN_MIDDLE)).setBorder(Rectangle.BOTTOM);
+        header.addCell(setCellFonts(setFont("IMAGE", 8, BaseColor.BLACK, Font.NORMAL), Element.ALIGN_LEFT, Element.ALIGN_MIDDLE)).setBorder(Rectangle.BOTTOM);
+        header.addCell(setCellFonts(setFont(getHeader(), 8, BaseColor.BLACK, Font.NORMAL), Element.ALIGN_CENTER, Element.ALIGN_MIDDLE)).setBorder(Rectangle.BOTTOM);
+        header.addCell(setCellFonts(setFont("\n" + "DOCUMENT #: 119200-TPE-001" + "\n" + "REV #: 00", 8, BaseColor.BLACK, Font.NORMAL), Element.ALIGN_RIGHT, Element.ALIGN_MIDDLE)).setBorder(Rectangle.BOTTOM);
 
         // write content
         PdfContentByte canvas = writer.getDirectContent();

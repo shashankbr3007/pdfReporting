@@ -4,12 +4,15 @@ import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.FontSelector;
 import com.itextpdf.text.pdf.PdfPCell;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.Arrays;
 
 public class Utility {
 
-    public static Phrase setFont(String text, int size, int style, BaseColor color) {
+    public static Phrase setFont(String text, int size, BaseColor color, int style) {
         FontSelector selector1 = new FontSelector();
         Font f1 = FontFactory.getFont(FontFactory.TIMES_ROMAN, size);
         f1.setStyle(style);
@@ -36,11 +39,14 @@ public class Utility {
         for (int i = 0; i < 11; i++) {
 
             PDFTestReportModel pdftest = new PDFTestReportModel("Test-" + i);
-            pdftest.setDescription("Executing the test number " + i);
-            pdftest.setexpected("Result should be either of PASS, FAIL, SKIP, NORUN for test number " + i);
-            pdftest.setactuals(Arrays.asList("PASS", "./screenshots/xlm-logo.jpg", "FAIL"));
-            pdfReporter.setTestObjective(pdf);
-            pdf.add(pdftest.setTestResultTable());
+            for (int j = 1; j < 4; j++) {
+                pdftest.setStepNum(String.valueOf(j));
+                pdftest.setDescription("Executing the test number " + i + " Step number : " + j);
+                pdftest.setexpected(Arrays.asList("Result should be either of PASS, FAIL, SKIP, NORUN for test number " + i));
+                pdftest.setactuals(Arrays.asList("PASS", "./screenshots/xlm-logo.jpg"));
+                pdftest.setTestResultTable();
+            }
+            pdf.add(pdftest.setTestExecutionTable(i + 2));
             pdf.add(new Paragraph("\n"));
         }
 
