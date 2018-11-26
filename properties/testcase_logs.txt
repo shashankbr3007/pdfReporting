@@ -1,0 +1,123 @@
+{
+	"testcases": [{
+		"testname": " Test-0",
+		"test_objective": "This is a Sample test with unknown Objective for Test-1",
+		"test_acceptance": "This is sample test with no and none acceptance criteria for Test-1",
+		"steps": [{
+			"step_number": "1",
+			"step_description": "Executing test_Number_1 and step_number_1",
+			"expected_result": ["Result should be either of PASS for test_Number_1 and step_number_1",
+			"Result should be either of FAIL for test_Number_1 and step_number_1",
+			"Result should be either of SKIP for test_Number_1 and step_number_1",
+			"Result should be either of NORUN for test_Number_1 and step_number_1",
+			"./screenshots/xlm-logo.jpg"],
+			"actual_result": ["Result is PASS for test_Number_1 and step_number_1",
+			"Result is FAIL for test_Number_1 and step_number_1",
+			"Result is SKIP for test_Number_1 and step_number_1",
+			"Result is NORUN for test_Number_1 and step_number_1",
+			"./screenshots/xlm-logo.jpg"]
+		},
+		{
+			"step_number": "2",
+			"step_description": "Executing test_Number_1 and step_number_2",
+			"expected_result": ["Result should be either of PASS for test_Number_1 and step_number_2",
+			"Result should be either of FAIL for test_Number_1 and step_number_2",
+			"Result should be either of SKIP for test_Number_1 and step_number_2",
+			"Result should be either of NORUN for test_Number_1 and step_number_2",
+			"./screenshots/xlm-logo.jpg"],
+			"actual_result": ["Result is PASS for test_Number_1 and step_number_2",
+			"Result is FAIL for test_Number_1 and step_number_2",
+			"Result is SKIP for test_Number_1 and step_number_2",
+			"Result is NORUN for test_Number_1 and step_number_2",
+			"./screenshots/xlm-logo.jpg"]
+		}]
+	},{
+		"testname": " Test-1",
+		"test_objective": "This is a Sample test with unknown Objective for Test-2",
+		"test_acceptance": "This is sample test with no and none acceptance criteria for Test-2",
+		"steps": [{
+			"step_number": "1",
+			"step_description": "Executing test_Number_2 and step_number_1",
+			"expected_result": ["Result should be either of PASS for test_Number_2 and step_number_1",
+			"Result should be either of FAIL for test_Number_2 and step_number_1",
+			"Result should be either of SKIP for test_Number_2 and step_number_1",
+			"Result should be either of NORUN for test_Number_2 and step_number_1",
+			"./screenshots/xlm-logo.jpg"],
+			"actual_result": ["Result is PASS for test_Number_2 and step_number_1",
+			"Result is FAIL for test_Number_2 and step_number_1",
+			"Result is SKIP for test_Number_2 and step_number_1",
+			"Result is NORUN for test_Number_2 and step_number_1",
+			"./screenshots/xlm-logo.jpg"]
+		},
+		{
+			"step_number": "2",
+			"step_description": "Executing test_Number_2 and step_number_2",
+			"expected_result": ["Result should be either of PASS for test_Number_2 and step_number_2",
+			"Result should be either of FAIL for test_Number_2 and step_number_2",
+			"Result should be either of SKIP for test_Number_2 and step_number_2",
+			"Result should be either of NORUN for test_Number_2 and step_number_2",
+			"./screenshots/xlm-logo.jpg"],
+			"actual_result": ["Result is PASS for test_Number_2 and step_number_2",
+			"Result is FAIL for test_Number_2 and step_number_2",
+			"Result is SKIP for test_Number_2 and step_number_2",
+			"Result is NORUN for test_Number_2 and step_number_2",
+			"./screenshots/xlm-logo.jpg"]
+		}]
+	},{
+		"testname": " Test-2",
+		"test_objective": "This is a Sample test with unknown Objective for Test-4",
+		"test_acceptance": "This is sample test with no and none acceptance criteria for Test-4",
+		"steps": [{
+			"step_number": "1",
+			"step_description": "Executing test_Number_3 and step_number_1",
+			"expected_result": ["Result should be either of PASS for test_Number_3 and step_number_1",
+			"Result should be either of FAIL for test_Number_3 and step_number_1",
+			"Result should be either of SKIP for test_Number_3 and step_number_1",
+			"Result should be either of NORUN for test_Number_3 and step_number_1",
+			"./screenshots/xlm-logo.jpg"],
+			"actual_result": ["Result is PASS for test_Number_3 and step_number_1",
+			"Result is FAIL for test_Number_3 and step_number_1",
+			"Result is SKIP for test_Number_3 and step_number_1",
+			"Result is NORUN for test_Number_3 and step_number_1",
+			"./screenshots/xlm-logo.jpg"]
+		},
+		{
+			"step_number": "2",
+			"step_description": "Executing test_Number_3 and step_number_2",
+			"expected_result": ["Result should be either of PASS for test_Number_3 and step_number_2",
+			"Result should be either of FAIL for test_Number_3 and step_number_2",
+			"Result should be either of SKIP for test_Number_3 and step_number_2",
+			"Result should be either of NORUN for test_Number_3 and step_number_2",
+			"./screenshots/xlm-logo.jpg"],
+			"actual_result": ["Result is PASS for test_Number_3 and step_number_2",
+			"Result is FAIL for test_Number_3 and step_number_2",
+			"Result is SKIP for test_Number_3 and step_number_2",
+			"Result is NORUN for test_Number_3 and step_number_2",
+			"./screenshots/xlm-logo.jpg"]
+		}]
+	},{
+		"testname": " Test-3",
+		"test_objective": "This is a Sample test with unknown Objective for Test-3",
+		"test_acceptance": "This is sample test with no and none acceptance criteria for Test-3",
+		"steps": [{
+			"step_number": "1",
+			"step_description": "Executing test_Number_3 and step_number_1",
+			"expected_result": ["Result should be either of PASS for test_Number_3 and step_number_1",
+			"Result should be either of FAIL for test_Number_3 and step_number_1",
+			"Result should be either of SKIP for test_Number_3 and step_number_1"],
+			"actual_result": ["Result is PASS for test_Number_3 and step_number_1",
+			"Result is FAIL for test_Number_3 and step_number_1",
+			"Result is SKIP for test_Number_3 and step_number_1"]
+		},
+		{
+			"step_number": "2",
+			"step_description": "Executing test_Number_3 and step_number_2",
+			"expected_result": ["Result should be either of PASS for test_Number_3 and step_number_2",
+			"Result should be either of NORUN for test_Number_3 and step_number_2",
+			"./screenshots/xlm-logo.jpg"],
+			"actual_result": ["Result is PASS for test_Number_3 and step_number_2",
+			"Result is FAIL for test_Number_3 and step_number_2",
+			"Result is SKIP for test_Number_3 and step_number_2"]
+		}]
+	}]
+}

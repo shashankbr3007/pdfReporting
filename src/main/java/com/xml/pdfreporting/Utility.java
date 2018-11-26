@@ -3,14 +3,19 @@ package com.xml.pdfreporting;
 import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.FontSelector;
 import com.itextpdf.text.pdf.PdfPCell;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
 import java.util.Date;
 
 public class Utility {
@@ -35,24 +40,38 @@ public class Utility {
 
     public static void main(String[] args) throws Exception {
         PDFReporter pdfReporter = new PDFReporter();
-        /*Document pdf = pdfReporter.PDFReporter("TEST EXECUTION REPORT \n FOR \n" +
-                "TRACELINK LIFE SCIENCES CLOUD\n" +
-                "NEW RELEASE VALIDATION - PROD\n", "The information contained within this document is considered CONFIDENTIAL and is the property of xLM, LLC.");*/
         Document pdf = pdfReporter.PDFReporter();
-        for (int i = 0; i < 11; i++) {
 
-            PDFTestReportModel pdftest = new PDFTestReportModel("Test-" + i);
-            for (int j = 1; j < 4; j++) {
-                pdftest.setStepNum(String.valueOf(j));
-                pdftest.setDescription("Executing the test number " + i + " Step number : " + j);
-                pdftest.setexpected(Arrays.asList("Result should be either of PASS, FAIL, SKIP, NORUN for test number " + i));
-                pdftest.setactuals(Arrays.asList("PASS", "./screenshots/xlm-logo.jpg"));
+        JSONArray testcases = gettestcases();
+        for (int i = 0; i < testcases.size(); i++) {
+
+            JSONObject testcase = (JSONObject) testcases.get(i);
+
+            PDFTestReportModel pdftest = new PDFTestReportModel((String) testcase.get("testname"),
+                    (String) testcase.get("test_objective"),
+                    (String) testcase.get("test_acceptance"));
+
+            JSONArray steps = (JSONArray) testcase.get("steps");
+            for (int j = 0; j < steps.size(); j++) {
+                JSONObject step = (JSONObject) steps.get(j);
+                pdftest.setStepNum((String) step.get("step_number"));
+                pdftest.setDescription((String) step.get("step_description"));
+                pdftest.setexpected((java.util.List<String>) step.get("expected_result"));
+                pdftest.setactuals((java.util.List<String>) step.get("actual_result"));
                 pdftest.setTestResultTable();
             }
             pdf.add(pdftest.setTestExecutionTable(i + 2));
             pdf.add(new Paragraph("\n"));
         }
 
+        JSONParser parser = new JSONParser();
+
+        JSONObject executionStats = (JSONObject) parser.parse("{\"Execution End Date/Time\": \"2018-09-25 21:45:17 EDT\",\"Test Execution Duration\": \"00 hours, 01 mins, 56 seconds\",\"Execution Status\": \"Completed\"}");
+
+        Chapter executionStat = new Chapter(new Paragraph("EXECUTION STATISTICS"), testcases.size() + 2);
+        executionStat.add(new Paragraph("\n"));
+        executionStat.add(pdfReporter.setModelDetails(executionStats));
+        pdf.add(executionStat);
         pdf.close();
     }
 
@@ -88,7 +107,6 @@ public class Utility {
         return st;
     }
 
-
     public static String formattedDate() {
 
         Date date = new Date();
@@ -97,5 +115,15 @@ public class Utility {
         String formattedDate = dateFormat.format(date);
         return formattedDate;
 
+    }
+
+    public static JSONArray gettestcases() throws IOException, ParseException {
+
+        String content = new String(Files.readAllBytes(Paths.get(("properties/testcase_logs.txt"))));
+
+        JSONParser parser = new JSONParser();
+        JSONObject logs = (JSONObject) parser.parse(content);
+
+        return (JSONArray) logs.get("testcases");
     }
 }

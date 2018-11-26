@@ -61,7 +61,7 @@ public class PDFReporter {
 
     }
 
-    public static PdfPTable setModelDetails(Set<String> keys, JSONObject details) {
+    public static PdfPTable setModelDetails(JSONObject details) {
 
         PdfPTable modelDetails = new PdfPTable(new float[]{10, 25, 40});
         modelDetails.setWidthPercentage(85);
@@ -77,7 +77,7 @@ public class PDFReporter {
         blankCell.setPhrase(new Paragraph("\n"));
         blankCell.setBorder(Rectangle.NO_BORDER);
 
-        for (String key : keys) {
+        for (String key : (Set<String>) details.keySet()) {
             keyCell.setPhrase(new Phrase(key));
             modelDetails.addCell(keyCell);
             valueCell.setPhrase(new Phrase(String.valueOf(details.get(key))));
@@ -137,20 +137,16 @@ public class PDFReporter {
 
         Chapter executionModelDetails = new Chapter(new Paragraph("ENVIRONMENT DETAILS "), 1);
 
-        /*JSONParser parser = new JSONParser();
-        JSONObject modeldetails = (JSONObject) parser.parse("{\"Model Name\":\"Veloxis_TL_Operational_Verification\",\"Model Version\":\"1.1\",\"Approved By\":\"Bhaskar Kende\",\"Approval Date\":\"October 6, 2018\"}\n");
-        JSONObject executiondetails = (JSONObject) parser.parse("{\"Execution Start Date/Time\":\"2018-09-25 21:43:22 EDT\",\"Application URL\":\"Selenium:https://app.tracelink.com\",\"TraceLink Life Sciences Cloud Version\":\"Einstein 4 2018.4.5\",\"Browser\":\"firefox\",\"Server Name\":\"Ayodhya\",\"Server IP\":\"127.0.0.1\",\"Plugins used\":\"Selenium,Service\",\"Login User ID\":\"veloxis@continuousvalidation.com\",\"Login Status\":\"Successful\"}");
-*/
         executionModelDetails.add(new Paragraph("\n"));
         Section modelDetail = executionModelDetails.addSection(1, "AUTOMATION MODEL VERSION RELEASE DETAILS");
         modelDetail.add(new Paragraph("\n"));
-        modelDetail.add(setModelDetails(modeldetails.keySet(), modeldetails));
+        modelDetail.add(setModelDetails(modeldetails));
 
 
         executionModelDetails.add(new Paragraph("\n"));
         Section executionDetail = executionModelDetails.addSection(2, "TEST EXECUTION ENVIRONMENT DETAILS ");
         executionDetail.add(new Paragraph("\n"));
-        executionDetail.add(setModelDetails(executiondetails.keySet(), executiondetails));
+        executionDetail.add(setModelDetails(executiondetails));
 
 
         document.add(executionModelDetails);

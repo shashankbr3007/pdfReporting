@@ -21,8 +21,10 @@ public class PDFTestReportModel {
     private String acceptance = " ";
     private List<String> actuals;
 
-    public PDFTestReportModel(String testName) {
+    public PDFTestReportModel(String testName, String Objec, String Acceptnce) {
         this.testName = testName;
+        this.objective = Objec;
+        this.acceptance = Acceptnce;
         defineTestExecutionTable();
     }
 
@@ -71,12 +73,12 @@ public class PDFTestReportModel {
         return actuals;
     }
 
-    public void setactuals(List actuals) {
+    public void setactuals(List<String> actuals) {
         this.actuals = actuals;
     }
 
     public void defineTestExecutionTable() {
-        float[] columnWidth = {15, 25, 25, 40};
+        float[] columnWidth = {15, 25, 35, 35};
         table = new PdfPTable(columnWidth);
         //table.setKeepTogether(true);
         table.setWidthPercentage(100);
