@@ -8,7 +8,10 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
 
 public class Utility {
 
@@ -32,10 +35,10 @@ public class Utility {
 
     public static void main(String[] args) throws Exception {
         PDFReporter pdfReporter = new PDFReporter();
-        Document pdf = pdfReporter.PDFReporter("TEST EXECUTION REPORT \n FOR \n" +
+        /*Document pdf = pdfReporter.PDFReporter("TEST EXECUTION REPORT \n FOR \n" +
                 "TRACELINK LIFE SCIENCES CLOUD\n" +
-                "NEW RELEASE VALIDATION - PROD\n", "The information contained within this document is considered CONFIDENTIAL and is the property of xLM, LLC.");
-
+                "NEW RELEASE VALIDATION - PROD\n", "The information contained within this document is considered CONFIDENTIAL and is the property of xLM, LLC.");*/
+        Document pdf = pdfReporter.PDFReporter();
         for (int i = 0; i < 11; i++) {
 
             PDFTestReportModel pdftest = new PDFTestReportModel("Test-" + i);
@@ -53,14 +56,14 @@ public class Utility {
         pdf.close();
     }
 
-    public static String[] getLogFiles() {
-        File folder = new File("logs");
+    public static String[] getFiles(String path) {
+        File folder = new File(path);
         String[] filename = new String[folder.listFiles().length];
 
         int i = 0;
         for (File file : folder.listFiles()) {
             if (!file.isDirectory()) {
-                filename[i] = "./logs/" + file.getName();
+                filename[i] = "./" + path + "/" + file.getName();
                 i++;
             }
         }
@@ -68,21 +71,31 @@ public class Utility {
     }
 
 
-    public static void main1(String[] args) throws IOException {
+    public static String readFile(String path) throws IOException {
 
-        String[] logFiles = getLogFiles();
-
-        for (String file : logFiles) {
+        String[] files = getFiles(path);
+        String st = null;
+        for (String file : files) {
             System.out.println(file);
             BufferedReader br = new BufferedReader(new FileReader(file));
 
-            String st;
+
             while ((st = br.readLine()) != null) {
                 System.out.println(st);
             }
-            System.out.println("\n\n\n\n\n");
-        }
 
+        }
+        return st;
     }
 
+
+    public static String formattedDate() {
+
+        Date date = new Date();
+        String strDateFormat = "ddMMyyhhmmssSSS";
+        DateFormat dateFormat = new SimpleDateFormat(strDateFormat);
+        String formattedDate = dateFormat.format(date);
+        return formattedDate;
+
+    }
 }

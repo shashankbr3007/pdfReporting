@@ -109,10 +109,12 @@ public class PDFTestReportModel {
 
     public void setTestResultTable() throws IOException, BadElementException {
 
-        table.addCell(setCellFonts(setFont(getStepNum(), 11, BaseColor.BLACK, Font.NORMAL), Element.ALIGN_TOP, Element.ALIGN_RIGHT));
-        table.addCell(setCellFonts(setFont(getDescription(), 11, BaseColor.BLACK, Font.NORMAL), Element.ALIGN_TOP, Element.ALIGN_LEFT));
+        table.addCell(setCellFonts(setFont(getStepNum(), 11, BaseColor.BLACK, Font.NORMAL), Element.ALIGN_CENTER, Element.ALIGN_TOP));
+        table.addCell(setCellFonts(setFont(getDescription(), 11, BaseColor.BLACK, Font.NORMAL), Element.ALIGN_CENTER, Element.ALIGN_TOP));
 
         PdfPCell expectedCell = new PdfPCell();
+        expectedCell.setHorizontalAlignment(Element.ALIGN_CENTER);
+        expectedCell.setVerticalAlignment(Element.ALIGN_TOP);
         for (int i = 0; i < getexpected().size(); i++) {
             if (getexpected().get(i).contains(".jpg") ||
                     getexpected().get(i).contains(".png")) {
@@ -120,14 +122,14 @@ public class PDFTestReportModel {
                 img.scalePercent(30);
                 expectedCell.addElement(img);
             } else {
-                expectedCell.addElement(new Phrase(getexpected().get(i) + "\n\n"));
+                expectedCell.addElement(new Phrase(getexpected().get(i) + "\n"));
             }
         }
-        expectedCell.setHorizontalAlignment(Element.ALIGN_TOP);
-        expectedCell.setVerticalAlignment(Element.ALIGN_LEFT);
         table.addCell(expectedCell);
 
         PdfPCell actualCell = new PdfPCell();
+        actualCell.setHorizontalAlignment(Element.ALIGN_CENTER);
+        actualCell.setVerticalAlignment(Element.ALIGN_TOP);
         for (int i = 0; i < getactuals().size(); i++) {
             if (getactuals().get(i).contains(".jpg") ||
                     getactuals().get(i).contains(".png")) {
@@ -138,8 +140,6 @@ public class PDFTestReportModel {
                 actualCell.addElement(new Phrase(getactuals().get(i) + "\n\n"));
             }
         }
-        actualCell.setHorizontalAlignment(Element.ALIGN_TOP);
-        actualCell.setVerticalAlignment(Element.ALIGN_LEFT);
         table.addCell(actualCell);
     }
 
