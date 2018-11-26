@@ -18,6 +18,8 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import static com.xml.pdfreporting.PDFTestReportModel.setExecutionStats;
+
 public class Utility {
 
     public static Phrase setFont(String text, int size, BaseColor color, int style) {
@@ -63,15 +65,8 @@ public class Utility {
             pdf.add(pdftest.setTestExecutionTable(i + 2));
             pdf.add(new Paragraph("\n"));
         }
-
-        JSONParser parser = new JSONParser();
-
-        JSONObject executionStats = (JSONObject) parser.parse("{\"Execution End Date/Time\": \"2018-09-25 21:45:17 EDT\",\"Test Execution Duration\": \"00 hours, 01 mins, 56 seconds\",\"Execution Status\": \"Completed\"}");
-
-        Chapter executionStat = new Chapter(new Paragraph("EXECUTION STATISTICS"), testcases.size() + 2);
-        executionStat.add(new Paragraph("\n"));
-        executionStat.add(pdfReporter.setModelDetails(executionStats));
-        pdf.add(executionStat);
+        
+        pdf.add(setExecutionStats(testcases.size() + 2));
         pdf.close();
     }
 

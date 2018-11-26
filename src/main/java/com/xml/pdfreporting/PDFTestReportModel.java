@@ -4,10 +4,16 @@ import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.FontSelector;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.List;
 
+import static com.xml.pdfreporting.PDFReporter.setModelDetails;
 import static com.xml.pdfreporting.Utility.setFont;
 
 public class PDFTestReportModel {
@@ -167,5 +173,19 @@ public class PDFTestReportModel {
 
     public void setStepNum(String stepNum) {
         this.stepNum = stepNum;
+    }
+
+    public static Chapter setExecutionStats(int chapterNum) throws ParseException, IOException {
+
+        String content = new String(Files.readAllBytes(Paths.get(("properties/execution_stats.txt"))));
+        JSONParser parser = new JSONParser();
+
+        JSONObject executionStats = (JSONObject) parser.parse(content);
+
+        Chapter executionStat = new Chapter(new Paragraph("EXECUTION STATISTICS"), chapterNum);
+        executionStat.add(new Paragraph("\n"));
+        executionStat.add(setModelDetails(executionStats));
+
+        return executionStat;
     }
 }
