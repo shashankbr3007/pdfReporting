@@ -23,6 +23,7 @@ public class PDFReporter {
 
     private List<String> textComment;
     private String header;
+    private String headerimage;
     private String footer;
     private JSONObject modeldetails;
     private JSONObject executiondetails;
@@ -192,6 +193,7 @@ public class PDFReporter {
         /*SET HEADER AND FOOTER FOR THE PDF*/
         HeaderFooterPageEvent event = new HeaderFooterPageEvent(writer);
         event.setHeader(header);
+        event.setHeaderimage(headerimage);
         event.setFooter(footer);
         writer.setPageEvent(event);
 
@@ -241,6 +243,7 @@ public class PDFReporter {
         try {
             JSONObject propJSON = (JSONObject) parser.parse(content);
             header = (String) propJSON.get("header");
+            headerimage = (String) propJSON.get("headerimage");
             footer = (String) propJSON.get("footer");
             fileName = (String) propJSON.get("filename");
 

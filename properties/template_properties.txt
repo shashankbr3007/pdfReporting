@@ -1,5 +1,6 @@
 {
-	"header": "TEST EXECUTION REPORT \n FOR \n TRACELINK LIFE SCIENCES CLOUD\n NEW RELEASE VALIDATION - PROD\n",
+	"header": "TEST EXECUTION REPORT \n FOR NAGESH \n TRACELINK LIFE SCIENCES CLOUD\n NEW RELEASE VALIDATION - PROD\n",
+	"headerimage":"./screenshots/Veloxis-Logo.jpg"
 	"footer": "The information contained within this document is considered CONFIDENTIAL and is the property of xLM, LLC.",
 	"filename": "SampleExecution",
 	"signature_table": [
@@ -12,7 +13,7 @@
 			"image": "./screenshots/xLM_Logo.gif"
 		},
 		{
-			"approver": "Giridhar SamiReddy, Consultant",
+			"approver": "Giridhar Reddy, Consultant",
 			"image": "./screenshots/xLM_Logo.gif"
 		},
 		{
@@ -30,7 +31,7 @@
 		"Ensure the exceptions/incidents have been documented to address test failures (if any).",
 		"Confirm the output (Pass / Fail status) of the test based on documented evidence, if applicable.",
 		"Completed by xLM Quality and Customer Quality who have sufficient knowledge to evaluate and verify the test execution."
-	],
+	],	
 	"model_details": {
 		"Model Name": "Veloxis_TL_Operational_Verification",
 		"Model Version": "1.1",

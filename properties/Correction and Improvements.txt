@@ -1,0 +1,18 @@
+Corrections 
+- Big block for Comments no need of rows 
+- Need to code for test execution summary and include a sequence image
+- need to size the image appriorately *****
+- need to repeat the table headers for page breaks
+- Check for NULLs and omit the whole content if it is missing
+
+Missing and Improvements
+- Need to include Table of Content
+- Correct the Font and text size, with table header row shades
+- including an Logo image, need customization
+- Missing Customization for Document# and Rev#
+- read image from a URL
+- BOLD  and backgrounds
+- research more professional editions for image processing
+- Watermarking (research for Image and texts)
+- bookmarking 
+- roboto 

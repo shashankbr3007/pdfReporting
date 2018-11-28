@@ -13,6 +13,7 @@ public class HeaderFooterPageEvent extends PdfPageEventHelper {
     private PdfTemplate t;
     private Image total;
     private String header;
+    private String headerimage;
     private String footer;
 
     public HeaderFooterPageEvent(PdfWriter writer) {
@@ -71,10 +72,19 @@ public class HeaderFooterPageEvent extends PdfPageEventHelper {
         header.setTotalWidth(950);
         header.setLockedWidth(true);
 
-        header.addCell(setCellFonts(setFont("IMAGE", 8, BaseColor.BLACK, Font.NORMAL), Element.ALIGN_LEFT, Element.ALIGN_MIDDLE)).setBorder(Rectangle.BOTTOM);
-        header.addCell(setCellFonts(setFont(getHeader(), 8, BaseColor.BLACK, Font.NORMAL), Element.ALIGN_CENTER, Element.ALIGN_MIDDLE)).setBorder(Rectangle.BOTTOM);
-        header.addCell(setCellFonts(setFont("\n" + "DOCUMENT #: 119200-TPE-001" + "\n" + "REV #: 00", 8, BaseColor.BLACK, Font.NORMAL), Element.ALIGN_RIGHT, Element.ALIGN_MIDDLE)).setBorder(Rectangle.BOTTOM);
+        try {
+            Image img = Image.getInstance(headerimage);
+            img.scalePercent(20);
+            PdfPCell nameImage = new PdfPCell();
+            nameImage.setBorder(Rectangle.NO_BORDER);
+            nameImage.addElement(img);
 
+            header.addCell(nameImage);
+            header.addCell(setCellFonts(setFont(getHeader(), 8, BaseColor.BLACK, Font.NORMAL), Element.ALIGN_CENTER, Element.ALIGN_MIDDLE)).setBorder(Rectangle.BOTTOM);
+            header.addCell(setCellFonts(setFont("\n" + "DOCUMENT #: 119200-TPE-001" + "\n" + "REV #: 00", 8, BaseColor.BLACK, Font.NORMAL), Element.ALIGN_RIGHT, Element.ALIGN_MIDDLE)).setBorder(Rectangle.BOTTOM);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         // write content
         PdfContentByte canvas = writer.getDirectContent();
         canvas.beginMarkedContentSequence(PdfName.ARTIFACT);
@@ -157,5 +167,9 @@ public class HeaderFooterPageEvent extends PdfPageEventHelper {
 
     public void setHeader(String header) {
         this.header = header;
+    }
+
+    public void setHeaderimage(String headerimage) {
+        this.headerimage = headerimage;
     }
 }
