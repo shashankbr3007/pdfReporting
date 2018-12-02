@@ -1,0 +1,23 @@
+{
+	"testcasesummary": [{
+		"test_case_title": "Allocation Reports Verification",
+		"test_case_status": "Pass",
+		"test_case_results": "Verified the Allocation Reports exist for a randomly selected packaging code."
+	},
+	{
+		"test_case_title": "Allocation Reports Verification",
+		"test_case_status": "Pass",
+		"test_case_results": "Verified the Allocation Reports exist for a randomly selected packaging code."
+	},
+	{
+		"test_case_title": "Allocation Reports Verification",
+		"test_case_status": "Pass",
+		"test_case_results": "Verified the Allocation Reports exist for a randomly selected packaging code."
+	},
+	{
+		"test_case_title": "Allocation Reports Verification",
+		"test_case_status": "Pass",
+		"test_case_results": "Verified the Allocation Reports exist for a randomly selected packaging code."
+	}],
+	"testsequencechart":"./screenshots/testsequencegraph.png"
+}

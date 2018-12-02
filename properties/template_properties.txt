@@ -1,37 +1,34 @@
 {
-	"header": "TEST EXECUTION REPORT \n FOR NAGESH \n TRACELINK LIFE SCIENCES CLOUD\n NEW RELEASE VALIDATION - PROD\n",
-	"headerimage":"./screenshots/Veloxis-Logo.jpg"
-	"footer": "The information contained within this document is considered CONFIDENTIAL and is the property of xLM, LLC.",
+	"header": "TEST EXECUTION REPORT \n FOR \n TRACELINK LIFE SCIENCES CLOUD\n NEW RELEASE VALIDATION - PROD\n",
+	"headerimage": "./screenshots/Veloxis-Logo.jpg""footer": "The information contained within this document is considered CONFIDENTIAL and is the property of xLM, LLC.",
 	"filename": "SampleExecution",
-	"signature_table": [
-		{
-			"approver": "Nagesh Nama, Chief Quality Officer",
-			"image": "./screenshots/xLM_Logo.gif"
-		},
-		{
-			"approver": "Bhaskar Kende, Chief Technology Officer",
-			"image": "./screenshots/xLM_Logo.gif"
-		},
-		{
-			"approver": "Giridhar Reddy, Consultant",
-			"image": "./screenshots/xLM_Logo.gif"
-		},
-		{
-			"approver": "Shashank Beri Ravi, Consultant",
-			"image": "./screenshots/Veloxis-Logo.jpg"
-		},
-		{
-			"approver": "Client Approver, Quality Manager",
-			"image": "./screenshots/Veloxis-Logo.jpg"
-		}
-	],
-	"execution_approvals": [
-		"Ensure the test scripts have been executed.",
-		"Ensure that the documented evidence has been correctly produced for all applicable test steps.",
-		"Ensure the exceptions/incidents have been documented to address test failures (if any).",
-		"Confirm the output (Pass / Fail status) of the test based on documented evidence, if applicable.",
-		"Completed by xLM Quality and Customer Quality who have sufficient knowledge to evaluate and verify the test execution."
-	],	
+	"docnumber": "DOCUMENT #: 11282018-TPE-001",
+	"revnumber": "REV #: 99",
+	"signature_table": [{
+		"approver": "Nagesh Nama, Chief Quality Officer",
+		"image": "./screenshots/xLM_Logo.gif"
+	},
+	{
+		"approver": "Bhaskar Kende, Chief Technology Officer",
+		"image": "./screenshots/xLM_Logo.gif"
+	},
+	{
+		"approver": "Giridhar Reddy, Consultant",
+		"image": "./screenshots/xLM_Logo.gif"
+	},
+	{
+		"approver": "Shashank Beri Ravi, Consultant",
+		"image": "./screenshots/Veloxis-Logo.jpg"
+	},
+	{
+		"approver": "Client Approver, Quality Manager",
+		"image": "./screenshots/Veloxis-Logo.jpg"
+	}],
+	"execution_approvals": ["Ensure the test scripts have been executed.",
+	"Ensure that the documented evidence has been correctly produced for all applicable test steps.",
+	"Ensure the exceptions/incidents have been documented to address test failures (if any).",
+	"Confirm the output (Pass / Fail status) of the test based on documented evidence, if applicable.",
+	"Completed by xLM Quality and Customer Quality who have sufficient knowledge to evaluate and verify the test execution."],
 	"model_details": {
 		"Model Name": "Veloxis_TL_Operational_Verification",
 		"Model Version": "1.1",
@@ -47,6 +44,35 @@
 		"Server IP": "127.0.0.1",
 		"Plugins used": "Selenium,Service",
 		"Login User ID": "veloxis@continuousvalidation.com",
-		"Login Status": "Successful"
+		"Login Status": "Successful",
+		"Logout Status": "Successful"
+	},
+	"execution_stats": {
+		"Execution End Date/Time": "2018-09-25 21:45:17 EDT",
+		"Test Execution Duration": "00 hours, 01 mins, 56 seconds",
+		"Execution Status": "Completed"
+	},
+	"testsummary": {
+		"testcasesummary": [{
+			"test_case_title": "Allocation Reports Verification",
+			"test_case_status": "Pass",
+			"test_case_results": "Verified the Allocation Reports exist for a randomly selected packaging code."
+		},
+		{
+			"test_case_title": "Allocation Reports Verification",
+			"test_case_status": "Pass",
+			"test_case_results": "Verified the Allocation Reports exist for a randomly selected packaging code."
+		},
+		{
+			"test_case_title": "Allocation Reports Verification",
+			"test_case_status": "Pass",
+			"test_case_results": "Verified the Allocation Reports exist for a randomly selected packaging code."
+		},
+		{
+			"test_case_title": "Allocation Reports Verification",
+			"test_case_status": "Pass",
+			"test_case_results": "Verified the Allocation Reports exist for a randomly selected packaging code."
+		}],
+		"testsequencechart": "./screenshots/testsequencegraph.png"
 	}
 }

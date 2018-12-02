@@ -1,24 +1,18 @@
 package com.xml.pdfreporting;
 
 import com.itextpdf.text.*;
-import com.itextpdf.text.pdf.FontSelector;
-import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.*;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
-import static com.xml.pdfreporting.PDFTestReportModel.setExecutionStats;
 
 public class Utility {
 
@@ -62,12 +56,16 @@ public class Utility {
                 pdftest.setactuals((java.util.List<String>) step.get("actual_result"));
                 pdftest.setTestResultTable();
             }
-            pdf.add(pdftest.setTestExecutionTable(i + 2));
+            pdf.add(pdftest.setTestExecutionTable(i + 3));
             pdf.add(new Paragraph("\n"));
         }
-        
-        pdf.add(setExecutionStats(testcases.size() + 2));
+
+
+
         pdf.close();
+
+
+        //removeBlankPdfPages("Reports/SampleExecution.pdf", "Reports/SampleExecution_updated.pdf", false);
     }
 
     public static String[] getFiles(String path) {
@@ -120,5 +118,47 @@ public class Utility {
         JSONObject logs = (JSONObject) parser.parse(content);
 
         return (JSONArray) logs.get("testcases");
+    }
+
+    public static void removeBlankPdfPages(String pdfSourceFile, String pdfDestinationFile, boolean debug) {
+        try {
+            // step 1: create new reader
+            PdfReader r = new PdfReader(pdfSourceFile);
+            RandomAccessFileOrArray raf = new RandomAccessFileOrArray(pdfSourceFile);
+            Document document = new Document(r.getPageSizeWithRotation(1));
+            // step 2: create a writer that listens to the document
+            PdfCopy writer = new PdfCopy(document, new FileOutputStream(pdfDestinationFile));
+            // step 3: we open the document
+            document.open();
+            // step 4: we add content
+            PdfImportedPage page = null;
+
+
+            //loop through each page and if the bs is larger than 20 than we know it is not blank.
+            //if it is less than 20 than we don't include that blank page.
+            for (int i = 1; i <= r.getNumberOfPages(); i++) {
+                //get the page content
+                byte bContent[] = r.getPageContent(i, raf);
+                ByteArrayOutputStream bs = new ByteArrayOutputStream();
+                //write the content to an output stream
+                bs.write(bContent);
+                if (debug)
+                    System.out.println("page content length of page " + i + " = " + bs.size());
+
+                //add the page to the new pdf
+                if (bs.size() > 1150) {
+                    page = writer.getImportedPage(r, i);
+                    writer.addPage(page);
+                }
+                bs.close();
+            }
+            //close everything
+            document.close();
+            writer.close();
+            raf.close();
+            r.close();
+        } catch (Exception e) {
+            //do what you need here
+        }
     }
 }

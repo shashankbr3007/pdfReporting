@@ -3,6 +3,9 @@ package com.xml.pdfreporting;
 import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.*;
 
+import java.util.LinkedHashMap;
+import java.util.Map;
+
 import static com.xml.pdfreporting.Utility.setCellFonts;
 import static com.xml.pdfreporting.Utility.setFont;
 
@@ -10,11 +13,15 @@ import static com.xml.pdfreporting.Utility.setFont;
 public class HeaderFooterPageEvent extends PdfPageEventHelper {
 
     Font FONT = new Font(Font.FontFamily.TIMES_ROMAN, 32, Font.BOLDITALIC, new GrayColor(0.85f));
+    Map<String, Integer> index = new LinkedHashMap<String, Integer>();
     private PdfTemplate t;
     private Image total;
     private String header;
     private String headerimage;
     private String footer;
+    private String docnumber;
+    private String revnumber;
+    private int page;
 
     public HeaderFooterPageEvent(PdfWriter writer) {
         Rectangle rect = new Rectangle(15, 15, 993, 597);
@@ -38,15 +45,6 @@ public class HeaderFooterPageEvent extends PdfPageEventHelper {
         return ph;
     }
 
-    private Phrase defaultFont(String text) {
-        FontSelector selector1 = new FontSelector();
-        Font f1 = FontFactory.getFont(FontFactory.TIMES_ROMAN, 10);
-        f1.setColor(BaseColor.BLACK);
-        selector1.addFont(f1);
-        Phrase ph = selector1.process(text);
-        return ph;
-    }
-
     public void onOpenDocument(PdfWriter writer, Document document) {
         t = writer.getDirectContent().createTemplate(30, 16);
         try {
@@ -60,6 +58,7 @@ public class HeaderFooterPageEvent extends PdfPageEventHelper {
     @Override
     public void onStartPage(PdfWriter writer, Document document) {
 
+        page++;
         setborder(writer, document);
         PdfPTable header = new PdfPTable(3);
         try {
@@ -74,14 +73,14 @@ public class HeaderFooterPageEvent extends PdfPageEventHelper {
 
         try {
             Image img = Image.getInstance(headerimage);
-            img.scalePercent(20);
+            img.scalePercent(30);
             PdfPCell nameImage = new PdfPCell();
-            nameImage.setBorder(Rectangle.NO_BORDER);
+            nameImage.setBorder(Rectangle.BOTTOM);
             nameImage.addElement(img);
 
             header.addCell(nameImage);
             header.addCell(setCellFonts(setFont(getHeader(), 8, BaseColor.BLACK, Font.NORMAL), Element.ALIGN_CENTER, Element.ALIGN_MIDDLE)).setBorder(Rectangle.BOTTOM);
-            header.addCell(setCellFonts(setFont("\n" + "DOCUMENT #: 119200-TPE-001" + "\n" + "REV #: 00", 8, BaseColor.BLACK, Font.NORMAL), Element.ALIGN_RIGHT, Element.ALIGN_MIDDLE)).setBorder(Rectangle.BOTTOM);
+            header.addCell(setCellFonts(setFont("\n" + docnumber + "\n" + revnumber, 8, BaseColor.BLACK, Font.NORMAL), Element.ALIGN_RIGHT, Element.ALIGN_MIDDLE)).setBorder(Rectangle.BOTTOM);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -91,6 +90,19 @@ public class HeaderFooterPageEvent extends PdfPageEventHelper {
         header.writeSelectedRows(0, -1, 30, 597, canvas);
         canvas.endMarkedContentSequence();
 
+    }
+
+    @Override
+    public void onChapter(PdfWriter writer, Document document,
+                          float paragraphPosition, Paragraph title) {
+
+        index.put(title.getContent(), page);
+    }
+
+    @Override
+    public void onSection(PdfWriter writer, Document document,
+                          float paragraphPosition, int depth, Paragraph title) {
+        onChapter(writer, document, paragraphPosition, title);
     }
 
     private Document setborder(PdfWriter writer, Document document) {
@@ -141,14 +153,14 @@ public class HeaderFooterPageEvent extends PdfPageEventHelper {
             // write page
             PdfContentByte canvas1 = writer.getDirectContent();
             canvas1.beginMarkedContentSequence(PdfName.ARTIFACT);
-            footer.writeSelectedRows(0, -1, 30, 35, canvas1);
+            footer.writeSelectedRows(0, -5, 30, 35, canvas1);
             canvas1.endMarkedContentSequence();
         } catch (DocumentException de) {
             throw new ExceptionConverter(de);
         }
 
 
-        //ColumnText.showTextAligned(writer.getDirectContentUnder(), Element.ALIGN_CENTER, new Phrase("XLM Continuous Validation", FONT), 500, 300, 45);
+        ColumnText.showTextAligned(writer.getDirectContentUnder(), Element.ALIGN_CENTER, new Phrase("XLM LLC", FONT), 500, 300, 45);
     }
 
     @Override
@@ -171,5 +183,28 @@ public class HeaderFooterPageEvent extends PdfPageEventHelper {
 
     public void setHeaderimage(String headerimage) {
         this.headerimage = headerimage;
+    }
+
+    public void setRevnumber(String revnumber) {
+        this.revnumber = revnumber;
+    }
+
+    public void setDocnumber(String docnumber) {
+        this.docnumber = docnumber;
+    }
+
+    private static class IndexEvent extends PdfPageEventHelper {
+        private int page;
+        private boolean body;
+
+        @Override
+        public void onEndPage(PdfWriter writer, Document document) {
+            // set page number on content
+            if (body) {
+                page++;
+                ColumnText.showTextAligned(writer.getDirectContent(), Element.ALIGN_CENTER,
+                        new Phrase(page + ""), (document.right() + document.left()) / 2, document.bottom() - 18, 0);
+            }
+        }
     }
 }

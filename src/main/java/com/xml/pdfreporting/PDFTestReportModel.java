@@ -4,21 +4,16 @@ import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.FontSelector;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.List;
 
-import static com.xml.pdfreporting.PDFReporter.setModelDetails;
 import static com.xml.pdfreporting.Utility.setFont;
 
 public class PDFTestReportModel {
 
     private PdfPTable table;
+    private PdfPTable objtable;
     private String testName;
     private String stepNum;
     private String description;
@@ -84,68 +79,110 @@ public class PDFTestReportModel {
     }
 
     public void defineTestExecutionTable() {
-        float[] columnWidth = {15, 25, 35, 35};
-        table = new PdfPTable(columnWidth);
-        //table.setKeepTogether(true);
-        table.setWidthPercentage(100);
+        float[] columnWidth = {2, 15, 20, 75};
+        objtable = new PdfPTable(columnWidth);
+        objtable.setWidthPercentage(100);
+
+        PdfPCell header = new PdfPCell();
+        header.setHorizontalAlignment(Element.ALIGN_CENTER);
+        header.setVerticalAlignment(Element.ALIGN_MIDDLE);
+        header.setBackgroundColor(BaseColor.LIGHT_GRAY);
+
+        PdfPCell value = new PdfPCell();
+        value.setColspan(columnWidth.length - 2);
+        value.setHorizontalAlignment(Element.ALIGN_LEFT);
+        value.setVerticalAlignment(Element.ALIGN_MIDDLE);
 
         PdfPCell blankCell = new PdfPCell();
         blankCell.setPhrase(new Paragraph("\n"));
         blankCell.setBorder(Rectangle.NO_BORDER);
         blankCell.setColspan(columnWidth.length);
+        objtable.addCell(blankCell);
+
+        header.setColspan(columnWidth.length - 2);
+        header.setPhrase(new Phrase(setFont("TEST OBJECTIVE", 10, BaseColor.DARK_GRAY, Font.BOLD)));
+        objtable.addCell(header);
 
 
-        PdfPCell value = setCellFonts(setFont(objective, 11, BaseColor.BLACK, Font.NORMAL), Element.ALIGN_LEFT, Element.ALIGN_MIDDLE);
-        value.setColspan(columnWidth.length - 1);
+        value.setPhrase(new Phrase(setFont(objective, 11, BaseColor.BLACK, Font.NORMAL)));
+        objtable.addCell(value);
 
-        table.addCell(setCellFonts(setFont("Test Objective", 14, BaseColor.BLUE, Font.NORMAL), Element.ALIGN_LEFT, Element.ALIGN_MIDDLE));
-        table.addCell(value);
+        header.setColspan(columnWidth.length - 2);
+        header.setPhrase(new Phrase(setFont("TEST ACCEPTANCE", 10, BaseColor.DARK_GRAY, Font.BOLD)));
+        objtable.addCell(header);
 
-        PdfPCell value1 = setCellFonts(setFont(acceptance, 11, BaseColor.BLACK, Font.NORMAL), Element.ALIGN_LEFT, Element.ALIGN_MIDDLE);
-        value1.setColspan(columnWidth.length - 1);
+        value.setPhrase(new Phrase(setFont(acceptance, 11, BaseColor.BLACK, Font.NORMAL)));
+        objtable.addCell(value);
+
+        objtable.addCell(blankCell);
+
+        table = new PdfPTable(columnWidth);
+        table.setWidthPercentage(100);
+        table.setSplitLate(true);
+        table.setHeaderRows(1);
+
+        header.setColspan(1);
+        header.setPhrase(new Phrase(setFont("#", 10, BaseColor.DARK_GRAY, Font.BOLD)));
+        table.addCell(header);
+
+        header.setPhrase(new Phrase(setFont("STEP DESCRIPTION", 10, BaseColor.DARK_GRAY, Font.BOLD)));
+        table.addCell(header);
+
+        header.setPhrase(new Phrase(setFont("EXEPCTED RESULT", 10, BaseColor.DARK_GRAY, Font.BOLD)));
+        table.addCell(header);
+
+        header.setPhrase(new Phrase(setFont("ACTUAL RESULT", 10, BaseColor.DARK_GRAY, Font.BOLD)));
+        table.addCell(header);
 
 
-        table.addCell(setCellFonts(setFont("Test Acceptance", 14, BaseColor.BLUE, Font.NORMAL), Element.ALIGN_LEFT, Element.ALIGN_MIDDLE));
-        table.addCell(value1);
-        table.addCell(blankCell);
-
-        table.addCell(setCellFonts(setFont("STEP #", 12, BaseColor.BLACK, Font.BOLD), Element.ALIGN_CENTER, Element.ALIGN_MIDDLE));
-        table.addCell(setCellFonts(setFont("STEP DESCRIPTION", 12, BaseColor.BLACK, Font.BOLD), Element.ALIGN_CENTER, Element.ALIGN_MIDDLE));
-        table.addCell(setCellFonts(setFont("EXPECTED RESULT", 12, BaseColor.BLACK, Font.BOLD), Element.ALIGN_CENTER, Element.ALIGN_MIDDLE));
-        table.addCell(setCellFonts(setFont("ACTUAL RESULT", 12, BaseColor.BLACK, Font.BOLD), Element.ALIGN_CENTER, Element.ALIGN_MIDDLE));
     }
 
     public void setTestResultTable() throws IOException, BadElementException {
 
-        table.addCell(setCellFonts(setFont(getStepNum(), 11, BaseColor.BLACK, Font.NORMAL), Element.ALIGN_CENTER, Element.ALIGN_TOP));
-        table.addCell(setCellFonts(setFont(getDescription(), 11, BaseColor.BLACK, Font.NORMAL), Element.ALIGN_CENTER, Element.ALIGN_TOP));
+        PdfPCell numberCell = new PdfPCell();
+        numberCell.setBorder(Rectangle.BOX);
+        numberCell.addElement(new Phrase(setFont(getStepNum(), 11, BaseColor.BLACK, Font.NORMAL)));
+        numberCell.setHorizontalAlignment(Element.ALIGN_CENTER);
+        numberCell.setVerticalAlignment(Element.ALIGN_TOP);
+        table.addCell(numberCell);
+        table.setHorizontalAlignment(Element.ALIGN_CENTER);
+
+
+        PdfPCell descCell = new PdfPCell();
+        descCell.setHorizontalAlignment(Element.ALIGN_LEFT);
+        descCell.setVerticalAlignment(Element.ALIGN_TOP);
+        descCell.setBorder(Rectangle.BOX);
+        descCell.addElement(new Phrase(setFont(getDescription(), 11, BaseColor.BLACK, Font.NORMAL)));
+        table.addCell(descCell);
+
 
         PdfPCell expectedCell = new PdfPCell();
-        expectedCell.setHorizontalAlignment(Element.ALIGN_CENTER);
+        expectedCell.setHorizontalAlignment(Element.ALIGN_LEFT);
         expectedCell.setVerticalAlignment(Element.ALIGN_TOP);
         for (int i = 0; i < getexpected().size(); i++) {
             if (getexpected().get(i).contains(".jpg") ||
                     getexpected().get(i).contains(".png")) {
                 Image img = Image.getInstance(getexpected().get(i));
-                img.scalePercent(30);
+                img.scalePercent(15);
                 expectedCell.addElement(img);
             } else {
-                expectedCell.addElement(new Phrase(getexpected().get(i) + "\n"));
+                expectedCell.addElement(new Phrase(setFont(getexpected().get(i) + ", ", 11, BaseColor.BLACK, Font.NORMAL)));
             }
         }
         table.addCell(expectedCell);
 
         PdfPCell actualCell = new PdfPCell();
-        actualCell.setHorizontalAlignment(Element.ALIGN_CENTER);
+        actualCell.setHorizontalAlignment(Element.ALIGN_LEFT);
         actualCell.setVerticalAlignment(Element.ALIGN_TOP);
         for (int i = 0; i < getactuals().size(); i++) {
             if (getactuals().get(i).contains(".jpg") ||
                     getactuals().get(i).contains(".png")) {
                 Image img = Image.getInstance(getactuals().get(i));
-                img.scalePercent(30);
+                img.setAlignment(Element.ALIGN_CENTER);
+                img.scalePercent(55000 / img.getWidth());
                 actualCell.addElement(img);
             } else {
-                actualCell.addElement(new Phrase(getactuals().get(i) + "\n\n"));
+                actualCell.addElement(new Phrase(setFont(getactuals().get(i) + ", ", 11, BaseColor.BLACK, Font.NORMAL)));
             }
         }
         table.addCell(actualCell);
@@ -153,18 +190,18 @@ public class PDFTestReportModel {
 
     public Chapter setTestExecutionTable(int testNumber) {
 
-        Chapter testChapter = new Chapter(new Paragraph("TEST CASE : " + getTestName()), testNumber);
-        testChapter.add(new Paragraph("\n"));
-        testChapter.add(this.table);
+        Chapter testChapter = new Chapter(new Paragraph(setFont("TEST CASE : " + getTestName(), 14, BaseColor.BLACK, Font.NORMAL)), testNumber);
+        testChapter.setBookmarkOpen(true);
+        testChapter.add(new Phrase(""));
+
+        Section testObj = testChapter.addSection(new Paragraph(setFont("Test Execution Benchmarks ", 12, BaseColor.BLACK, Font.NORMAL)));
+        testObj.add(this.objtable);
+
+        Section testExec = testChapter.addSection(new Paragraph(setFont("Test Execution Details ", 12, BaseColor.BLACK, Font.NORMAL)));
+        testExec.add(new Phrase(""));
+        testExec.add(this.table);
+
         return testChapter;
-    }
-
-    public void setObjective(String objective) {
-        this.objective = objective;
-    }
-
-    public void setAcceptance(String acceptance) {
-        this.acceptance = acceptance;
     }
 
     public String getStepNum() {
@@ -175,17 +212,4 @@ public class PDFTestReportModel {
         this.stepNum = stepNum;
     }
 
-    public static Chapter setExecutionStats(int chapterNum) throws ParseException, IOException {
-
-        String content = new String(Files.readAllBytes(Paths.get(("properties/execution_stats.txt"))));
-        JSONParser parser = new JSONParser();
-
-        JSONObject executionStats = (JSONObject) parser.parse(content);
-
-        Chapter executionStat = new Chapter(new Paragraph("EXECUTION STATISTICS"), chapterNum);
-        executionStat.add(new Paragraph("\n"));
-        executionStat.add(setModelDetails(executionStats));
-
-        return executionStat;
-    }
 }
