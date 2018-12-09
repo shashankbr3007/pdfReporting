@@ -12,13 +12,14 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.*;
+import java.util.List;
 
 public class Utility {
 
     public static Phrase setFont(String text, int size, BaseColor color, int style) {
         FontSelector selector1 = new FontSelector();
-        Font f1 = FontFactory.getFont(FontFactory.TIMES_ROMAN, size);
+        Font f1 = FontFactory.getFont(FontFactory.HELVETICA, size);
         f1.setStyle(style);
         f1.setColor(color);
         selector1.addFont(f1);
@@ -35,10 +36,13 @@ public class Utility {
     }
 
     public static void main(String[] args) throws Exception {
+        JSONArray testcases = gettestcases();
+
         PDFReporter pdfReporter = new PDFReporter();
+        pdfReporter.setTestcaseCount(testcases.size() + 2);
         Document pdf = pdfReporter.PDFReporter();
 
-        JSONArray testcases = gettestcases();
+
         for (int i = 0; i < testcases.size(); i++) {
 
             JSONObject testcase = (JSONObject) testcases.get(i);
@@ -60,13 +64,19 @@ public class Utility {
             pdf.add(new Paragraph("\n"));
         }
 
-
+        pdfReporter.setTOC(pdf);
 
         pdf.close();
-
-
-        //removeBlankPdfPages("Reports/SampleExecution.pdf", "Reports/SampleExecution_updated.pdf", false);
     }
+
+    /*private static void reorderTOC(int firstChapterPageNum) throws IOException, DocumentException {
+
+        PdfReader reader = new PdfReader("./Reports/" + PDFReporter.fileName *//*+ "_" + formattedDate() *//* + ".pdf");
+        int tocPageNum = reader.getNumberOfPages();
+        reader.selectPages(String.format("%d, 1-%d", tocPageNum, firstChapterPageNum - 1));
+        PdfStamper stamper = new PdfStamper(reader, new FileOutputStream(PDFReporter.fileName));
+        stamper.close();
+    }*/
 
     public static String[] getFiles(String path) {
         File folder = new File(path);
@@ -81,7 +91,6 @@ public class Utility {
         }
         return filename;
     }
-
 
     public static String readFile(String path) throws IOException {
 
@@ -103,7 +112,7 @@ public class Utility {
     public static String formattedDate() {
 
         Date date = new Date();
-        String strDateFormat = "ddMMyyhhmmssSSS";
+        String strDateFormat = "yyyyMMddhhmmssSSS";
         DateFormat dateFormat = new SimpleDateFormat(strDateFormat);
         String formattedDate = dateFormat.format(date);
         return formattedDate;
@@ -160,5 +169,84 @@ public class Utility {
         } catch (Exception e) {
             //do what you need here
         }
+    }
+
+    public static void main_2(String[] args) {
+
+        List<String> actuals = new ArrayList<>();
+
+        //actuals.add("./screenshots/snapscreen_1537926261355_1537926261404.png");
+        actuals.add("2018-09-25 09:44:15 EDT	Executing the query to search Allocation Reports.");
+        actuals.add("2018-09-25 09:44:21 EDT	Screenshot taken with search results for packaging code unit level.");
+
+        actuals.add("2018-09-25 09:44:21 EDT	Screenshot taken with search results for packaging code unit level.");
+        actuals.add("2018-09-25 09:44:21 EDT	Screenshot taken with search results for packaging code unit level.");
+        //actuals.add("./screenshots/snapscreen_1537926261355_1537926261404.png");
+
+        actuals.add("2018-09-25 09:44:21 EDT	Screenshot taken with search results for packaging code unit level.");
+        actuals.add("2018-09-25 09:44:21 EDT	Screenshot taken with search results for packaging code unit level.");
+        actuals.add("./screenshots/snapscreen_1537926261355_1537926261404.png");
+
+        HashMap<String, List<String>> map = new HashMap<>();
+        int imageCount = 0;
+        map.put("imageCount_" + imageCount, new ArrayList<String>());
+        for (int i = 0; i < actuals.size(); i++) {
+
+            if (actuals.get(i).contains(".jpg") ||
+                    actuals.get(i).contains(".png")) {
+                if (map.containsKey("imageCount_" + imageCount)) {
+                    (map.get("imageCount_" + imageCount)).add(actuals.get(i));
+                } else {
+                    map.put("imageCount_" + imageCount, new ArrayList<>(Arrays.asList(actuals.get(i))));
+                }
+                imageCount++;
+            } else {
+                if (map.containsKey("imageCount_" + imageCount)) {
+                    (map.get("imageCount_" + imageCount)).add(actuals.get(i));
+                } else {
+                    map.put("imageCount_" + imageCount, new ArrayList<>(Arrays.asList(actuals.get(i))));
+                }
+            }
+
+        }
+
+        Set<String> keys = map.keySet();
+    }
+
+    public static void pageNum(Document document) throws IOException, DocumentException {
+
+        BaseFont bf = BaseFont.createFont(BaseFont.COURIER, BaseFont.CP1257,
+                BaseFont.EMBEDDED);
+        PdfReader readerFinal = new PdfReader("./Reports/" + PDFReporter.fileName /*+ "_" + formattedDate()*/ + ".pdf");
+        int totalPages = readerFinal.getNumberOfPages();
+        PdfStamper stamp = new PdfStamper(readerFinal, new FileOutputStream("./Reports/" + PDFReporter.fileName + "_" + formattedDate() + ".pdf"));
+        PdfContentByte over;
+
+        for (int i = 1; i <= totalPages; i++) {
+
+            over = stamp.getOverContent(i);
+
+            over.beginText();
+            over.setFontAndSize(bf, 8);
+
+
+            //set x & y coordinates in matrix==we need page numbers at top
+            over.setTextMatrix(268, PageSize.LEGAL.getHeight() - document.topMargin() - 10);
+
+            over.showText("Page " + i + " of " + totalPages);
+            over.endText();
+        }
+
+        stamp.close();
+    }
+
+    public static Image imageCell(String imagePath) throws IOException, BadElementException {
+
+        Image img = Image.getInstance(imagePath);
+        img.setAlignment(Element.ALIGN_CENTER);
+        img.scalePercent(60000 / img.getWidth());
+
+        return img;
+
     }
 }

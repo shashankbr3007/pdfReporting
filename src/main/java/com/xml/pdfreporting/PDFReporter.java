@@ -4,6 +4,7 @@ import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
+import com.itextpdf.text.pdf.draw.DottedLineSeparator;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -17,10 +18,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-import static com.xml.pdfreporting.Utility.*;
+import static com.xml.pdfreporting.Utility.setCellFonts;
+import static com.xml.pdfreporting.Utility.setFont;
 
 public class PDFReporter {
 
+    public static String fileName;
+    public static int firstChapterPageNum;
+    public PdfWriter writer;
     private List<String> textComment;
     private String header;
     private String docnumber;
@@ -30,9 +35,10 @@ public class PDFReporter {
     private JSONObject modeldetails;
     private JSONObject executiondetails;
     private JSONObject executionstats;
+    private JSONObject watermark;
     private List<JSONObject> signatureDetails;
     private JSONObject testcasesummary;
-    private String fileName;
+    private int testcaseCount;
 
     public static void setReviewcommentTable(Document document) throws DocumentException {
         PdfPTable review = new PdfPTable(new float[]{10F, 40F});
@@ -55,13 +61,11 @@ public class PDFReporter {
         line.setPhrase(new Paragraph(setFont("Comments", 11, BaseColor.BLACK, Font.NORMAL)));
         ;
         review.addCell(line);
-        line.setFixedHeight(60);
+        line.setFixedHeight(180);
+        line.setPhrase(new Paragraph("\n\n"));
+        review.addCell(line);
+        review.addCell(line);
 
-        for (int count = 0; count < 3; count++) {
-            line.setPhrase(new Paragraph("\n\n"));
-            review.addCell(line);
-            review.addCell(line);
-        }
 
         review.setWidthPercentage(85);
         document.add(review);
@@ -145,22 +149,27 @@ public class PDFReporter {
 
         Chapter executionModelDetails = new Chapter(new Paragraph("ENVIRONMENT DETAILS "), 1);
 
-        executionModelDetails.add(new Paragraph("\n"));
-        Section modelDetail = executionModelDetails.addSection(new Paragraph(setFont("AUTOMATION MODEL VERSION RELEASE DETAILS", 12, BaseColor.BLACK, Font.NORMAL)));
-        modelDetail.add(new Paragraph("\n"));
-        modelDetail.add(setModelDetails(modeldetails));
+        if (modeldetails != null) {
+            executionModelDetails.add(new Paragraph("\n"));
+            Section modelDetail = executionModelDetails.addSection(new Paragraph(setFont("AUTOMATION MODEL VERSION RELEASE DETAILS", 12, BaseColor.BLACK, Font.NORMAL)));
+            modelDetail.add(new Paragraph("\n"));
+            modelDetail.add(setModelDetails(modeldetails));
+        }
 
+        if (executiondetails != null) {
+            executionModelDetails.add(new Paragraph("\n"));
+            Section executionDetail = executionModelDetails.addSection(new Paragraph(setFont("TEST EXECUTION ENVIRONMENT DETAILS ", 12, BaseColor.BLACK, Font.NORMAL)));
+            executionDetail.add(new Paragraph("\n"));
+            executionDetail.add(setModelDetails(executiondetails));
+        }
 
-        executionModelDetails.add(new Paragraph("\n"));
-        Section executionDetail = executionModelDetails.addSection(new Paragraph(setFont("TEST EXECUTION ENVIRONMENT DETAILS ", 12, BaseColor.BLACK, Font.NORMAL)));
-        executionDetail.add(new Paragraph("\n"));
-        executionDetail.add(setModelDetails(executiondetails));
+        if (executionstats != null) {
+            executionModelDetails.add(new Paragraph("\n"));
+            Section executionStats = executionModelDetails.addSection(new Paragraph(setFont("EXECUTION STATISTICS", 12, BaseColor.BLACK, Font.NORMAL)));
+            executionStats.add(new Paragraph("\n"));
+            executionStats.add(setModelDetails(executionstats));
 
-        executionModelDetails.add(new Paragraph("\n"));
-        Section executionStats = executionModelDetails.addSection(new Paragraph(setFont("EXECUTION STATISTICS", 12, BaseColor.BLACK, Font.NORMAL)));
-        executionStats.add(new Paragraph("\n"));
-        executionStats.add(setModelDetails(executionstats));
-
+        }
         document.add(executionModelDetails);
     }
 
@@ -196,9 +205,10 @@ public class PDFReporter {
         setTemplateProps();
         Document document = new Document(PageSize.LEGAL.rotate());
         document.setMargins(30, 30, 65, 65);
-        PdfWriter writer = PdfWriter.getInstance(document,
-                new FileOutputStream("./Reports/" + fileName /*+ "_" + formattedDate() */ + ".pdf"));
+        writer = PdfWriter.getInstance(document,
+                new FileOutputStream("./Reports/" + fileName /*+ "_" + formattedDate()*/ + ".pdf"));
 
+        writer.setLinearPageMode();
         /*SET HEADER AND FOOTER FOR THE PDF*/
         HeaderFooterPageEvent event = new HeaderFooterPageEvent(writer);
         event.setHeader(header);
@@ -206,6 +216,10 @@ public class PDFReporter {
         event.setFooter(footer);
         event.setDocnumber(docnumber);
         event.setRevnumber(revnumber);
+        event.setWaterMarkText((String) watermark.get("waterMarkText"));
+        event.setWaterMarkTextxPosition(Integer.valueOf((String) watermark.get("waterMarkTextxPosition")));
+        event.setWaterMarkTextyPosition(Integer.valueOf((String) watermark.get("waterMarkTextyPosition")));
+
         writer.setPageEvent(event);
 
         /*OPEN THE PDF DOCUMENT FOR WRITING*/
@@ -218,11 +232,19 @@ public class PDFReporter {
         setPostExecutionApprovals(document);
         setReviewcommentTable(document);
         setSignatureTable(document);
+        forTOC();
+
         setExecutionModelDetails(document);
-        setTestSummaryDetails(document);
-        //document.newPage();
+        if (testcasesummary != null) {
+            setTestSummaryDetails(document);
+        }
 
         return document;
+    }
+
+    private void forTOC() {
+
+
     }
 
     private void setTestSummaryDetails(Document document) throws IOException, DocumentException {
@@ -322,7 +344,14 @@ public class PDFReporter {
             fileName = (String) propJSON.get("filename");
             docnumber = (String) propJSON.get("docnumber");
             revnumber = (String) propJSON.get("revnumber");
-            testcasesummary = (JSONObject) propJSON.get("testsummary");
+            watermark = (JSONObject) propJSON.get("watermark");
+
+
+            if (propJSON.containsKey("testsummary")) {
+                testcasesummary = (JSONObject) propJSON.get("testsummary");
+            } else {
+                testcasesummary = null;
+            }
 
             JSONArray array = (JSONArray) propJSON.get("execution_approvals");
             textComment = new ArrayList<>();
@@ -330,10 +359,23 @@ public class PDFReporter {
                 textComment.add(String.valueOf(array.get(i)));
             }
 
-            modeldetails = (JSONObject) propJSON.get("model_details");
-            executiondetails = (JSONObject) propJSON.get("execution_details");
-            executionstats = (JSONObject) propJSON.get("execution_stats");
+            if (propJSON.containsKey("model_details")) {
+                modeldetails = (JSONObject) propJSON.get("model_details");
+            } else {
+                modeldetails = null;
+            }
 
+            if (propJSON.containsKey("execution_details")) {
+                executiondetails = (JSONObject) propJSON.get("execution_details");
+            } else {
+                executiondetails = null;
+            }
+
+            if (propJSON.containsKey("execution_stats")) {
+                executionstats = (JSONObject) propJSON.get("execution_stats");
+            } else {
+                executionstats = null;
+            }
             signatureDetails = new ArrayList<>();
             JSONArray signatureDetls = (JSONArray) propJSON.get("signature_table");
             for (int j = 0; j < signatureDetls.size(); j++) {
@@ -347,4 +389,72 @@ public class PDFReporter {
 
     }
 
+    public void setTestcaseCount(int testcaseCount) {
+        this.testcaseCount = testcaseCount;
+    }
+
+    public void setTOC(Document document) throws DocumentException {
+        Set<String> indexkeys = HeaderFooterPageEvent.index.keySet();
+        firstChapterPageNum = HeaderFooterPageEvent.index.get(HeaderFooterPageEvent.index.keySet().toArray()[0]);
+        document.newPage();
+        Paragraph toc = new Paragraph(setFont("TABLE OF CONTENTS\n\n", 14, BaseColor.DARK_GRAY, Font.BOLD));
+        toc.setAlignment(Element.ALIGN_CENTER);
+        document.add(toc);
+        Chunk dottedLine = new Chunk(new DottedLineSeparator());
+        Paragraph p;
+
+        for (String key : indexkeys) {
+            p = new Paragraph(setFont(key, 11, BaseColor.BLACK, Font.NORMAL));
+            p.add(dottedLine);
+            p.add(setFont(String.valueOf(HeaderFooterPageEvent.index.get(key)), 11, BaseColor.BLACK, Font.NORMAL));
+            document.add(p);
+        }
+        reOrderPages(document);
+    }
+
+    public void reOrderPages(Document document) {
+        try {
+            //When you add your table of contents, get its page number for the reordering:
+
+
+            // always add to a new page before reordering pages.
+            document.newPage();
+            
+            // get the total number of pages that needs to be reordered
+            int total = writer.reorderPages(null);
+
+            // change the order
+            int[] order = new int[total];
+
+            for (int i = 0; i < total + 1; i++) {
+                if (i == 0) {
+                    order[i] = 1;
+                } else if (i == firstChapterPageNum - 1) {
+                    order[i] = total;
+                    total--;
+                } else if (i < firstChapterPageNum) {
+                    order[i] = i + 1;
+                } else {
+                    order[i] = i;
+                    if (order[i] > total) {
+                        order[i] -= total;
+                        order[i] += 1;
+                    }
+                }
+                //System.out.print(order[i] + " ");
+            }
+
+           writer.getDirectContent();
+            // apply the new order
+            writer.reorderPages(order);
+
+
+
+
+
+            //document.close();
+        } catch (DocumentException e) {
+            e.printStackTrace();
+        }
+    }
 }

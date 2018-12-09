@@ -4,6 +4,11 @@
 	"filename": "SampleExecution",
 	"docnumber": "DOCUMENT #: 11282018-TPE-001",
 	"revnumber": "REV #: 99",
+	"watermark": {
+		"waterMarkText": "XLM LLC",
+		"waterMarkTextxPosition": "500",
+		"waterMarkTextyPosition": "300"
+	},
 	"signature_table": [{
 		"approver": "Nagesh Nama, Chief Quality Officer",
 		"image": "./screenshots/xLM_Logo.gif"

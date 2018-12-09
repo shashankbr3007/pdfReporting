@@ -6,8 +6,10 @@ import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 
+import static com.xml.pdfreporting.Utility.imageCell;
 import static com.xml.pdfreporting.Utility.setFont;
 
 public class PDFTestReportModel {
@@ -139,13 +141,12 @@ public class PDFTestReportModel {
 
     public void setTestResultTable() throws IOException, BadElementException {
 
+        table.setHorizontalAlignment(Element.ALIGN_CENTER);
         PdfPCell numberCell = new PdfPCell();
         numberCell.setBorder(Rectangle.BOX);
         numberCell.addElement(new Phrase(setFont(getStepNum(), 11, BaseColor.BLACK, Font.NORMAL)));
         numberCell.setHorizontalAlignment(Element.ALIGN_CENTER);
         numberCell.setVerticalAlignment(Element.ALIGN_TOP);
-        table.addCell(numberCell);
-        table.setHorizontalAlignment(Element.ALIGN_CENTER);
 
 
         PdfPCell descCell = new PdfPCell();
@@ -153,25 +154,17 @@ public class PDFTestReportModel {
         descCell.setVerticalAlignment(Element.ALIGN_TOP);
         descCell.setBorder(Rectangle.BOX);
         descCell.addElement(new Phrase(setFont(getDescription(), 11, BaseColor.BLACK, Font.NORMAL)));
-        table.addCell(descCell);
 
 
         PdfPCell expectedCell = new PdfPCell();
         expectedCell.setHorizontalAlignment(Element.ALIGN_LEFT);
         expectedCell.setVerticalAlignment(Element.ALIGN_TOP);
-        for (int i = 0; i < getexpected().size(); i++) {
-            if (getexpected().get(i).contains(".jpg") ||
-                    getexpected().get(i).contains(".png")) {
-                Image img = Image.getInstance(getexpected().get(i));
-                img.scalePercent(15);
-                expectedCell.addElement(img);
-            } else {
-                expectedCell.addElement(new Phrase(setFont(getexpected().get(i) + ", ", 11, BaseColor.BLACK, Font.NORMAL)));
-            }
-        }
-        table.addCell(expectedCell);
 
-        PdfPCell actualCell = new PdfPCell();
+        for (int i = 0; i < getexpected().size(); i++) {
+            expectedCell.addElement(new Phrase(setFont(getexpected().get(i) + ", ", 11, BaseColor.BLACK, Font.NORMAL)));
+        }
+
+        /*PdfPCell actualCell = new PdfPCell();
         actualCell.setHorizontalAlignment(Element.ALIGN_LEFT);
         actualCell.setVerticalAlignment(Element.ALIGN_TOP);
         for (int i = 0; i < getactuals().size(); i++) {
@@ -184,8 +177,57 @@ public class PDFTestReportModel {
             } else {
                 actualCell.addElement(new Phrase(setFont(getactuals().get(i) + ", ", 11, BaseColor.BLACK, Font.NORMAL)));
             }
+        }*/
+
+        HashMap<String, PdfPCell> actualCells = new HashMap<>();
+        int imageCount = 0;
+        actualCells.put("imageCount_" + imageCount, new PdfPCell());
+        for (int i = 0; i < actuals.size(); i++) {
+
+            if (actuals.get(i).contains(".jpg") ||
+                    actuals.get(i).contains(".png")) {
+                if (actualCells.containsKey("imageCount_" + imageCount)) {
+                    (actualCells.get("imageCount_" + imageCount)).addElement(imageCell(actuals.get(i)));
+                } else {
+                    PdfPCell cell = new PdfPCell();
+                    cell.addElement(imageCell(actuals.get(i)));
+                    actualCells.put("imageCount_" + imageCount, cell);
+                }
+                imageCount++;
+            } else {
+                if (actualCells.containsKey("imageCount_" + imageCount)) {
+                    (actualCells.get("imageCount_" + imageCount)).addElement(new Phrase(setFont(actuals.get(i) + ", ", 11, BaseColor.BLACK, Font.NORMAL)));
+                } else {
+                    PdfPCell cell = new PdfPCell();
+                    cell.addElement(new Phrase(setFont(actuals.get(i) + ", ", 11, BaseColor.BLACK, Font.NORMAL)));
+                    actualCells.put("imageCount_" + imageCount, cell);
+                }
+            }
+
         }
-        table.addCell(actualCell);
+
+        Object[] actualKeys = actualCells.keySet().toArray();
+        for (int count = 0; count < actualKeys.length; count++) {
+            if (count < 1) {
+                table.addCell(numberCell);
+                table.addCell(descCell);
+                table.addCell(expectedCell);
+                table.addCell(actualCells.get(actualKeys[count]));
+            } else if (count < 2) {
+                table.addCell(numberCell);
+                descCell.addElement(setFont("Continued....", 11, BaseColor.BLACK, Font.NORMAL));
+                table.addCell(descCell);
+                expectedCell.addElement(setFont("Continued....", 11, BaseColor.BLACK, Font.NORMAL));
+                table.addCell(expectedCell);
+                table.addCell(actualCells.get(actualKeys[count]));
+            } else {
+                table.addCell(numberCell);
+                table.addCell(descCell);
+                table.addCell(expectedCell);
+                table.addCell(actualCells.get(actualKeys[count]));
+
+            }
+        }
     }
 
     public Chapter setTestExecutionTable(int testNumber) {

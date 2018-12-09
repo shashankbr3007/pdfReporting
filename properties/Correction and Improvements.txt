@@ -1,20 +1,25 @@
 Corrections 
-- Big block for Comments no need of rows - done
+- Big block for Comments no need of rows - done ( need to merge all the rows) - Pending
 - Need to code for test execution summary and include a sequence image - Done
 - need to size the image appriorately ***** - done
 - need to repeat the table headers for page breaks - done
-- Check for NULLs and omit the whole content if it is missing - Pending
+- Check for NULLs and omit the whole content if it is missing - Partailly Pending
+	- What are the things that need to be made optional
 
 Missing and Improvements
-- Need to include Table of Content - Pending
+- Need to include Table of Content - Done (Is there a scenario where TOC will be more than 1 page) - yes, Usally more than one page
+ ---> Need to handle the page numbers **** ( Look for a way to copy the content)
+ ---> Need to work on formula for Seq images() -- Done, need a sample to test the implementaion
+ ---> Need to Handle Multiple images in a cell -- Done
 - Correct the Font and text size, with table header row shades - done
 - including an Logo image, need customization - Done
 - Missing Customization for Document# and Rev# - Done
 - Move execution statistics under environment details - Done
 - read image from a URL - Pending
-- BOLD and backgrounds - Pending
+- BOLD and backgrounds - Done
 - research more professional editions for image processing - Done
 - Watermarking (research for Image and texts) - Done
 - bookmarking - Done 
 - roboto - Done
 - check if HTMLs can be converted to PDF reports - Pending
+- Including multiple screenshots for test steps( may need to include a List of images and then split the images across multiple rows) - Pending
