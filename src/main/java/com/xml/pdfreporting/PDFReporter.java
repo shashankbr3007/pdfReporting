@@ -396,6 +396,7 @@ public class PDFReporter {
     public void setTOC(Document document) throws DocumentException {
         Set<String> indexkeys = HeaderFooterPageEvent.index.keySet();
         firstChapterPageNum = HeaderFooterPageEvent.index.get(HeaderFooterPageEvent.index.keySet().toArray()[0]);
+
         document.newPage();
         Paragraph toc = new Paragraph(setFont("TABLE OF CONTENTS\n\n", 14, BaseColor.DARK_GRAY, Font.BOLD));
         toc.setAlignment(Element.ALIGN_CENTER);
@@ -409,6 +410,7 @@ public class PDFReporter {
             p.add(setFont(String.valueOf(HeaderFooterPageEvent.index.get(key)), 11, BaseColor.BLACK, Font.NORMAL));
             document.add(p);
         }
+        HeaderFooterPageEvent.order = writer.reorderPages(null);
         reOrderPages(document);
     }
 
@@ -419,7 +421,10 @@ public class PDFReporter {
 
             // always add to a new page before reordering pages.
             document.newPage();
-            
+            Paragraph toc = new Paragraph(setFont("Intentionally left blank for review and comments", 14, BaseColor.DARK_GRAY, Font.BOLD));
+            toc.setAlignment(Element.ALIGN_CENTER);
+            document.add(toc);
+
             // get the total number of pages that needs to be reordered
             int total = writer.reorderPages(null);
 
@@ -444,12 +449,10 @@ public class PDFReporter {
                 //System.out.print(order[i] + " ");
             }
 
-           writer.getDirectContent();
+            writer.getDirectContent();
+
             // apply the new order
             writer.reorderPages(order);
-
-
-
 
 
             //document.close();

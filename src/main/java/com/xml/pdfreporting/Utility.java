@@ -129,14 +129,16 @@ public class Utility {
         return (JSONArray) logs.get("testcases");
     }
 
-    public static void removeBlankPdfPages(String pdfSourceFile, String pdfDestinationFile, boolean debug) {
+    public static void updateBlankPdfPages() {
         try {
             // step 1: create new reader
-            PdfReader r = new PdfReader(pdfSourceFile);
-            RandomAccessFileOrArray raf = new RandomAccessFileOrArray(pdfSourceFile);
+            PdfReader r = new PdfReader("./Reports/" + PDFReporter.fileName /*+ "_" + formattedDate()*/ + ".pdf");
+            RandomAccessFileOrArray raf = new RandomAccessFileOrArray("./Reports/" + PDFReporter.fileName /*+ "_" + formattedDate()*/ + ".pdf");
             Document document = new Document(r.getPageSizeWithRotation(1));
             // step 2: create a writer that listens to the document
-            PdfCopy writer = new PdfCopy(document, new FileOutputStream(pdfDestinationFile));
+            PdfWriter writer = writer = PdfWriter.getInstance(document,
+                    new FileOutputStream("./Reports/" + PDFReporter.fileName /*+ "_" + formattedDate()*/ + ".pdf"));
+            //PdfCopy writer = new PdfCopy(document, new FileOutputStream(pdfDestinationFile));
             // step 3: we open the document
             document.open();
             // step 4: we add content
@@ -151,13 +153,14 @@ public class Utility {
                 ByteArrayOutputStream bs = new ByteArrayOutputStream();
                 //write the content to an output stream
                 bs.write(bContent);
-                if (debug)
+                if (true)
                     System.out.println("page content length of page " + i + " = " + bs.size());
 
                 //add the page to the new pdf
-                if (bs.size() > 1150) {
-                    page = writer.getImportedPage(r, i);
-                    writer.addPage(page);
+                if (bs.size() < 1150) {
+                    Paragraph toc = new Paragraph(setFont("Intentionally left blank", 14, BaseColor.DARK_GRAY, Font.BOLD));
+                    toc.setAlignment(Element.ALIGN_MIDDLE);
+                    document.add(toc);
                 }
                 bs.close();
             }

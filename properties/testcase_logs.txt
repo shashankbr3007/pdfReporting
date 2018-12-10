@@ -584,5 +584,1397 @@
 			"2018-09-25 09:44:53 EDT	Screenshot is taken.",
 			"./screenshots/snapscreen_1537926291012_1537926291062.png"]
 		}]
+	},
+	{
+		"testname": "ALLOCATION REPORTS VERIFICATION",
+		"test_objective": "The objective is to ensure that serial numbers are requested for the randomly selected packaging code.",
+		"test_acceptance": "Serial number requests exist for the randomly selected packaging code.",
+		"steps": [{
+			"step_number": "1",
+			"step_description": "Access Allocation Reports Screen",
+			"expected_result": ["Allocation Reports Screen is accessed"],
+			"actual_result": ["2018-09-25 09:44:01 EDT Allocation Reports Screen is accessed successfully."]
+		},
+		{
+			"step_number": "2",
+			"step_description": "Fetch and record unit level packaging code value from input parameter dataset",
+			"expected_result": ["Fetched and recorded following parameter values from dataset:",
+			"•	Unit Level Packaging Code",
+			"•	Service Link"],
+			"actual_result": ["2018-09-25 09:44:13 EDT Following parameter values from dataset:",
+			"•	Unit Level Packaging Code: GTIN-14 00368992307539",
+			"•	Service Link: Veloxis Pharmaceuticals, Inc. - Pharma Packaging Solutions (PPS)"]
+		},
+		{
+			"step_number": "3",
+			"step_description": "Query Allocation Report for provided Unit level GTIN number",
+			"expected_result": ["Allocation Reports are queried based on provided GTIN.",
+			"System displays search result.",
+			"Screenshot is taken."],
+			"actual_result": ["2018-09-25 09:44:15 EDT	Executing the query to search Allocation Reports.",
+			"2018-09-25 09:44:21 EDT	Search successful. System is displaying Search Results.",
+			"2018-09-25 09:44:21 EDT	Screenshot taken with search results for packaging code unit level.",
+			"./screenshots/snapscreen_1537926261355_1537926261404.png"]
+		},
+		{
+			"step_number": "4",
+			"step_description": "Assert unit level Serial Number counts from the screen",
+			"expected_result": ["Serial Number counts are asserted for Unit level packaging from the screen.",
+			"Serial Number counts are recorded."],
+			"actual_result": ["2018-09-25 09:44:21 EDT	Serial Number counts are asserted for Unit level packaging from the screen.",
+			"2018-09-25 09:44:21 EDT	Serial Number counts are recorded.",
+			"2018-09-25 09:44:21 EDT	Total Numbers Provisioned: 67,200",
+			"2018-09-25 09:44:21 EDT	Total Numbers Deactivated: 0",
+			"2018-09-25 09:44:21 EDT	Total Numbers Used: 15,477",
+			"2018-09-25 09:44:21 EDT	Total Numbers Decommissioned: 0"]
+		},
+		{
+			"step_number": "5",
+			"step_description": "Use hyperlinks and drill down for Serial Numbers Provisioned for Unit Level",
+			"expected_result": ["Serial Numbers Provisioned details are accessed using hyperlink on the screen.",
+			"Screenshot is taken."],
+			"actual_result": ["2018-09-25 09:44:23 EDT	Serial Numbers Provisioned details are accessed using hyperlink on the screen.",
+			" ",
+			"2018-09-25 09:44:23 EDT	Screenshot is taken.",
+			"./screenshots/snapscreen_1537926261355_1537926261405.png"]
+		},
+		{
+			"step_number": "6",
+			"step_description": "Use hyperlinks and drill down for Serial Numbers Used for Unit Level",
+			"expected_result": ["Serial Numbers Used details are accessed using hyperlink on the screen.",
+			"Screenshot is taken."],
+			"actual_result": ["2018-09-25 09:44:38 EDT	Serial Numbers Used details are accessed using hyperlink on the screen.",
+			" ",
+			"2018-09-25 09:44:23 EDT	Screenshot is taken.",
+			"./screenshots/snapscreen_1537926261355_1537926261406.png"]
+		},
+		{
+			"step_number": "7",
+			"step_description": "Fetch and record Case/Shipper level packaging code value from input parameter dataset",
+			"expected_result": ["Fetched and recorded following parameter values from dataset:",
+			"•	Case/Shipper Level Packaging Code",
+			"•	Service Link"],
+			"actual_result": ["2018-09-25 09:44:46 EDT Following parameter values from dataset:",
+			"•	Case/Shipper Level Packaging Code: GTIN-14 00368992307536",
+			"•	Service Link: Veloxis Pharmaceuticals, Inc. - Pharma Packaging Solutions (PPS)"]
+		},
+		{
+			"step_number": "8",
+			"step_description": "Query Allocation Report for provided Unit level GTIN number",
+			"expected_result": ["Allocation Reports are queried based on provided GTIN.",
+			"System displays search result.",
+			"Screenshot is taken."],
+			"actual_result": ["2018-09-25 09:44:46 EDT	Executing the query to search Allocation Reports.",
+			"2018-09-25 09:44:48 EDT	Search successful. System is displaying Search Results.",
+			"2018-09-25 09:44:51 EDT	Screenshot taken with search results for packaging code unit level.",
+			"./screenshots/snapscreen_1537926291012_1537926291060.png"]
+		},
+		{
+			"step_number": "9",
+			"step_description": "Assert Case/Shipper level Serial Number counts from the screen",
+			"expected_result": ["Serial Number counts are asserted for Case/Shipper level packaging from the screen.",
+			"Serial Number counts are recorded. "],
+			"actual_result": ["2018-09-25 09:44:51 EDT	Serial Number counts are asserted for Case/Shipper level packaging from the screen.",
+			"",
+			"2018-09-25 09:44:51 EDT	Serial Number counts are recorded.",
+			"2018-09-25 09:44:51 EDT	Total Numbers Provisioned: 6,500",
+			"2018-09-25 09:44:51 EDT	Total Numbers Deactivated: 0",
+			"2018-09-25 09:44:51 EDT	Total Numbers Used: 1,289",
+			"2018-09-25 09:44:51 EDT	Total Numbers Decommissioned: 0"]
+		},
+		{
+			"step_number": "10",
+			"step_description": "Use hyperlinks and drill down for Serial Numbers Provisioned for Case/Shipper Level",
+			"expected_result": ["Serial Numbers Provisioned details are accessed using hyperlink on the screen.",
+			"Screenshot is taken."],
+			"actual_result": ["2018-09-25 09:44:53 EDT	Serial Numbers Provisioned details are accessed using hyperlink on the screen.",
+			"2018-09-25 09:44:53 EDT	Screenshot is taken.",
+			"./screenshots/snapscreen_1537926291012_1537926291061.png"]
+		},
+		{
+			"step_number": "11",
+			"step_description": "Use hyperlinks and drill down for Serial Numbers Used for Case/Shipper Level",
+			"expected_result": ["Serial Numbers Used details are accessed using hyperlink on the screen",
+			"Screenshot is taken."],
+			"actual_result": ["2018-09-25 09:45:08 EDT	Serial Numbers Used details are accessed using hyperlink on the screen.",
+			"2018-09-25 09:44:53 EDT	Screenshot is taken.",
+			"./screenshots/snapscreen_1537926291012_1537926291062.png"]
+		}]
+	},
+	{
+		"testname": "ALLOCATION REPORTS VERIFICATION",
+		"test_objective": "The objective is to ensure that serial numbers are requested for the randomly selected packaging code.",
+		"test_acceptance": "Serial number requests exist for the randomly selected packaging code.",
+		"steps": [{
+			"step_number": "1",
+			"step_description": "Access Allocation Reports Screen",
+			"expected_result": ["Allocation Reports Screen is accessed"],
+			"actual_result": ["2018-09-25 09:44:01 EDT Allocation Reports Screen is accessed successfully."]
+		},
+		{
+			"step_number": "2",
+			"step_description": "Fetch and record unit level packaging code value from input parameter dataset",
+			"expected_result": ["Fetched and recorded following parameter values from dataset:",
+			"•	Unit Level Packaging Code",
+			"•	Service Link"],
+			"actual_result": ["2018-09-25 09:44:13 EDT Following parameter values from dataset:",
+			"•	Unit Level Packaging Code: GTIN-14 00368992307539",
+			"•	Service Link: Veloxis Pharmaceuticals, Inc. - Pharma Packaging Solutions (PPS)"]
+		},
+		{
+			"step_number": "3",
+			"step_description": "Query Allocation Report for provided Unit level GTIN number",
+			"expected_result": ["Allocation Reports are queried based on provided GTIN.",
+			"System displays search result.",
+			"Screenshot is taken."],
+			"actual_result": ["2018-09-25 09:44:15 EDT	Executing the query to search Allocation Reports.",
+			"2018-09-25 09:44:21 EDT	Search successful. System is displaying Search Results.",
+			"2018-09-25 09:44:21 EDT	Screenshot taken with search results for packaging code unit level.",
+			"./screenshots/snapscreen_1537926261355_1537926261404.png"]
+		},
+		{
+			"step_number": "4",
+			"step_description": "Assert unit level Serial Number counts from the screen",
+			"expected_result": ["Serial Number counts are asserted for Unit level packaging from the screen.",
+			"Serial Number counts are recorded."],
+			"actual_result": ["2018-09-25 09:44:21 EDT	Serial Number counts are asserted for Unit level packaging from the screen.",
+			"2018-09-25 09:44:21 EDT	Serial Number counts are recorded.",
+			"2018-09-25 09:44:21 EDT	Total Numbers Provisioned: 67,200",
+			"2018-09-25 09:44:21 EDT	Total Numbers Deactivated: 0",
+			"2018-09-25 09:44:21 EDT	Total Numbers Used: 15,477",
+			"2018-09-25 09:44:21 EDT	Total Numbers Decommissioned: 0"]
+		},
+		{
+			"step_number": "5",
+			"step_description": "Use hyperlinks and drill down for Serial Numbers Provisioned for Unit Level",
+			"expected_result": ["Serial Numbers Provisioned details are accessed using hyperlink on the screen.",
+			"Screenshot is taken."],
+			"actual_result": ["2018-09-25 09:44:23 EDT	Serial Numbers Provisioned details are accessed using hyperlink on the screen.",
+			" ",
+			"2018-09-25 09:44:23 EDT	Screenshot is taken.",
+			"./screenshots/snapscreen_1537926261355_1537926261405.png"]
+		},
+		{
+			"step_number": "6",
+			"step_description": "Use hyperlinks and drill down for Serial Numbers Used for Unit Level",
+			"expected_result": ["Serial Numbers Used details are accessed using hyperlink on the screen.",
+			"Screenshot is taken."],
+			"actual_result": ["2018-09-25 09:44:38 EDT	Serial Numbers Used details are accessed using hyperlink on the screen.",
+			" ",
+			"2018-09-25 09:44:23 EDT	Screenshot is taken.",
+			"./screenshots/snapscreen_1537926261355_1537926261406.png"]
+		},
+		{
+			"step_number": "7",
+			"step_description": "Fetch and record Case/Shipper level packaging code value from input parameter dataset",
+			"expected_result": ["Fetched and recorded following parameter values from dataset:",
+			"•	Case/Shipper Level Packaging Code",
+			"•	Service Link"],
+			"actual_result": ["2018-09-25 09:44:46 EDT Following parameter values from dataset:",
+			"•	Case/Shipper Level Packaging Code: GTIN-14 00368992307536",
+			"•	Service Link: Veloxis Pharmaceuticals, Inc. - Pharma Packaging Solutions (PPS)"]
+		},
+		{
+			"step_number": "8",
+			"step_description": "Query Allocation Report for provided Unit level GTIN number",
+			"expected_result": ["Allocation Reports are queried based on provided GTIN.",
+			"System displays search result.",
+			"Screenshot is taken."],
+			"actual_result": ["2018-09-25 09:44:46 EDT	Executing the query to search Allocation Reports.",
+			"2018-09-25 09:44:48 EDT	Search successful. System is displaying Search Results.",
+			"2018-09-25 09:44:51 EDT	Screenshot taken with search results for packaging code unit level.",
+			"./screenshots/snapscreen_1537926291012_1537926291060.png"]
+		},
+		{
+			"step_number": "9",
+			"step_description": "Assert Case/Shipper level Serial Number counts from the screen",
+			"expected_result": ["Serial Number counts are asserted for Case/Shipper level packaging from the screen.",
+			"Serial Number counts are recorded. "],
+			"actual_result": ["2018-09-25 09:44:51 EDT	Serial Number counts are asserted for Case/Shipper level packaging from the screen.",
+			"",
+			"2018-09-25 09:44:51 EDT	Serial Number counts are recorded.",
+			"2018-09-25 09:44:51 EDT	Total Numbers Provisioned: 6,500",
+			"2018-09-25 09:44:51 EDT	Total Numbers Deactivated: 0",
+			"2018-09-25 09:44:51 EDT	Total Numbers Used: 1,289",
+			"2018-09-25 09:44:51 EDT	Total Numbers Decommissioned: 0"]
+		},
+		{
+			"step_number": "10",
+			"step_description": "Use hyperlinks and drill down for Serial Numbers Provisioned for Case/Shipper Level",
+			"expected_result": ["Serial Numbers Provisioned details are accessed using hyperlink on the screen.",
+			"Screenshot is taken."],
+			"actual_result": ["2018-09-25 09:44:53 EDT	Serial Numbers Provisioned details are accessed using hyperlink on the screen.",
+			"2018-09-25 09:44:53 EDT	Screenshot is taken.",
+			"./screenshots/snapscreen_1537926291012_1537926291061.png"]
+		},
+		{
+			"step_number": "11",
+			"step_description": "Use hyperlinks and drill down for Serial Numbers Used for Case/Shipper Level",
+			"expected_result": ["Serial Numbers Used details are accessed using hyperlink on the screen",
+			"Screenshot is taken."],
+			"actual_result": ["2018-09-25 09:45:08 EDT	Serial Numbers Used details are accessed using hyperlink on the screen.",
+			"2018-09-25 09:44:53 EDT	Screenshot is taken.",
+			"./screenshots/snapscreen_1537926291012_1537926291062.png"]
+		}]
+	},
+	{
+		"testname": "ALLOCATION REPORTS VERIFICATION",
+		"test_objective": "The objective is to ensure that serial numbers are requested for the randomly selected packaging code.",
+		"test_acceptance": "Serial number requests exist for the randomly selected packaging code.",
+		"steps": [{
+			"step_number": "1",
+			"step_description": "Access Allocation Reports Screen",
+			"expected_result": ["Allocation Reports Screen is accessed"],
+			"actual_result": ["2018-09-25 09:44:01 EDT Allocation Reports Screen is accessed successfully."]
+		},
+		{
+			"step_number": "2",
+			"step_description": "Fetch and record unit level packaging code value from input parameter dataset",
+			"expected_result": ["Fetched and recorded following parameter values from dataset:",
+			"•	Unit Level Packaging Code",
+			"•	Service Link"],
+			"actual_result": ["2018-09-25 09:44:13 EDT Following parameter values from dataset:",
+			"•	Unit Level Packaging Code: GTIN-14 00368992307539",
+			"•	Service Link: Veloxis Pharmaceuticals, Inc. - Pharma Packaging Solutions (PPS)"]
+		},
+		{
+			"step_number": "3",
+			"step_description": "Query Allocation Report for provided Unit level GTIN number",
+			"expected_result": ["Allocation Reports are queried based on provided GTIN.",
+			"System displays search result.",
+			"Screenshot is taken."],
+			"actual_result": ["2018-09-25 09:44:15 EDT	Executing the query to search Allocation Reports.",
+			"2018-09-25 09:44:21 EDT	Search successful. System is displaying Search Results.",
+			"2018-09-25 09:44:21 EDT	Screenshot taken with search results for packaging code unit level.",
+			"./screenshots/snapscreen_1537926261355_1537926261404.png"]
+		},
+		{
+			"step_number": "4",
+			"step_description": "Assert unit level Serial Number counts from the screen",
+			"expected_result": ["Serial Number counts are asserted for Unit level packaging from the screen.",
+			"Serial Number counts are recorded."],
+			"actual_result": ["2018-09-25 09:44:21 EDT	Serial Number counts are asserted for Unit level packaging from the screen.",
+			"2018-09-25 09:44:21 EDT	Serial Number counts are recorded.",
+			"2018-09-25 09:44:21 EDT	Total Numbers Provisioned: 67,200",
+			"2018-09-25 09:44:21 EDT	Total Numbers Deactivated: 0",
+			"2018-09-25 09:44:21 EDT	Total Numbers Used: 15,477",
+			"2018-09-25 09:44:21 EDT	Total Numbers Decommissioned: 0"]
+		},
+		{
+			"step_number": "5",
+			"step_description": "Use hyperlinks and drill down for Serial Numbers Provisioned for Unit Level",
+			"expected_result": ["Serial Numbers Provisioned details are accessed using hyperlink on the screen.",
+			"Screenshot is taken."],
+			"actual_result": ["2018-09-25 09:44:23 EDT	Serial Numbers Provisioned details are accessed using hyperlink on the screen.",
+			" ",
+			"2018-09-25 09:44:23 EDT	Screenshot is taken.",
+			"./screenshots/snapscreen_1537926261355_1537926261405.png"]
+		},
+		{
+			"step_number": "6",
+			"step_description": "Use hyperlinks and drill down for Serial Numbers Used for Unit Level",
+			"expected_result": ["Serial Numbers Used details are accessed using hyperlink on the screen.",
+			"Screenshot is taken."],
+			"actual_result": ["2018-09-25 09:44:38 EDT	Serial Numbers Used details are accessed using hyperlink on the screen.",
+			" ",
+			"2018-09-25 09:44:23 EDT	Screenshot is taken.",
+			"./screenshots/snapscreen_1537926261355_1537926261406.png"]
+		},
+		{
+			"step_number": "7",
+			"step_description": "Fetch and record Case/Shipper level packaging code value from input parameter dataset",
+			"expected_result": ["Fetched and recorded following parameter values from dataset:",
+			"•	Case/Shipper Level Packaging Code",
+			"•	Service Link"],
+			"actual_result": ["2018-09-25 09:44:46 EDT Following parameter values from dataset:",
+			"•	Case/Shipper Level Packaging Code: GTIN-14 00368992307536",
+			"•	Service Link: Veloxis Pharmaceuticals, Inc. - Pharma Packaging Solutions (PPS)"]
+		},
+		{
+			"step_number": "8",
+			"step_description": "Query Allocation Report for provided Unit level GTIN number",
+			"expected_result": ["Allocation Reports are queried based on provided GTIN.",
+			"System displays search result.",
+			"Screenshot is taken."],
+			"actual_result": ["2018-09-25 09:44:46 EDT	Executing the query to search Allocation Reports.",
+			"2018-09-25 09:44:48 EDT	Search successful. System is displaying Search Results.",
+			"2018-09-25 09:44:51 EDT	Screenshot taken with search results for packaging code unit level.",
+			"./screenshots/snapscreen_1537926291012_1537926291060.png"]
+		},
+		{
+			"step_number": "9",
+			"step_description": "Assert Case/Shipper level Serial Number counts from the screen",
+			"expected_result": ["Serial Number counts are asserted for Case/Shipper level packaging from the screen.",
+			"Serial Number counts are recorded. "],
+			"actual_result": ["2018-09-25 09:44:51 EDT	Serial Number counts are asserted for Case/Shipper level packaging from the screen.",
+			"",
+			"2018-09-25 09:44:51 EDT	Serial Number counts are recorded.",
+			"2018-09-25 09:44:51 EDT	Total Numbers Provisioned: 6,500",
+			"2018-09-25 09:44:51 EDT	Total Numbers Deactivated: 0",
+			"2018-09-25 09:44:51 EDT	Total Numbers Used: 1,289",
+			"2018-09-25 09:44:51 EDT	Total Numbers Decommissioned: 0"]
+		},
+		{
+			"step_number": "10",
+			"step_description": "Use hyperlinks and drill down for Serial Numbers Provisioned for Case/Shipper Level",
+			"expected_result": ["Serial Numbers Provisioned details are accessed using hyperlink on the screen.",
+			"Screenshot is taken."],
+			"actual_result": ["2018-09-25 09:44:53 EDT	Serial Numbers Provisioned details are accessed using hyperlink on the screen.",
+			"2018-09-25 09:44:53 EDT	Screenshot is taken.",
+			"./screenshots/snapscreen_1537926291012_1537926291061.png"]
+		},
+		{
+			"step_number": "11",
+			"step_description": "Use hyperlinks and drill down for Serial Numbers Used for Case/Shipper Level",
+			"expected_result": ["Serial Numbers Used details are accessed using hyperlink on the screen",
+			"Screenshot is taken."],
+			"actual_result": ["2018-09-25 09:45:08 EDT	Serial Numbers Used details are accessed using hyperlink on the screen.",
+			"2018-09-25 09:44:53 EDT	Screenshot is taken.",
+			"./screenshots/snapscreen_1537926291012_1537926291062.png"]
+		}]
+	},
+	{
+		"testname": "ALLOCATION REPORTS VERIFICATION",
+		"test_objective": "The objective is to ensure that serial numbers are requested for the randomly selected packaging code.",
+		"test_acceptance": "Serial number requests exist for the randomly selected packaging code.",
+		"steps": [{
+			"step_number": "1",
+			"step_description": "Access Allocation Reports Screen",
+			"expected_result": ["Allocation Reports Screen is accessed"],
+			"actual_result": ["2018-09-25 09:44:01 EDT Allocation Reports Screen is accessed successfully."]
+		},
+		{
+			"step_number": "2",
+			"step_description": "Fetch and record unit level packaging code value from input parameter dataset",
+			"expected_result": ["Fetched and recorded following parameter values from dataset:",
+			"•	Unit Level Packaging Code",
+			"•	Service Link"],
+			"actual_result": ["2018-09-25 09:44:13 EDT Following parameter values from dataset:",
+			"•	Unit Level Packaging Code: GTIN-14 00368992307539",
+			"•	Service Link: Veloxis Pharmaceuticals, Inc. - Pharma Packaging Solutions (PPS)"]
+		},
+		{
+			"step_number": "3",
+			"step_description": "Query Allocation Report for provided Unit level GTIN number",
+			"expected_result": ["Allocation Reports are queried based on provided GTIN.",
+			"System displays search result.",
+			"Screenshot is taken."],
+			"actual_result": ["2018-09-25 09:44:15 EDT	Executing the query to search Allocation Reports.",
+			"2018-09-25 09:44:21 EDT	Search successful. System is displaying Search Results.",
+			"2018-09-25 09:44:21 EDT	Screenshot taken with search results for packaging code unit level.",
+			"./screenshots/snapscreen_1537926261355_1537926261404.png"]
+		},
+		{
+			"step_number": "4",
+			"step_description": "Assert unit level Serial Number counts from the screen",
+			"expected_result": ["Serial Number counts are asserted for Unit level packaging from the screen.",
+			"Serial Number counts are recorded."],
+			"actual_result": ["2018-09-25 09:44:21 EDT	Serial Number counts are asserted for Unit level packaging from the screen.",
+			"2018-09-25 09:44:21 EDT	Serial Number counts are recorded.",
+			"2018-09-25 09:44:21 EDT	Total Numbers Provisioned: 67,200",
+			"2018-09-25 09:44:21 EDT	Total Numbers Deactivated: 0",
+			"2018-09-25 09:44:21 EDT	Total Numbers Used: 15,477",
+			"2018-09-25 09:44:21 EDT	Total Numbers Decommissioned: 0"]
+		},
+		{
+			"step_number": "5",
+			"step_description": "Use hyperlinks and drill down for Serial Numbers Provisioned for Unit Level",
+			"expected_result": ["Serial Numbers Provisioned details are accessed using hyperlink on the screen.",
+			"Screenshot is taken."],
+			"actual_result": ["2018-09-25 09:44:23 EDT	Serial Numbers Provisioned details are accessed using hyperlink on the screen.",
+			" ",
+			"2018-09-25 09:44:23 EDT	Screenshot is taken.",
+			"./screenshots/snapscreen_1537926261355_1537926261405.png"]
+		},
+		{
+			"step_number": "6",
+			"step_description": "Use hyperlinks and drill down for Serial Numbers Used for Unit Level",
+			"expected_result": ["Serial Numbers Used details are accessed using hyperlink on the screen.",
+			"Screenshot is taken."],
+			"actual_result": ["2018-09-25 09:44:38 EDT	Serial Numbers Used details are accessed using hyperlink on the screen.",
+			" ",
+			"2018-09-25 09:44:23 EDT	Screenshot is taken.",
+			"./screenshots/snapscreen_1537926261355_1537926261406.png"]
+		},
+		{
+			"step_number": "7",
+			"step_description": "Fetch and record Case/Shipper level packaging code value from input parameter dataset",
+			"expected_result": ["Fetched and recorded following parameter values from dataset:",
+			"•	Case/Shipper Level Packaging Code",
+			"•	Service Link"],
+			"actual_result": ["2018-09-25 09:44:46 EDT Following parameter values from dataset:",
+			"•	Case/Shipper Level Packaging Code: GTIN-14 00368992307536",
+			"•	Service Link: Veloxis Pharmaceuticals, Inc. - Pharma Packaging Solutions (PPS)"]
+		},
+		{
+			"step_number": "8",
+			"step_description": "Query Allocation Report for provided Unit level GTIN number",
+			"expected_result": ["Allocation Reports are queried based on provided GTIN.",
+			"System displays search result.",
+			"Screenshot is taken."],
+			"actual_result": ["2018-09-25 09:44:46 EDT	Executing the query to search Allocation Reports.",
+			"2018-09-25 09:44:48 EDT	Search successful. System is displaying Search Results.",
+			"2018-09-25 09:44:51 EDT	Screenshot taken with search results for packaging code unit level.",
+			"./screenshots/snapscreen_1537926291012_1537926291060.png"]
+		},
+		{
+			"step_number": "9",
+			"step_description": "Assert Case/Shipper level Serial Number counts from the screen",
+			"expected_result": ["Serial Number counts are asserted for Case/Shipper level packaging from the screen.",
+			"Serial Number counts are recorded. "],
+			"actual_result": ["2018-09-25 09:44:51 EDT	Serial Number counts are asserted for Case/Shipper level packaging from the screen.",
+			"",
+			"2018-09-25 09:44:51 EDT	Serial Number counts are recorded.",
+			"2018-09-25 09:44:51 EDT	Total Numbers Provisioned: 6,500",
+			"2018-09-25 09:44:51 EDT	Total Numbers Deactivated: 0",
+			"2018-09-25 09:44:51 EDT	Total Numbers Used: 1,289",
+			"2018-09-25 09:44:51 EDT	Total Numbers Decommissioned: 0"]
+		},
+		{
+			"step_number": "10",
+			"step_description": "Use hyperlinks and drill down for Serial Numbers Provisioned for Case/Shipper Level",
+			"expected_result": ["Serial Numbers Provisioned details are accessed using hyperlink on the screen.",
+			"Screenshot is taken."],
+			"actual_result": ["2018-09-25 09:44:53 EDT	Serial Numbers Provisioned details are accessed using hyperlink on the screen.",
+			"2018-09-25 09:44:53 EDT	Screenshot is taken.",
+			"./screenshots/snapscreen_1537926291012_1537926291061.png"]
+		},
+		{
+			"step_number": "11",
+			"step_description": "Use hyperlinks and drill down for Serial Numbers Used for Case/Shipper Level",
+			"expected_result": ["Serial Numbers Used details are accessed using hyperlink on the screen",
+			"Screenshot is taken."],
+			"actual_result": ["2018-09-25 09:45:08 EDT	Serial Numbers Used details are accessed using hyperlink on the screen.",
+			"2018-09-25 09:44:53 EDT	Screenshot is taken.",
+			"./screenshots/snapscreen_1537926291012_1537926291062.png"]
+		}]
+	},
+	{
+		"testname": "ALLOCATION REPORTS VERIFICATION",
+		"test_objective": "The objective is to ensure that serial numbers are requested for the randomly selected packaging code.",
+		"test_acceptance": "Serial number requests exist for the randomly selected packaging code.",
+		"steps": [{
+			"step_number": "1",
+			"step_description": "Access Allocation Reports Screen",
+			"expected_result": ["Allocation Reports Screen is accessed"],
+			"actual_result": ["2018-09-25 09:44:01 EDT Allocation Reports Screen is accessed successfully."]
+		},
+		{
+			"step_number": "2",
+			"step_description": "Fetch and record unit level packaging code value from input parameter dataset",
+			"expected_result": ["Fetched and recorded following parameter values from dataset:",
+			"•	Unit Level Packaging Code",
+			"•	Service Link"],
+			"actual_result": ["2018-09-25 09:44:13 EDT Following parameter values from dataset:",
+			"•	Unit Level Packaging Code: GTIN-14 00368992307539",
+			"•	Service Link: Veloxis Pharmaceuticals, Inc. - Pharma Packaging Solutions (PPS)"]
+		},
+		{
+			"step_number": "3",
+			"step_description": "Query Allocation Report for provided Unit level GTIN number",
+			"expected_result": ["Allocation Reports are queried based on provided GTIN.",
+			"System displays search result.",
+			"Screenshot is taken."],
+			"actual_result": ["2018-09-25 09:44:15 EDT	Executing the query to search Allocation Reports.",
+			"2018-09-25 09:44:21 EDT	Search successful. System is displaying Search Results.",
+			"2018-09-25 09:44:21 EDT	Screenshot taken with search results for packaging code unit level.",
+			"./screenshots/snapscreen_1537926261355_1537926261404.png"]
+		},
+		{
+			"step_number": "4",
+			"step_description": "Assert unit level Serial Number counts from the screen",
+			"expected_result": ["Serial Number counts are asserted for Unit level packaging from the screen.",
+			"Serial Number counts are recorded."],
+			"actual_result": ["2018-09-25 09:44:21 EDT	Serial Number counts are asserted for Unit level packaging from the screen.",
+			"2018-09-25 09:44:21 EDT	Serial Number counts are recorded.",
+			"2018-09-25 09:44:21 EDT	Total Numbers Provisioned: 67,200",
+			"2018-09-25 09:44:21 EDT	Total Numbers Deactivated: 0",
+			"2018-09-25 09:44:21 EDT	Total Numbers Used: 15,477",
+			"2018-09-25 09:44:21 EDT	Total Numbers Decommissioned: 0"]
+		},
+		{
+			"step_number": "5",
+			"step_description": "Use hyperlinks and drill down for Serial Numbers Provisioned for Unit Level",
+			"expected_result": ["Serial Numbers Provisioned details are accessed using hyperlink on the screen.",
+			"Screenshot is taken."],
+			"actual_result": ["2018-09-25 09:44:23 EDT	Serial Numbers Provisioned details are accessed using hyperlink on the screen.",
+			" ",
+			"2018-09-25 09:44:23 EDT	Screenshot is taken.",
+			"./screenshots/snapscreen_1537926261355_1537926261405.png"]
+		},
+		{
+			"step_number": "6",
+			"step_description": "Use hyperlinks and drill down for Serial Numbers Used for Unit Level",
+			"expected_result": ["Serial Numbers Used details are accessed using hyperlink on the screen.",
+			"Screenshot is taken."],
+			"actual_result": ["2018-09-25 09:44:38 EDT	Serial Numbers Used details are accessed using hyperlink on the screen.",
+			" ",
+			"2018-09-25 09:44:23 EDT	Screenshot is taken.",
+			"./screenshots/snapscreen_1537926261355_1537926261406.png"]
+		},
+		{
+			"step_number": "7",
+			"step_description": "Fetch and record Case/Shipper level packaging code value from input parameter dataset",
+			"expected_result": ["Fetched and recorded following parameter values from dataset:",
+			"•	Case/Shipper Level Packaging Code",
+			"•	Service Link"],
+			"actual_result": ["2018-09-25 09:44:46 EDT Following parameter values from dataset:",
+			"•	Case/Shipper Level Packaging Code: GTIN-14 00368992307536",
+			"•	Service Link: Veloxis Pharmaceuticals, Inc. - Pharma Packaging Solutions (PPS)"]
+		},
+		{
+			"step_number": "8",
+			"step_description": "Query Allocation Report for provided Unit level GTIN number",
+			"expected_result": ["Allocation Reports are queried based on provided GTIN.",
+			"System displays search result.",
+			"Screenshot is taken."],
+			"actual_result": ["2018-09-25 09:44:46 EDT	Executing the query to search Allocation Reports.",
+			"2018-09-25 09:44:48 EDT	Search successful. System is displaying Search Results.",
+			"2018-09-25 09:44:51 EDT	Screenshot taken with search results for packaging code unit level.",
+			"./screenshots/snapscreen_1537926291012_1537926291060.png"]
+		},
+		{
+			"step_number": "9",
+			"step_description": "Assert Case/Shipper level Serial Number counts from the screen",
+			"expected_result": ["Serial Number counts are asserted for Case/Shipper level packaging from the screen.",
+			"Serial Number counts are recorded. "],
+			"actual_result": ["2018-09-25 09:44:51 EDT	Serial Number counts are asserted for Case/Shipper level packaging from the screen.",
+			"",
+			"2018-09-25 09:44:51 EDT	Serial Number counts are recorded.",
+			"2018-09-25 09:44:51 EDT	Total Numbers Provisioned: 6,500",
+			"2018-09-25 09:44:51 EDT	Total Numbers Deactivated: 0",
+			"2018-09-25 09:44:51 EDT	Total Numbers Used: 1,289",
+			"2018-09-25 09:44:51 EDT	Total Numbers Decommissioned: 0"]
+		},
+		{
+			"step_number": "10",
+			"step_description": "Use hyperlinks and drill down for Serial Numbers Provisioned for Case/Shipper Level",
+			"expected_result": ["Serial Numbers Provisioned details are accessed using hyperlink on the screen.",
+			"Screenshot is taken."],
+			"actual_result": ["2018-09-25 09:44:53 EDT	Serial Numbers Provisioned details are accessed using hyperlink on the screen.",
+			"2018-09-25 09:44:53 EDT	Screenshot is taken.",
+			"./screenshots/snapscreen_1537926291012_1537926291061.png"]
+		},
+		{
+			"step_number": "11",
+			"step_description": "Use hyperlinks and drill down for Serial Numbers Used for Case/Shipper Level",
+			"expected_result": ["Serial Numbers Used details are accessed using hyperlink on the screen",
+			"Screenshot is taken."],
+			"actual_result": ["2018-09-25 09:45:08 EDT	Serial Numbers Used details are accessed using hyperlink on the screen.",
+			"2018-09-25 09:44:53 EDT	Screenshot is taken.",
+			"./screenshots/snapscreen_1537926291012_1537926291062.png"]
+		}]
+	},
+	{
+		"testname": "ALLOCATION REPORTS VERIFICATION",
+		"test_objective": "The objective is to ensure that serial numbers are requested for the randomly selected packaging code.",
+		"test_acceptance": "Serial number requests exist for the randomly selected packaging code.",
+		"steps": [{
+			"step_number": "1",
+			"step_description": "Access Allocation Reports Screen",
+			"expected_result": ["Allocation Reports Screen is accessed"],
+			"actual_result": ["2018-09-25 09:44:01 EDT Allocation Reports Screen is accessed successfully."]
+		},
+		{
+			"step_number": "2",
+			"step_description": "Fetch and record unit level packaging code value from input parameter dataset",
+			"expected_result": ["Fetched and recorded following parameter values from dataset:",
+			"•	Unit Level Packaging Code",
+			"•	Service Link"],
+			"actual_result": ["2018-09-25 09:44:13 EDT Following parameter values from dataset:",
+			"•	Unit Level Packaging Code: GTIN-14 00368992307539",
+			"•	Service Link: Veloxis Pharmaceuticals, Inc. - Pharma Packaging Solutions (PPS)"]
+		},
+		{
+			"step_number": "3",
+			"step_description": "Query Allocation Report for provided Unit level GTIN number",
+			"expected_result": ["Allocation Reports are queried based on provided GTIN.",
+			"System displays search result.",
+			"Screenshot is taken."],
+			"actual_result": ["2018-09-25 09:44:15 EDT	Executing the query to search Allocation Reports.",
+			"2018-09-25 09:44:21 EDT	Search successful. System is displaying Search Results.",
+			"2018-09-25 09:44:21 EDT	Screenshot taken with search results for packaging code unit level.",
+			"./screenshots/snapscreen_1537926261355_1537926261404.png"]
+		},
+		{
+			"step_number": "4",
+			"step_description": "Assert unit level Serial Number counts from the screen",
+			"expected_result": ["Serial Number counts are asserted for Unit level packaging from the screen.",
+			"Serial Number counts are recorded."],
+			"actual_result": ["2018-09-25 09:44:21 EDT	Serial Number counts are asserted for Unit level packaging from the screen.",
+			"2018-09-25 09:44:21 EDT	Serial Number counts are recorded.",
+			"2018-09-25 09:44:21 EDT	Total Numbers Provisioned: 67,200",
+			"2018-09-25 09:44:21 EDT	Total Numbers Deactivated: 0",
+			"2018-09-25 09:44:21 EDT	Total Numbers Used: 15,477",
+			"2018-09-25 09:44:21 EDT	Total Numbers Decommissioned: 0"]
+		},
+		{
+			"step_number": "5",
+			"step_description": "Use hyperlinks and drill down for Serial Numbers Provisioned for Unit Level",
+			"expected_result": ["Serial Numbers Provisioned details are accessed using hyperlink on the screen.",
+			"Screenshot is taken."],
+			"actual_result": ["2018-09-25 09:44:23 EDT	Serial Numbers Provisioned details are accessed using hyperlink on the screen.",
+			" ",
+			"2018-09-25 09:44:23 EDT	Screenshot is taken.",
+			"./screenshots/snapscreen_1537926261355_1537926261405.png"]
+		},
+		{
+			"step_number": "6",
+			"step_description": "Use hyperlinks and drill down for Serial Numbers Used for Unit Level",
+			"expected_result": ["Serial Numbers Used details are accessed using hyperlink on the screen.",
+			"Screenshot is taken."],
+			"actual_result": ["2018-09-25 09:44:38 EDT	Serial Numbers Used details are accessed using hyperlink on the screen.",
+			" ",
+			"2018-09-25 09:44:23 EDT	Screenshot is taken.",
+			"./screenshots/snapscreen_1537926261355_1537926261406.png"]
+		},
+		{
+			"step_number": "7",
+			"step_description": "Fetch and record Case/Shipper level packaging code value from input parameter dataset",
+			"expected_result": ["Fetched and recorded following parameter values from dataset:",
+			"•	Case/Shipper Level Packaging Code",
+			"•	Service Link"],
+			"actual_result": ["2018-09-25 09:44:46 EDT Following parameter values from dataset:",
+			"•	Case/Shipper Level Packaging Code: GTIN-14 00368992307536",
+			"•	Service Link: Veloxis Pharmaceuticals, Inc. - Pharma Packaging Solutions (PPS)"]
+		},
+		{
+			"step_number": "8",
+			"step_description": "Query Allocation Report for provided Unit level GTIN number",
+			"expected_result": ["Allocation Reports are queried based on provided GTIN.",
+			"System displays search result.",
+			"Screenshot is taken."],
+			"actual_result": ["2018-09-25 09:44:46 EDT	Executing the query to search Allocation Reports.",
+			"2018-09-25 09:44:48 EDT	Search successful. System is displaying Search Results.",
+			"2018-09-25 09:44:51 EDT	Screenshot taken with search results for packaging code unit level.",
+			"./screenshots/snapscreen_1537926291012_1537926291060.png"]
+		},
+		{
+			"step_number": "9",
+			"step_description": "Assert Case/Shipper level Serial Number counts from the screen",
+			"expected_result": ["Serial Number counts are asserted for Case/Shipper level packaging from the screen.",
+			"Serial Number counts are recorded. "],
+			"actual_result": ["2018-09-25 09:44:51 EDT	Serial Number counts are asserted for Case/Shipper level packaging from the screen.",
+			"",
+			"2018-09-25 09:44:51 EDT	Serial Number counts are recorded.",
+			"2018-09-25 09:44:51 EDT	Total Numbers Provisioned: 6,500",
+			"2018-09-25 09:44:51 EDT	Total Numbers Deactivated: 0",
+			"2018-09-25 09:44:51 EDT	Total Numbers Used: 1,289",
+			"2018-09-25 09:44:51 EDT	Total Numbers Decommissioned: 0"]
+		},
+		{
+			"step_number": "10",
+			"step_description": "Use hyperlinks and drill down for Serial Numbers Provisioned for Case/Shipper Level",
+			"expected_result": ["Serial Numbers Provisioned details are accessed using hyperlink on the screen.",
+			"Screenshot is taken."],
+			"actual_result": ["2018-09-25 09:44:53 EDT	Serial Numbers Provisioned details are accessed using hyperlink on the screen.",
+			"2018-09-25 09:44:53 EDT	Screenshot is taken.",
+			"./screenshots/snapscreen_1537926291012_1537926291061.png"]
+		},
+		{
+			"step_number": "11",
+			"step_description": "Use hyperlinks and drill down for Serial Numbers Used for Case/Shipper Level",
+			"expected_result": ["Serial Numbers Used details are accessed using hyperlink on the screen",
+			"Screenshot is taken."],
+			"actual_result": ["2018-09-25 09:45:08 EDT	Serial Numbers Used details are accessed using hyperlink on the screen.",
+			"2018-09-25 09:44:53 EDT	Screenshot is taken.",
+			"./screenshots/snapscreen_1537926291012_1537926291062.png"]
+		}]
+	},
+	{
+		"testname": "ALLOCATION REPORTS VERIFICATION",
+		"test_objective": "The objective is to ensure that serial numbers are requested for the randomly selected packaging code.",
+		"test_acceptance": "Serial number requests exist for the randomly selected packaging code.",
+		"steps": [{
+			"step_number": "1",
+			"step_description": "Access Allocation Reports Screen",
+			"expected_result": ["Allocation Reports Screen is accessed"],
+			"actual_result": ["2018-09-25 09:44:01 EDT Allocation Reports Screen is accessed successfully."]
+		},
+		{
+			"step_number": "2",
+			"step_description": "Fetch and record unit level packaging code value from input parameter dataset",
+			"expected_result": ["Fetched and recorded following parameter values from dataset:",
+			"•	Unit Level Packaging Code",
+			"•	Service Link"],
+			"actual_result": ["2018-09-25 09:44:13 EDT Following parameter values from dataset:",
+			"•	Unit Level Packaging Code: GTIN-14 00368992307539",
+			"•	Service Link: Veloxis Pharmaceuticals, Inc. - Pharma Packaging Solutions (PPS)"]
+		},
+		{
+			"step_number": "3",
+			"step_description": "Query Allocation Report for provided Unit level GTIN number",
+			"expected_result": ["Allocation Reports are queried based on provided GTIN.",
+			"System displays search result.",
+			"Screenshot is taken."],
+			"actual_result": ["2018-09-25 09:44:15 EDT	Executing the query to search Allocation Reports.",
+			"2018-09-25 09:44:21 EDT	Search successful. System is displaying Search Results.",
+			"2018-09-25 09:44:21 EDT	Screenshot taken with search results for packaging code unit level.",
+			"./screenshots/snapscreen_1537926261355_1537926261404.png"]
+		},
+		{
+			"step_number": "4",
+			"step_description": "Assert unit level Serial Number counts from the screen",
+			"expected_result": ["Serial Number counts are asserted for Unit level packaging from the screen.",
+			"Serial Number counts are recorded."],
+			"actual_result": ["2018-09-25 09:44:21 EDT	Serial Number counts are asserted for Unit level packaging from the screen.",
+			"2018-09-25 09:44:21 EDT	Serial Number counts are recorded.",
+			"2018-09-25 09:44:21 EDT	Total Numbers Provisioned: 67,200",
+			"2018-09-25 09:44:21 EDT	Total Numbers Deactivated: 0",
+			"2018-09-25 09:44:21 EDT	Total Numbers Used: 15,477",
+			"2018-09-25 09:44:21 EDT	Total Numbers Decommissioned: 0"]
+		},
+		{
+			"step_number": "5",
+			"step_description": "Use hyperlinks and drill down for Serial Numbers Provisioned for Unit Level",
+			"expected_result": ["Serial Numbers Provisioned details are accessed using hyperlink on the screen.",
+			"Screenshot is taken."],
+			"actual_result": ["2018-09-25 09:44:23 EDT	Serial Numbers Provisioned details are accessed using hyperlink on the screen.",
+			" ",
+			"2018-09-25 09:44:23 EDT	Screenshot is taken.",
+			"./screenshots/snapscreen_1537926261355_1537926261405.png"]
+		},
+		{
+			"step_number": "6",
+			"step_description": "Use hyperlinks and drill down for Serial Numbers Used for Unit Level",
+			"expected_result": ["Serial Numbers Used details are accessed using hyperlink on the screen.",
+			"Screenshot is taken."],
+			"actual_result": ["2018-09-25 09:44:38 EDT	Serial Numbers Used details are accessed using hyperlink on the screen.",
+			" ",
+			"2018-09-25 09:44:23 EDT	Screenshot is taken.",
+			"./screenshots/snapscreen_1537926261355_1537926261406.png"]
+		},
+		{
+			"step_number": "7",
+			"step_description": "Fetch and record Case/Shipper level packaging code value from input parameter dataset",
+			"expected_result": ["Fetched and recorded following parameter values from dataset:",
+			"•	Case/Shipper Level Packaging Code",
+			"•	Service Link"],
+			"actual_result": ["2018-09-25 09:44:46 EDT Following parameter values from dataset:",
+			"•	Case/Shipper Level Packaging Code: GTIN-14 00368992307536",
+			"•	Service Link: Veloxis Pharmaceuticals, Inc. - Pharma Packaging Solutions (PPS)"]
+		},
+		{
+			"step_number": "8",
+			"step_description": "Query Allocation Report for provided Unit level GTIN number",
+			"expected_result": ["Allocation Reports are queried based on provided GTIN.",
+			"System displays search result.",
+			"Screenshot is taken."],
+			"actual_result": ["2018-09-25 09:44:46 EDT	Executing the query to search Allocation Reports.",
+			"2018-09-25 09:44:48 EDT	Search successful. System is displaying Search Results.",
+			"2018-09-25 09:44:51 EDT	Screenshot taken with search results for packaging code unit level.",
+			"./screenshots/snapscreen_1537926291012_1537926291060.png"]
+		},
+		{
+			"step_number": "9",
+			"step_description": "Assert Case/Shipper level Serial Number counts from the screen",
+			"expected_result": ["Serial Number counts are asserted for Case/Shipper level packaging from the screen.",
+			"Serial Number counts are recorded. "],
+			"actual_result": ["2018-09-25 09:44:51 EDT	Serial Number counts are asserted for Case/Shipper level packaging from the screen.",
+			"",
+			"2018-09-25 09:44:51 EDT	Serial Number counts are recorded.",
+			"2018-09-25 09:44:51 EDT	Total Numbers Provisioned: 6,500",
+			"2018-09-25 09:44:51 EDT	Total Numbers Deactivated: 0",
+			"2018-09-25 09:44:51 EDT	Total Numbers Used: 1,289",
+			"2018-09-25 09:44:51 EDT	Total Numbers Decommissioned: 0"]
+		},
+		{
+			"step_number": "10",
+			"step_description": "Use hyperlinks and drill down for Serial Numbers Provisioned for Case/Shipper Level",
+			"expected_result": ["Serial Numbers Provisioned details are accessed using hyperlink on the screen.",
+			"Screenshot is taken."],
+			"actual_result": ["2018-09-25 09:44:53 EDT	Serial Numbers Provisioned details are accessed using hyperlink on the screen.",
+			"2018-09-25 09:44:53 EDT	Screenshot is taken.",
+			"./screenshots/snapscreen_1537926291012_1537926291061.png"]
+		},
+		{
+			"step_number": "11",
+			"step_description": "Use hyperlinks and drill down for Serial Numbers Used for Case/Shipper Level",
+			"expected_result": ["Serial Numbers Used details are accessed using hyperlink on the screen",
+			"Screenshot is taken."],
+			"actual_result": ["2018-09-25 09:45:08 EDT	Serial Numbers Used details are accessed using hyperlink on the screen.",
+			"2018-09-25 09:44:53 EDT	Screenshot is taken.",
+			"./screenshots/snapscreen_1537926291012_1537926291062.png"]
+		}]
+	},
+	{
+		"testname": "ALLOCATION REPORTS VERIFICATION",
+		"test_objective": "The objective is to ensure that serial numbers are requested for the randomly selected packaging code.",
+		"test_acceptance": "Serial number requests exist for the randomly selected packaging code.",
+		"steps": [{
+			"step_number": "1",
+			"step_description": "Access Allocation Reports Screen",
+			"expected_result": ["Allocation Reports Screen is accessed"],
+			"actual_result": ["2018-09-25 09:44:01 EDT Allocation Reports Screen is accessed successfully."]
+		},
+		{
+			"step_number": "2",
+			"step_description": "Fetch and record unit level packaging code value from input parameter dataset",
+			"expected_result": ["Fetched and recorded following parameter values from dataset:",
+			"•	Unit Level Packaging Code",
+			"•	Service Link"],
+			"actual_result": ["2018-09-25 09:44:13 EDT Following parameter values from dataset:",
+			"•	Unit Level Packaging Code: GTIN-14 00368992307539",
+			"•	Service Link: Veloxis Pharmaceuticals, Inc. - Pharma Packaging Solutions (PPS)"]
+		},
+		{
+			"step_number": "3",
+			"step_description": "Query Allocation Report for provided Unit level GTIN number",
+			"expected_result": ["Allocation Reports are queried based on provided GTIN.",
+			"System displays search result.",
+			"Screenshot is taken."],
+			"actual_result": ["2018-09-25 09:44:15 EDT	Executing the query to search Allocation Reports.",
+			"2018-09-25 09:44:21 EDT	Search successful. System is displaying Search Results.",
+			"2018-09-25 09:44:21 EDT	Screenshot taken with search results for packaging code unit level.",
+			"./screenshots/snapscreen_1537926261355_1537926261404.png"]
+		},
+		{
+			"step_number": "4",
+			"step_description": "Assert unit level Serial Number counts from the screen",
+			"expected_result": ["Serial Number counts are asserted for Unit level packaging from the screen.",
+			"Serial Number counts are recorded."],
+			"actual_result": ["2018-09-25 09:44:21 EDT	Serial Number counts are asserted for Unit level packaging from the screen.",
+			"2018-09-25 09:44:21 EDT	Serial Number counts are recorded.",
+			"2018-09-25 09:44:21 EDT	Total Numbers Provisioned: 67,200",
+			"2018-09-25 09:44:21 EDT	Total Numbers Deactivated: 0",
+			"2018-09-25 09:44:21 EDT	Total Numbers Used: 15,477",
+			"2018-09-25 09:44:21 EDT	Total Numbers Decommissioned: 0"]
+		},
+		{
+			"step_number": "5",
+			"step_description": "Use hyperlinks and drill down for Serial Numbers Provisioned for Unit Level",
+			"expected_result": ["Serial Numbers Provisioned details are accessed using hyperlink on the screen.",
+			"Screenshot is taken."],
+			"actual_result": ["2018-09-25 09:44:23 EDT	Serial Numbers Provisioned details are accessed using hyperlink on the screen.",
+			" ",
+			"2018-09-25 09:44:23 EDT	Screenshot is taken.",
+			"./screenshots/snapscreen_1537926261355_1537926261405.png"]
+		},
+		{
+			"step_number": "6",
+			"step_description": "Use hyperlinks and drill down for Serial Numbers Used for Unit Level",
+			"expected_result": ["Serial Numbers Used details are accessed using hyperlink on the screen.",
+			"Screenshot is taken."],
+			"actual_result": ["2018-09-25 09:44:38 EDT	Serial Numbers Used details are accessed using hyperlink on the screen.",
+			" ",
+			"2018-09-25 09:44:23 EDT	Screenshot is taken.",
+			"./screenshots/snapscreen_1537926261355_1537926261406.png"]
+		},
+		{
+			"step_number": "7",
+			"step_description": "Fetch and record Case/Shipper level packaging code value from input parameter dataset",
+			"expected_result": ["Fetched and recorded following parameter values from dataset:",
+			"•	Case/Shipper Level Packaging Code",
+			"•	Service Link"],
+			"actual_result": ["2018-09-25 09:44:46 EDT Following parameter values from dataset:",
+			"•	Case/Shipper Level Packaging Code: GTIN-14 00368992307536",
+			"•	Service Link: Veloxis Pharmaceuticals, Inc. - Pharma Packaging Solutions (PPS)"]
+		},
+		{
+			"step_number": "8",
+			"step_description": "Query Allocation Report for provided Unit level GTIN number",
+			"expected_result": ["Allocation Reports are queried based on provided GTIN.",
+			"System displays search result.",
+			"Screenshot is taken."],
+			"actual_result": ["2018-09-25 09:44:46 EDT	Executing the query to search Allocation Reports.",
+			"2018-09-25 09:44:48 EDT	Search successful. System is displaying Search Results.",
+			"2018-09-25 09:44:51 EDT	Screenshot taken with search results for packaging code unit level.",
+			"./screenshots/snapscreen_1537926291012_1537926291060.png"]
+		},
+		{
+			"step_number": "9",
+			"step_description": "Assert Case/Shipper level Serial Number counts from the screen",
+			"expected_result": ["Serial Number counts are asserted for Case/Shipper level packaging from the screen.",
+			"Serial Number counts are recorded. "],
+			"actual_result": ["2018-09-25 09:44:51 EDT	Serial Number counts are asserted for Case/Shipper level packaging from the screen.",
+			"",
+			"2018-09-25 09:44:51 EDT	Serial Number counts are recorded.",
+			"2018-09-25 09:44:51 EDT	Total Numbers Provisioned: 6,500",
+			"2018-09-25 09:44:51 EDT	Total Numbers Deactivated: 0",
+			"2018-09-25 09:44:51 EDT	Total Numbers Used: 1,289",
+			"2018-09-25 09:44:51 EDT	Total Numbers Decommissioned: 0"]
+		},
+		{
+			"step_number": "10",
+			"step_description": "Use hyperlinks and drill down for Serial Numbers Provisioned for Case/Shipper Level",
+			"expected_result": ["Serial Numbers Provisioned details are accessed using hyperlink on the screen.",
+			"Screenshot is taken."],
+			"actual_result": ["2018-09-25 09:44:53 EDT	Serial Numbers Provisioned details are accessed using hyperlink on the screen.",
+			"2018-09-25 09:44:53 EDT	Screenshot is taken.",
+			"./screenshots/snapscreen_1537926291012_1537926291061.png"]
+		},
+		{
+			"step_number": "11",
+			"step_description": "Use hyperlinks and drill down for Serial Numbers Used for Case/Shipper Level",
+			"expected_result": ["Serial Numbers Used details are accessed using hyperlink on the screen",
+			"Screenshot is taken."],
+			"actual_result": ["2018-09-25 09:45:08 EDT	Serial Numbers Used details are accessed using hyperlink on the screen.",
+			"2018-09-25 09:44:53 EDT	Screenshot is taken.",
+			"./screenshots/snapscreen_1537926291012_1537926291062.png"]
+		}]
+	},
+	{
+		"testname": "ALLOCATION REPORTS VERIFICATION",
+		"test_objective": "The objective is to ensure that serial numbers are requested for the randomly selected packaging code.",
+		"test_acceptance": "Serial number requests exist for the randomly selected packaging code.",
+		"steps": [{
+			"step_number": "1",
+			"step_description": "Access Allocation Reports Screen",
+			"expected_result": ["Allocation Reports Screen is accessed"],
+			"actual_result": ["2018-09-25 09:44:01 EDT Allocation Reports Screen is accessed successfully."]
+		},
+		{
+			"step_number": "2",
+			"step_description": "Fetch and record unit level packaging code value from input parameter dataset",
+			"expected_result": ["Fetched and recorded following parameter values from dataset:",
+			"•	Unit Level Packaging Code",
+			"•	Service Link"],
+			"actual_result": ["2018-09-25 09:44:13 EDT Following parameter values from dataset:",
+			"•	Unit Level Packaging Code: GTIN-14 00368992307539",
+			"•	Service Link: Veloxis Pharmaceuticals, Inc. - Pharma Packaging Solutions (PPS)"]
+		},
+		{
+			"step_number": "3",
+			"step_description": "Query Allocation Report for provided Unit level GTIN number",
+			"expected_result": ["Allocation Reports are queried based on provided GTIN.",
+			"System displays search result.",
+			"Screenshot is taken."],
+			"actual_result": ["2018-09-25 09:44:15 EDT	Executing the query to search Allocation Reports.",
+			"2018-09-25 09:44:21 EDT	Search successful. System is displaying Search Results.",
+			"2018-09-25 09:44:21 EDT	Screenshot taken with search results for packaging code unit level.",
+			"./screenshots/snapscreen_1537926261355_1537926261404.png"]
+		},
+		{
+			"step_number": "4",
+			"step_description": "Assert unit level Serial Number counts from the screen",
+			"expected_result": ["Serial Number counts are asserted for Unit level packaging from the screen.",
+			"Serial Number counts are recorded."],
+			"actual_result": ["2018-09-25 09:44:21 EDT	Serial Number counts are asserted for Unit level packaging from the screen.",
+			"2018-09-25 09:44:21 EDT	Serial Number counts are recorded.",
+			"2018-09-25 09:44:21 EDT	Total Numbers Provisioned: 67,200",
+			"2018-09-25 09:44:21 EDT	Total Numbers Deactivated: 0",
+			"2018-09-25 09:44:21 EDT	Total Numbers Used: 15,477",
+			"2018-09-25 09:44:21 EDT	Total Numbers Decommissioned: 0"]
+		},
+		{
+			"step_number": "5",
+			"step_description": "Use hyperlinks and drill down for Serial Numbers Provisioned for Unit Level",
+			"expected_result": ["Serial Numbers Provisioned details are accessed using hyperlink on the screen.",
+			"Screenshot is taken."],
+			"actual_result": ["2018-09-25 09:44:23 EDT	Serial Numbers Provisioned details are accessed using hyperlink on the screen.",
+			" ",
+			"2018-09-25 09:44:23 EDT	Screenshot is taken.",
+			"./screenshots/snapscreen_1537926261355_1537926261405.png"]
+		},
+		{
+			"step_number": "6",
+			"step_description": "Use hyperlinks and drill down for Serial Numbers Used for Unit Level",
+			"expected_result": ["Serial Numbers Used details are accessed using hyperlink on the screen.",
+			"Screenshot is taken."],
+			"actual_result": ["2018-09-25 09:44:38 EDT	Serial Numbers Used details are accessed using hyperlink on the screen.",
+			" ",
+			"2018-09-25 09:44:23 EDT	Screenshot is taken.",
+			"./screenshots/snapscreen_1537926261355_1537926261406.png"]
+		},
+		{
+			"step_number": "7",
+			"step_description": "Fetch and record Case/Shipper level packaging code value from input parameter dataset",
+			"expected_result": ["Fetched and recorded following parameter values from dataset:",
+			"•	Case/Shipper Level Packaging Code",
+			"•	Service Link"],
+			"actual_result": ["2018-09-25 09:44:46 EDT Following parameter values from dataset:",
+			"•	Case/Shipper Level Packaging Code: GTIN-14 00368992307536",
+			"•	Service Link: Veloxis Pharmaceuticals, Inc. - Pharma Packaging Solutions (PPS)"]
+		},
+		{
+			"step_number": "8",
+			"step_description": "Query Allocation Report for provided Unit level GTIN number",
+			"expected_result": ["Allocation Reports are queried based on provided GTIN.",
+			"System displays search result.",
+			"Screenshot is taken."],
+			"actual_result": ["2018-09-25 09:44:46 EDT	Executing the query to search Allocation Reports.",
+			"2018-09-25 09:44:48 EDT	Search successful. System is displaying Search Results.",
+			"2018-09-25 09:44:51 EDT	Screenshot taken with search results for packaging code unit level.",
+			"./screenshots/snapscreen_1537926291012_1537926291060.png"]
+		},
+		{
+			"step_number": "9",
+			"step_description": "Assert Case/Shipper level Serial Number counts from the screen",
+			"expected_result": ["Serial Number counts are asserted for Case/Shipper level packaging from the screen.",
+			"Serial Number counts are recorded. "],
+			"actual_result": ["2018-09-25 09:44:51 EDT	Serial Number counts are asserted for Case/Shipper level packaging from the screen.",
+			"",
+			"2018-09-25 09:44:51 EDT	Serial Number counts are recorded.",
+			"2018-09-25 09:44:51 EDT	Total Numbers Provisioned: 6,500",
+			"2018-09-25 09:44:51 EDT	Total Numbers Deactivated: 0",
+			"2018-09-25 09:44:51 EDT	Total Numbers Used: 1,289",
+			"2018-09-25 09:44:51 EDT	Total Numbers Decommissioned: 0"]
+		},
+		{
+			"step_number": "10",
+			"step_description": "Use hyperlinks and drill down for Serial Numbers Provisioned for Case/Shipper Level",
+			"expected_result": ["Serial Numbers Provisioned details are accessed using hyperlink on the screen.",
+			"Screenshot is taken."],
+			"actual_result": ["2018-09-25 09:44:53 EDT	Serial Numbers Provisioned details are accessed using hyperlink on the screen.",
+			"2018-09-25 09:44:53 EDT	Screenshot is taken.",
+			"./screenshots/snapscreen_1537926291012_1537926291061.png"]
+		},
+		{
+			"step_number": "11",
+			"step_description": "Use hyperlinks and drill down for Serial Numbers Used for Case/Shipper Level",
+			"expected_result": ["Serial Numbers Used details are accessed using hyperlink on the screen",
+			"Screenshot is taken."],
+			"actual_result": ["2018-09-25 09:45:08 EDT	Serial Numbers Used details are accessed using hyperlink on the screen.",
+			"2018-09-25 09:44:53 EDT	Screenshot is taken.",
+			"./screenshots/snapscreen_1537926291012_1537926291062.png"]
+		}]
+	},
+	{
+		"testname": "ALLOCATION REPORTS VERIFICATION",
+		"test_objective": "The objective is to ensure that serial numbers are requested for the randomly selected packaging code.",
+		"test_acceptance": "Serial number requests exist for the randomly selected packaging code.",
+		"steps": [{
+			"step_number": "1",
+			"step_description": "Access Allocation Reports Screen",
+			"expected_result": ["Allocation Reports Screen is accessed"],
+			"actual_result": ["2018-09-25 09:44:01 EDT Allocation Reports Screen is accessed successfully."]
+		},
+		{
+			"step_number": "2",
+			"step_description": "Fetch and record unit level packaging code value from input parameter dataset",
+			"expected_result": ["Fetched and recorded following parameter values from dataset:",
+			"•	Unit Level Packaging Code",
+			"•	Service Link"],
+			"actual_result": ["2018-09-25 09:44:13 EDT Following parameter values from dataset:",
+			"•	Unit Level Packaging Code: GTIN-14 00368992307539",
+			"•	Service Link: Veloxis Pharmaceuticals, Inc. - Pharma Packaging Solutions (PPS)"]
+		},
+		{
+			"step_number": "3",
+			"step_description": "Query Allocation Report for provided Unit level GTIN number",
+			"expected_result": ["Allocation Reports are queried based on provided GTIN.",
+			"System displays search result.",
+			"Screenshot is taken."],
+			"actual_result": ["2018-09-25 09:44:15 EDT	Executing the query to search Allocation Reports.",
+			"2018-09-25 09:44:21 EDT	Search successful. System is displaying Search Results.",
+			"2018-09-25 09:44:21 EDT	Screenshot taken with search results for packaging code unit level.",
+			"./screenshots/snapscreen_1537926261355_1537926261404.png"]
+		},
+		{
+			"step_number": "4",
+			"step_description": "Assert unit level Serial Number counts from the screen",
+			"expected_result": ["Serial Number counts are asserted for Unit level packaging from the screen.",
+			"Serial Number counts are recorded."],
+			"actual_result": ["2018-09-25 09:44:21 EDT	Serial Number counts are asserted for Unit level packaging from the screen.",
+			"2018-09-25 09:44:21 EDT	Serial Number counts are recorded.",
+			"2018-09-25 09:44:21 EDT	Total Numbers Provisioned: 67,200",
+			"2018-09-25 09:44:21 EDT	Total Numbers Deactivated: 0",
+			"2018-09-25 09:44:21 EDT	Total Numbers Used: 15,477",
+			"2018-09-25 09:44:21 EDT	Total Numbers Decommissioned: 0"]
+		},
+		{
+			"step_number": "5",
+			"step_description": "Use hyperlinks and drill down for Serial Numbers Provisioned for Unit Level",
+			"expected_result": ["Serial Numbers Provisioned details are accessed using hyperlink on the screen.",
+			"Screenshot is taken."],
+			"actual_result": ["2018-09-25 09:44:23 EDT	Serial Numbers Provisioned details are accessed using hyperlink on the screen.",
+			" ",
+			"2018-09-25 09:44:23 EDT	Screenshot is taken.",
+			"./screenshots/snapscreen_1537926261355_1537926261405.png"]
+		},
+		{
+			"step_number": "6",
+			"step_description": "Use hyperlinks and drill down for Serial Numbers Used for Unit Level",
+			"expected_result": ["Serial Numbers Used details are accessed using hyperlink on the screen.",
+			"Screenshot is taken."],
+			"actual_result": ["2018-09-25 09:44:38 EDT	Serial Numbers Used details are accessed using hyperlink on the screen.",
+			" ",
+			"2018-09-25 09:44:23 EDT	Screenshot is taken.",
+			"./screenshots/snapscreen_1537926261355_1537926261406.png"]
+		},
+		{
+			"step_number": "7",
+			"step_description": "Fetch and record Case/Shipper level packaging code value from input parameter dataset",
+			"expected_result": ["Fetched and recorded following parameter values from dataset:",
+			"•	Case/Shipper Level Packaging Code",
+			"•	Service Link"],
+			"actual_result": ["2018-09-25 09:44:46 EDT Following parameter values from dataset:",
+			"•	Case/Shipper Level Packaging Code: GTIN-14 00368992307536",
+			"•	Service Link: Veloxis Pharmaceuticals, Inc. - Pharma Packaging Solutions (PPS)"]
+		},
+		{
+			"step_number": "8",
+			"step_description": "Query Allocation Report for provided Unit level GTIN number",
+			"expected_result": ["Allocation Reports are queried based on provided GTIN.",
+			"System displays search result.",
+			"Screenshot is taken."],
+			"actual_result": ["2018-09-25 09:44:46 EDT	Executing the query to search Allocation Reports.",
+			"2018-09-25 09:44:48 EDT	Search successful. System is displaying Search Results.",
+			"2018-09-25 09:44:51 EDT	Screenshot taken with search results for packaging code unit level.",
+			"./screenshots/snapscreen_1537926291012_1537926291060.png"]
+		},
+		{
+			"step_number": "9",
+			"step_description": "Assert Case/Shipper level Serial Number counts from the screen",
+			"expected_result": ["Serial Number counts are asserted for Case/Shipper level packaging from the screen.",
+			"Serial Number counts are recorded. "],
+			"actual_result": ["2018-09-25 09:44:51 EDT	Serial Number counts are asserted for Case/Shipper level packaging from the screen.",
+			"",
+			"2018-09-25 09:44:51 EDT	Serial Number counts are recorded.",
+			"2018-09-25 09:44:51 EDT	Total Numbers Provisioned: 6,500",
+			"2018-09-25 09:44:51 EDT	Total Numbers Deactivated: 0",
+			"2018-09-25 09:44:51 EDT	Total Numbers Used: 1,289",
+			"2018-09-25 09:44:51 EDT	Total Numbers Decommissioned: 0"]
+		},
+		{
+			"step_number": "10",
+			"step_description": "Use hyperlinks and drill down for Serial Numbers Provisioned for Case/Shipper Level",
+			"expected_result": ["Serial Numbers Provisioned details are accessed using hyperlink on the screen.",
+			"Screenshot is taken."],
+			"actual_result": ["2018-09-25 09:44:53 EDT	Serial Numbers Provisioned details are accessed using hyperlink on the screen.",
+			"2018-09-25 09:44:53 EDT	Screenshot is taken.",
+			"./screenshots/snapscreen_1537926291012_1537926291061.png"]
+		},
+		{
+			"step_number": "11",
+			"step_description": "Use hyperlinks and drill down for Serial Numbers Used for Case/Shipper Level",
+			"expected_result": ["Serial Numbers Used details are accessed using hyperlink on the screen",
+			"Screenshot is taken."],
+			"actual_result": ["2018-09-25 09:45:08 EDT	Serial Numbers Used details are accessed using hyperlink on the screen.",
+			"2018-09-25 09:44:53 EDT	Screenshot is taken.",
+			"./screenshots/snapscreen_1537926291012_1537926291062.png"]
+		}]
+	},
+	{
+		"testname": "ALLOCATION REPORTS VERIFICATION",
+		"test_objective": "The objective is to ensure that serial numbers are requested for the randomly selected packaging code.",
+		"test_acceptance": "Serial number requests exist for the randomly selected packaging code.",
+		"steps": [{
+			"step_number": "1",
+			"step_description": "Access Allocation Reports Screen",
+			"expected_result": ["Allocation Reports Screen is accessed"],
+			"actual_result": ["2018-09-25 09:44:01 EDT Allocation Reports Screen is accessed successfully."]
+		},
+		{
+			"step_number": "2",
+			"step_description": "Fetch and record unit level packaging code value from input parameter dataset",
+			"expected_result": ["Fetched and recorded following parameter values from dataset:",
+			"•	Unit Level Packaging Code",
+			"•	Service Link"],
+			"actual_result": ["2018-09-25 09:44:13 EDT Following parameter values from dataset:",
+			"•	Unit Level Packaging Code: GTIN-14 00368992307539",
+			"•	Service Link: Veloxis Pharmaceuticals, Inc. - Pharma Packaging Solutions (PPS)"]
+		},
+		{
+			"step_number": "3",
+			"step_description": "Query Allocation Report for provided Unit level GTIN number",
+			"expected_result": ["Allocation Reports are queried based on provided GTIN.",
+			"System displays search result.",
+			"Screenshot is taken."],
+			"actual_result": ["2018-09-25 09:44:15 EDT	Executing the query to search Allocation Reports.",
+			"2018-09-25 09:44:21 EDT	Search successful. System is displaying Search Results.",
+			"2018-09-25 09:44:21 EDT	Screenshot taken with search results for packaging code unit level.",
+			"./screenshots/snapscreen_1537926261355_1537926261404.png"]
+		},
+		{
+			"step_number": "4",
+			"step_description": "Assert unit level Serial Number counts from the screen",
+			"expected_result": ["Serial Number counts are asserted for Unit level packaging from the screen.",
+			"Serial Number counts are recorded."],
+			"actual_result": ["2018-09-25 09:44:21 EDT	Serial Number counts are asserted for Unit level packaging from the screen.",
+			"2018-09-25 09:44:21 EDT	Serial Number counts are recorded.",
+			"2018-09-25 09:44:21 EDT	Total Numbers Provisioned: 67,200",
+			"2018-09-25 09:44:21 EDT	Total Numbers Deactivated: 0",
+			"2018-09-25 09:44:21 EDT	Total Numbers Used: 15,477",
+			"2018-09-25 09:44:21 EDT	Total Numbers Decommissioned: 0"]
+		},
+		{
+			"step_number": "5",
+			"step_description": "Use hyperlinks and drill down for Serial Numbers Provisioned for Unit Level",
+			"expected_result": ["Serial Numbers Provisioned details are accessed using hyperlink on the screen.",
+			"Screenshot is taken."],
+			"actual_result": ["2018-09-25 09:44:23 EDT	Serial Numbers Provisioned details are accessed using hyperlink on the screen.",
+			" ",
+			"2018-09-25 09:44:23 EDT	Screenshot is taken.",
+			"./screenshots/snapscreen_1537926261355_1537926261405.png"]
+		},
+		{
+			"step_number": "6",
+			"step_description": "Use hyperlinks and drill down for Serial Numbers Used for Unit Level",
+			"expected_result": ["Serial Numbers Used details are accessed using hyperlink on the screen.",
+			"Screenshot is taken."],
+			"actual_result": ["2018-09-25 09:44:38 EDT	Serial Numbers Used details are accessed using hyperlink on the screen.",
+			" ",
+			"2018-09-25 09:44:23 EDT	Screenshot is taken.",
+			"./screenshots/snapscreen_1537926261355_1537926261406.png"]
+		},
+		{
+			"step_number": "7",
+			"step_description": "Fetch and record Case/Shipper level packaging code value from input parameter dataset",
+			"expected_result": ["Fetched and recorded following parameter values from dataset:",
+			"•	Case/Shipper Level Packaging Code",
+			"•	Service Link"],
+			"actual_result": ["2018-09-25 09:44:46 EDT Following parameter values from dataset:",
+			"•	Case/Shipper Level Packaging Code: GTIN-14 00368992307536",
+			"•	Service Link: Veloxis Pharmaceuticals, Inc. - Pharma Packaging Solutions (PPS)"]
+		},
+		{
+			"step_number": "8",
+			"step_description": "Query Allocation Report for provided Unit level GTIN number",
+			"expected_result": ["Allocation Reports are queried based on provided GTIN.",
+			"System displays search result.",
+			"Screenshot is taken."],
+			"actual_result": ["2018-09-25 09:44:46 EDT	Executing the query to search Allocation Reports.",
+			"2018-09-25 09:44:48 EDT	Search successful. System is displaying Search Results.",
+			"2018-09-25 09:44:51 EDT	Screenshot taken with search results for packaging code unit level.",
+			"./screenshots/snapscreen_1537926291012_1537926291060.png"]
+		},
+		{
+			"step_number": "9",
+			"step_description": "Assert Case/Shipper level Serial Number counts from the screen",
+			"expected_result": ["Serial Number counts are asserted for Case/Shipper level packaging from the screen.",
+			"Serial Number counts are recorded. "],
+			"actual_result": ["2018-09-25 09:44:51 EDT	Serial Number counts are asserted for Case/Shipper level packaging from the screen.",
+			"",
+			"2018-09-25 09:44:51 EDT	Serial Number counts are recorded.",
+			"2018-09-25 09:44:51 EDT	Total Numbers Provisioned: 6,500",
+			"2018-09-25 09:44:51 EDT	Total Numbers Deactivated: 0",
+			"2018-09-25 09:44:51 EDT	Total Numbers Used: 1,289",
+			"2018-09-25 09:44:51 EDT	Total Numbers Decommissioned: 0"]
+		},
+		{
+			"step_number": "10",
+			"step_description": "Use hyperlinks and drill down for Serial Numbers Provisioned for Case/Shipper Level",
+			"expected_result": ["Serial Numbers Provisioned details are accessed using hyperlink on the screen.",
+			"Screenshot is taken."],
+			"actual_result": ["2018-09-25 09:44:53 EDT	Serial Numbers Provisioned details are accessed using hyperlink on the screen.",
+			"2018-09-25 09:44:53 EDT	Screenshot is taken.",
+			"./screenshots/snapscreen_1537926291012_1537926291061.png"]
+		},
+		{
+			"step_number": "11",
+			"step_description": "Use hyperlinks and drill down for Serial Numbers Used for Case/Shipper Level",
+			"expected_result": ["Serial Numbers Used details are accessed using hyperlink on the screen",
+			"Screenshot is taken."],
+			"actual_result": ["2018-09-25 09:45:08 EDT	Serial Numbers Used details are accessed using hyperlink on the screen.",
+			"2018-09-25 09:44:53 EDT	Screenshot is taken.",
+			"./screenshots/snapscreen_1537926291012_1537926291062.png"]
+		}]
+	},
+	{
+		"testname": "ALLOCATION REPORTS VERIFICATION",
+		"test_objective": "The objective is to ensure that serial numbers are requested for the randomly selected packaging code.",
+		"test_acceptance": "Serial number requests exist for the randomly selected packaging code.",
+		"steps": [{
+			"step_number": "1",
+			"step_description": "Access Allocation Reports Screen",
+			"expected_result": ["Allocation Reports Screen is accessed"],
+			"actual_result": ["2018-09-25 09:44:01 EDT Allocation Reports Screen is accessed successfully."]
+		},
+		{
+			"step_number": "2",
+			"step_description": "Fetch and record unit level packaging code value from input parameter dataset",
+			"expected_result": ["Fetched and recorded following parameter values from dataset:",
+			"•	Unit Level Packaging Code",
+			"•	Service Link"],
+			"actual_result": ["2018-09-25 09:44:13 EDT Following parameter values from dataset:",
+			"•	Unit Level Packaging Code: GTIN-14 00368992307539",
+			"•	Service Link: Veloxis Pharmaceuticals, Inc. - Pharma Packaging Solutions (PPS)"]
+		},
+		{
+			"step_number": "3",
+			"step_description": "Query Allocation Report for provided Unit level GTIN number",
+			"expected_result": ["Allocation Reports are queried based on provided GTIN.",
+			"System displays search result.",
+			"Screenshot is taken."],
+			"actual_result": ["2018-09-25 09:44:15 EDT	Executing the query to search Allocation Reports.",
+			"2018-09-25 09:44:21 EDT	Search successful. System is displaying Search Results.",
+			"2018-09-25 09:44:21 EDT	Screenshot taken with search results for packaging code unit level.",
+			"./screenshots/snapscreen_1537926261355_1537926261404.png"]
+		},
+		{
+			"step_number": "4",
+			"step_description": "Assert unit level Serial Number counts from the screen",
+			"expected_result": ["Serial Number counts are asserted for Unit level packaging from the screen.",
+			"Serial Number counts are recorded."],
+			"actual_result": ["2018-09-25 09:44:21 EDT	Serial Number counts are asserted for Unit level packaging from the screen.",
+			"2018-09-25 09:44:21 EDT	Serial Number counts are recorded.",
+			"2018-09-25 09:44:21 EDT	Total Numbers Provisioned: 67,200",
+			"2018-09-25 09:44:21 EDT	Total Numbers Deactivated: 0",
+			"2018-09-25 09:44:21 EDT	Total Numbers Used: 15,477",
+			"2018-09-25 09:44:21 EDT	Total Numbers Decommissioned: 0"]
+		},
+		{
+			"step_number": "5",
+			"step_description": "Use hyperlinks and drill down for Serial Numbers Provisioned for Unit Level",
+			"expected_result": ["Serial Numbers Provisioned details are accessed using hyperlink on the screen.",
+			"Screenshot is taken."],
+			"actual_result": ["2018-09-25 09:44:23 EDT	Serial Numbers Provisioned details are accessed using hyperlink on the screen.",
+			" ",
+			"2018-09-25 09:44:23 EDT	Screenshot is taken.",
+			"./screenshots/snapscreen_1537926261355_1537926261405.png"]
+		},
+		{
+			"step_number": "6",
+			"step_description": "Use hyperlinks and drill down for Serial Numbers Used for Unit Level",
+			"expected_result": ["Serial Numbers Used details are accessed using hyperlink on the screen.",
+			"Screenshot is taken."],
+			"actual_result": ["2018-09-25 09:44:38 EDT	Serial Numbers Used details are accessed using hyperlink on the screen.",
+			" ",
+			"2018-09-25 09:44:23 EDT	Screenshot is taken.",
+			"./screenshots/snapscreen_1537926261355_1537926261406.png"]
+		},
+		{
+			"step_number": "7",
+			"step_description": "Fetch and record Case/Shipper level packaging code value from input parameter dataset",
+			"expected_result": ["Fetched and recorded following parameter values from dataset:",
+			"•	Case/Shipper Level Packaging Code",
+			"•	Service Link"],
+			"actual_result": ["2018-09-25 09:44:46 EDT Following parameter values from dataset:",
+			"•	Case/Shipper Level Packaging Code: GTIN-14 00368992307536",
+			"•	Service Link: Veloxis Pharmaceuticals, Inc. - Pharma Packaging Solutions (PPS)"]
+		},
+		{
+			"step_number": "8",
+			"step_description": "Query Allocation Report for provided Unit level GTIN number",
+			"expected_result": ["Allocation Reports are queried based on provided GTIN.",
+			"System displays search result.",
+			"Screenshot is taken."],
+			"actual_result": ["2018-09-25 09:44:46 EDT	Executing the query to search Allocation Reports.",
+			"2018-09-25 09:44:48 EDT	Search successful. System is displaying Search Results.",
+			"2018-09-25 09:44:51 EDT	Screenshot taken with search results for packaging code unit level.",
+			"./screenshots/snapscreen_1537926291012_1537926291060.png"]
+		},
+		{
+			"step_number": "9",
+			"step_description": "Assert Case/Shipper level Serial Number counts from the screen",
+			"expected_result": ["Serial Number counts are asserted for Case/Shipper level packaging from the screen.",
+			"Serial Number counts are recorded. "],
+			"actual_result": ["2018-09-25 09:44:51 EDT	Serial Number counts are asserted for Case/Shipper level packaging from the screen.",
+			"",
+			"2018-09-25 09:44:51 EDT	Serial Number counts are recorded.",
+			"2018-09-25 09:44:51 EDT	Total Numbers Provisioned: 6,500",
+			"2018-09-25 09:44:51 EDT	Total Numbers Deactivated: 0",
+			"2018-09-25 09:44:51 EDT	Total Numbers Used: 1,289",
+			"2018-09-25 09:44:51 EDT	Total Numbers Decommissioned: 0"]
+		},
+		{
+			"step_number": "10",
+			"step_description": "Use hyperlinks and drill down for Serial Numbers Provisioned for Case/Shipper Level",
+			"expected_result": ["Serial Numbers Provisioned details are accessed using hyperlink on the screen.",
+			"Screenshot is taken."],
+			"actual_result": ["2018-09-25 09:44:53 EDT	Serial Numbers Provisioned details are accessed using hyperlink on the screen.",
+			"2018-09-25 09:44:53 EDT	Screenshot is taken.",
+			"./screenshots/snapscreen_1537926291012_1537926291061.png"]
+		},
+		{
+			"step_number": "11",
+			"step_description": "Use hyperlinks and drill down for Serial Numbers Used for Case/Shipper Level",
+			"expected_result": ["Serial Numbers Used details are accessed using hyperlink on the screen",
+			"Screenshot is taken."],
+			"actual_result": ["2018-09-25 09:45:08 EDT	Serial Numbers Used details are accessed using hyperlink on the screen.",
+			"2018-09-25 09:44:53 EDT	Screenshot is taken.",
+			"./screenshots/snapscreen_1537926291012_1537926291062.png"]
+		}]
 	}]
 }

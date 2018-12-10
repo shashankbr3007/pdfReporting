@@ -13,8 +13,7 @@ import static com.xml.pdfreporting.Utility.setFont;
 public class HeaderFooterPageEvent extends PdfPageEventHelper {
 
     public static Map<String, Integer> index = new LinkedHashMap<String, Integer>();
-    private static int[] order;
-    Font FONT = new Font(Font.FontFamily.TIMES_ROMAN, 32, Font.BOLDITALIC, new GrayColor(0.85f));
+    public static int order;
     private PdfTemplate t;
     private Image total;
     private String header;
@@ -132,7 +131,7 @@ public class HeaderFooterPageEvent extends PdfPageEventHelper {
         PdfPTable footer = new PdfPTable(3);
         try {
             // set defaults
-            footer.setWidths(new int[]{24, 2, 1 });
+            footer.setWidths(new int[]{24, 2, 1});
             footer.setWidthPercentage(100);
             footer.setTotalWidth(950);
             footer.setLockedWidth(true);
@@ -146,7 +145,13 @@ public class HeaderFooterPageEvent extends PdfPageEventHelper {
 
             // add current page count
             footer.getDefaultCell().setHorizontalAlignment(Element.ALIGN_RIGHT);
-            footer.addCell(new Phrase(setFont(String.format("Page %d of", writer.getPageNumber()), 8, BaseColor.BLACK, Font.NORMAL)));
+            if (order == 0) {
+
+                footer.addCell(new Phrase(setFont(String.format("Page %d of", writer.getPageNumber()), 8, BaseColor.BLACK, Font.NORMAL)));
+            } else {
+                footer.addCell(new Phrase(setFont((String.format("Total Pages ")), 8, BaseColor.BLACK, Font.NORMAL)));
+            }
+            //footer.addCell(new Phrase(setFont(String.format("Page %d of", writer.getPageNumber()), 8, BaseColor.BLACK, Font.NORMAL)));
 
             // add placeholder for total page count
             PdfPCell totalPageCount = new PdfPCell(total);
@@ -210,62 +215,5 @@ public class HeaderFooterPageEvent extends PdfPageEventHelper {
 
     public void setWaterMarkTextyPosition(int waterMarkTextyPosition) {
         this.waterMarkTextyPosition = waterMarkTextyPosition;
-    }
-
-    public void reOrderPages(Document document, PdfWriter writer) {
-        try {
-            //When you add your table of contents, get its page number for the reordering:
-
-
-            // always add to a new page before reordering pages.
-            //document.newPage();
-
-            // get the total number of pages that needs to be reordered
-            int total = writer.reorderPages(null);
-
-            // change the order
-            order = new int[total];
-
-            for (int i = 0; i < total + 1; i++) {
-                if (i == 0) {
-                    order[i] = 1;
-                } else if (i == PDFReporter.firstChapterPageNum - 1) {
-                    order[i] = total;
-                    total--;
-                } else if (i < PDFReporter.firstChapterPageNum) {
-                    order[i] = i + 1;
-                } else {
-                    order[i] = i;
-                    if (order[i] > total) {
-                        order[i] -= total;
-                        order[i] += 1;
-                    }
-                }
-                //System.out.print(order[i] + " ");
-            }
-
-            // apply the new order
-            writer.reorderPages(order);
-
-
-            //document.close();
-        } catch (DocumentException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private static class IndexEvent extends PdfPageEventHelper {
-        private int page;
-        private boolean body;
-
-        @Override
-        public void onEndPage(PdfWriter writer, Document document) {
-            // set page number on content
-            if (body) {
-                page++;
-                ColumnText.showTextAligned(writer.getDirectContent(), Element.ALIGN_CENTER,
-                        new Phrase(page + ""), (document.right() + document.left()) / 2, document.bottom() - 18, 0);
-            }
-        }
     }
 }

@@ -8,7 +8,7 @@ Corrections
 
 Missing and Improvements
 - Need to include Table of Content - Done (Is there a scenario where TOC will be more than 1 page) - yes, Usally more than one page
- ---> Need to handle the page numbers **** ( Look for a way to copy the content)
+ ---> Need to handle the page numbers **** ( Look for a way to copy the content)-- Done
  ---> Need to work on formula for Seq images() -- Done, need a sample to test the implementaion
  ---> Need to Handle Multiple images in a cell -- Done
 - Correct the Font and text size, with table header row shades - done
