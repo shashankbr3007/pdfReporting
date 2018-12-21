@@ -8,24 +8,27 @@ import com.itextpdf.text.pdf.draw.DottedLineSeparator;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.IntStream;
 
-import static com.xml.pdfreporting.Utility.setCellFonts;
+import static com.xml.pdfreporting.Utility.imageCell;
 import static com.xml.pdfreporting.Utility.setFont;
 
-public class PDFReporter {
+class PDFReporter {
 
-    public static String fileName;
-    public static int firstChapterPageNum;
-    public PdfWriter writer;
+    private String fileName;
+    private int firstChapterPageNum;
+    private PdfWriter writer;
     private List<String> textComment;
     private String header;
     private String docnumber;
@@ -38,14 +41,12 @@ public class PDFReporter {
     private JSONObject watermark;
     private List<JSONObject> signatureDetails;
     private JSONObject testcasesummary;
-    private int testcaseCount;
 
-    public static void setReviewcommentTable(Document document) throws DocumentException {
+    private static void setReviewcommentTable(Document document) throws DocumentException {
         PdfPTable review = new PdfPTable(new float[]{10F, 40F});
 
         PdfPCell line = new PdfPCell();
         line.setBorder(Rectangle.BOX);
-
 
         PdfPCell header = new PdfPCell();
         header.setBorder(Rectangle.BOX);
@@ -59,8 +60,8 @@ public class PDFReporter {
         review.addCell(line);
 
         line.setPhrase(new Paragraph(setFont("Comments", 11, BaseColor.BLACK, Font.NORMAL)));
-        ;
         review.addCell(line);
+
         line.setFixedHeight(180);
         line.setPhrase(new Paragraph("\n\n"));
         review.addCell(line);
@@ -73,7 +74,7 @@ public class PDFReporter {
 
     }
 
-    public static PdfPTable setModelDetails(JSONObject details) {
+    private static PdfPTable setModelDetails(JSONObject details) {
 
         PdfPTable modelDetails = new PdfPTable(new float[]{10, 25, 40});
         modelDetails.setWidthPercentage(85);
@@ -99,7 +100,7 @@ public class PDFReporter {
         return modelDetails;
     }
 
-    public void setSignatureTable(Document document) throws DocumentException, IOException {
+    private void setSignatureTable(Document document) throws DocumentException, IOException {
 
         PdfPTable signature = new PdfPTable(new float[]{25F, 15F, 10F, 40F});
         int tableHeight = 310;
@@ -125,13 +126,10 @@ public class PDFReporter {
         for (JSONObject approver : signatureDetails) {
             signature.addCell(horizontalgap);
 
-            Image img = Image.getInstance(String.valueOf(approver.get("image")));
-            img.scalePercent(20);
-            img.setAlignment(Element.ALIGN_CENTER);
             PdfPCell nameImage = new PdfPCell();
             nameImage.setFixedHeight((tableHeight / 2) / signatureDetails.size());
             nameImage.setBorder(Rectangle.TOP);
-            nameImage.addElement(img);
+            nameImage.addElement(imageCell(String.valueOf(approver.get("image"))));
 
             names.setPhrase(new Phrase(setFont(String.valueOf(approver.get("approver")), 11, BaseColor.BLACK, Font.NORMAL)));
             signature.addCell(names);
@@ -145,7 +143,7 @@ public class PDFReporter {
         document.add(signature);
     }
 
-    public void setExecutionModelDetails(Document document) throws DocumentException, ParseException {
+    private void setExecutionModelDetails(Document document) throws DocumentException {
 
         Chapter executionModelDetails = new Chapter(new Paragraph("ENVIRONMENT DETAILS "), 1);
 
@@ -173,7 +171,7 @@ public class PDFReporter {
         document.add(executionModelDetails);
     }
 
-    public void setPostExecutionApprovals(Document document) throws DocumentException {
+    private void setPostExecutionApprovals(Document document) throws DocumentException {
 
         PdfPTable comments = new PdfPTable(1);
         comments.setWidthPercentage(85);
@@ -200,13 +198,13 @@ public class PDFReporter {
         document.add(new Paragraph("\n\n"));
     }
 
-    public Document PDFReporter() throws Exception {
+    Document PDFReporter() throws Exception {
 
         setTemplateProps();
         Document document = new Document(PageSize.LEGAL.rotate());
         document.setMargins(30, 30, 65, 65);
         writer = PdfWriter.getInstance(document,
-                new FileOutputStream("./Reports/" + fileName /*+ "_" + formattedDate()*/ + ".pdf"));
+                new FileOutputStream(fileName));
 
         writer.setLinearPageMode();
         /*SET HEADER AND FOOTER FOR THE PDF*/
@@ -232,7 +230,6 @@ public class PDFReporter {
         setPostExecutionApprovals(document);
         setReviewcommentTable(document);
         setSignatureTable(document);
-        forTOC();
 
         setExecutionModelDetails(document);
         if (testcasesummary != null) {
@@ -240,11 +237,6 @@ public class PDFReporter {
         }
 
         return document;
-    }
-
-    private void forTOC() {
-
-
     }
 
     private void setTestSummaryDetails(Document document) throws IOException, DocumentException {
@@ -272,8 +264,8 @@ public class PDFReporter {
         value.setHorizontalAlignment(Element.ALIGN_CENTER);
         value.setVerticalAlignment(Element.ALIGN_MIDDLE);
 
-        for (int count = 0; count < testsummary.size(); count++) {
-            JSONObject test = (JSONObject) testsummary.get(count);
+        for (Object aTestsummary : testsummary) {
+            JSONObject test = (JSONObject) aTestsummary;
 
             value.setPhrase(setFont((String) test.get("test_case_title"), 11, BaseColor.BLACK, Font.NORMAL));
             summaryTable.addCell(value);
@@ -313,13 +305,19 @@ public class PDFReporter {
         PdfPTable logo = new PdfPTable(1);
         logo.setWidthPercentage(100);
 
+        PdfPCell cell = new PdfPCell();
+        cell.setBorder(Rectangle.NO_BORDER);
+        cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+        cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 
-        logo.addCell(setCellFonts(setFont("\n" + header + "\n", 18, BaseColor.BLACK, Font.BOLD), Element.ALIGN_CENTER, Element.ALIGN_MIDDLE)).setBorder(0);
+        cell.setPhrase(new Phrase(setFont("\n" + header + "\n", 18, BaseColor.BLACK, Font.BOLD)));
+        logo.addCell(cell);
 
-        logo.addCell(setCellFonts(setFont("\n" + "Confidential, Not for Recirculation" + "\n", 12, BaseColor.BLACK, Font.NORMAL), Element.ALIGN_CENTER, Element.ALIGN_MIDDLE)).setBorder(0);
+        cell.setPhrase(new Phrase(setFont("\n" + "Confidential, Not for Recirculation" + "\n", 12, BaseColor.BLACK, Font.NORMAL)));
+        logo.addCell(cell);
 
-        logo.addCell(setCellFonts(setFont("\n" + docnumber + "\n" + revnumber, 12, BaseColor.BLACK, Font.ITALIC), Element.ALIGN_CENTER, Element.ALIGN_MIDDLE)).setBorder(0);
-
+        cell.setPhrase(new Phrase(setFont("\n" + docnumber + "\n" + revnumber, 12, BaseColor.BLACK, Font.ITALIC)));
+        logo.addCell(cell);
 
         Paragraph preface = new Paragraph();
         preface.setSpacingBefore(PageSize.LEGAL.getHeight() / 8);
@@ -341,7 +339,12 @@ public class PDFReporter {
             header = (String) propJSON.get("header");
             headerimage = (String) propJSON.get("headerimage");
             footer = (String) propJSON.get("footer");
-            fileName = (String) propJSON.get("filename");
+
+
+            if (propJSON.get("filename") != null) {
+                fileName = "./Reports/" + propJSON.get("filename") + "_" + formattedDate() + ".pdf";
+            }
+
             docnumber = (String) propJSON.get("docnumber");
             revnumber = (String) propJSON.get("revnumber");
             watermark = (JSONObject) propJSON.get("watermark");
@@ -355,8 +358,8 @@ public class PDFReporter {
 
             JSONArray array = (JSONArray) propJSON.get("execution_approvals");
             textComment = new ArrayList<>();
-            for (int i = 0; i < array.size(); i++) {
-                textComment.add(String.valueOf(array.get(i)));
+            for (Object anArray : array) {
+                textComment.add(String.valueOf(anArray));
             }
 
             if (propJSON.containsKey("model_details")) {
@@ -378,8 +381,8 @@ public class PDFReporter {
             }
             signatureDetails = new ArrayList<>();
             JSONArray signatureDetls = (JSONArray) propJSON.get("signature_table");
-            for (int j = 0; j < signatureDetls.size(); j++) {
-                signatureDetails.add((JSONObject) signatureDetls.get(j));
+            for (Object signatureDetl : signatureDetls) {
+                signatureDetails.add((JSONObject) signatureDetl);
             }
 
         } catch (Exception e) {
@@ -389,11 +392,7 @@ public class PDFReporter {
 
     }
 
-    public void setTestcaseCount(int testcaseCount) {
-        this.testcaseCount = testcaseCount;
-    }
-
-    public void setTOC(Document document) throws DocumentException {
+    void setTOC(Document document) throws DocumentException {
         Set<String> indexkeys = HeaderFooterPageEvent.index.keySet();
         firstChapterPageNum = HeaderFooterPageEvent.index.get(HeaderFooterPageEvent.index.keySet().toArray()[0]);
 
@@ -401,6 +400,7 @@ public class PDFReporter {
         Paragraph toc = new Paragraph(setFont("TABLE OF CONTENTS\n\n", 14, BaseColor.DARK_GRAY, Font.BOLD));
         toc.setAlignment(Element.ALIGN_CENTER);
         document.add(toc);
+        HeaderFooterPageEvent.order = writer.getPageNumber();
         Chunk dottedLine = new Chunk(new DottedLineSeparator());
         Paragraph p;
 
@@ -410,18 +410,20 @@ public class PDFReporter {
             p.add(setFont(String.valueOf(HeaderFooterPageEvent.index.get(key)), 11, BaseColor.BLACK, Font.NORMAL));
             document.add(p);
         }
-        HeaderFooterPageEvent.order = writer.reorderPages(null);
+
         reOrderPages(document);
     }
 
-    public void reOrderPages(Document document) {
+    private void reOrderPages(Document document) {
         try {
             //When you add your table of contents, get its page number for the reordering:
 
+            int firstIndexPage = HeaderFooterPageEvent.order;
+            int totalIndexPages = (writer.getPageNumber() - HeaderFooterPageEvent.order + 1);
 
             // always add to a new page before reordering pages.
             document.newPage();
-            Paragraph toc = new Paragraph(setFont("Intentionally left blank for review and comments", 14, BaseColor.DARK_GRAY, Font.BOLD));
+            Paragraph toc = new Paragraph(setFont("Intentionally left blank for reviews and comments", 14, BaseColor.DARK_GRAY, Font.NORMAL));
             toc.setAlignment(Element.ALIGN_CENTER);
             document.add(toc);
 
@@ -430,34 +432,33 @@ public class PDFReporter {
 
             // change the order
             int[] order = new int[total];
+            int[] rangeOne = IntStream.rangeClosed(1, firstChapterPageNum - 1).toArray();
+            int[] rangeTwo = IntStream.rangeClosed(firstIndexPage, firstIndexPage + totalIndexPages - 1).toArray();
+            int[] rangeThree = IntStream.rangeClosed(firstChapterPageNum, firstIndexPage - 1).toArray();
+            int[] rangeFour = IntStream.rangeClosed(firstIndexPage + totalIndexPages, total).toArray();
 
-            for (int i = 0; i < total + 1; i++) {
-                if (i == 0) {
-                    order[i] = 1;
-                } else if (i == firstChapterPageNum - 1) {
-                    order[i] = total;
-                    total--;
-                } else if (i < firstChapterPageNum) {
-                    order[i] = i + 1;
-                } else {
-                    order[i] = i;
-                    if (order[i] > total) {
-                        order[i] -= total;
-                        order[i] += 1;
-                    }
-                }
-                //System.out.print(order[i] + " ");
-            }
+            System.arraycopy(rangeOne, 0, order, 0, rangeOne.length);
+            System.arraycopy(rangeTwo, 0, order, rangeOne.length, rangeTwo.length);
+            System.arraycopy(rangeThree, 0, order, rangeOne.length + rangeTwo.length, rangeThree.length);
+            System.arraycopy(rangeFour, 0, order, rangeOne.length + rangeTwo.length + rangeThree.length, rangeFour.length);
 
             writer.getDirectContent();
 
             // apply the new order
             writer.reorderPages(order);
 
-
             //document.close();
         } catch (DocumentException e) {
             e.printStackTrace();
         }
+    }
+
+    private String formattedDate() {
+
+        Date date = new Date();
+        String strDateFormat = "yyyyMMddhhmmssSSS";
+        DateFormat dateFormat = new SimpleDateFormat(strDateFormat);
+        return dateFormat.format(date);
+
     }
 }

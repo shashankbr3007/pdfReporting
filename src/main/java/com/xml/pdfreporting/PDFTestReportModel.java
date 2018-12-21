@@ -1,7 +1,6 @@
 package com.xml.pdfreporting;
 
 import com.itextpdf.text.*;
-import com.itextpdf.text.pdf.FontSelector;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 
@@ -12,7 +11,7 @@ import java.util.List;
 import static com.xml.pdfreporting.Utility.imageCell;
 import static com.xml.pdfreporting.Utility.setFont;
 
-public class PDFTestReportModel {
+class PDFTestReportModel {
 
     private PdfPTable table;
     private PdfPTable objtable;
@@ -20,67 +19,43 @@ public class PDFTestReportModel {
     private String stepNum;
     private String description;
     private List<String> expected;
-    private String objective = " ";
-    private String acceptance = " ";
+    private String objective;
+    private String acceptance;
     private List<String> actuals;
 
-    public PDFTestReportModel(String testName, String Objec, String Acceptnce) {
+    PDFTestReportModel(String testName, String Objec, String Acceptnce) {
         this.testName = testName;
+        objective = " ";
         this.objective = Objec;
         this.acceptance = Acceptnce;
         defineTestExecutionTable();
     }
 
-    public static PdfPCell setCellFonts(Phrase phrase, int horizontalAlignment, int verticalAlignment) {
-        PdfPCell AlignCell = new PdfPCell(phrase);
-        AlignCell.setHorizontalAlignment(horizontalAlignment);
-        AlignCell.setVerticalAlignment(verticalAlignment);
-
-        return AlignCell;
-    }
-
-    public static Phrase setFont1(String text, int size, BaseColor color, int font) {
-        FontSelector selector1 = new FontSelector();
-        Font f1 = FontFactory.getFont(FontFactory.TIMES_ROMAN, size, font);
-        f1.setColor(color);
-        selector1.addFont(f1);
-        Phrase ph = selector1.process(text);
-        return ph;
-    }
-
-    public String getDescription() {
+    private String getDescription() {
         return description;
     }
 
-    public void setDescription(String description) {
+    void setDescription(String description) {
         this.description = description;
     }
 
-    public String getTestName() {
+    private String getTestName() {
         return testName;
     }
 
-    public void setTestName(String testName) {
-        this.testName = testName;
-    }
-
-    public List<String> getexpected() {
+    private List<String> getexpected() {
         return expected;
     }
 
-    public void setexpected(List<String> expected) {
+    void setexpected(List<String> expected) {
         this.expected = expected;
     }
 
-    public List<String> getactuals() {
-        return actuals;
-    }
-
-    public void setactuals(List<String> actuals) {
+    void setactuals(List<String> actuals) {
         this.actuals = actuals;
     }
 
-    public void defineTestExecutionTable() {
+    private void defineTestExecutionTable() {
         float[] columnWidth = {2, 15, 20, 75};
         objtable = new PdfPTable(columnWidth);
         objtable.setWidthPercentage(100);
@@ -139,7 +114,7 @@ public class PDFTestReportModel {
 
     }
 
-    public void setTestResultTable() throws IOException, BadElementException {
+    void setTestResultTable() throws IOException, BadElementException {
 
         table.setHorizontalAlignment(Element.ALIGN_CENTER);
         PdfPCell numberCell = new PdfPCell();
@@ -164,42 +139,27 @@ public class PDFTestReportModel {
             expectedCell.addElement(new Phrase(setFont(getexpected().get(i) + ", ", 11, BaseColor.BLACK, Font.NORMAL)));
         }
 
-        /*PdfPCell actualCell = new PdfPCell();
-        actualCell.setHorizontalAlignment(Element.ALIGN_LEFT);
-        actualCell.setVerticalAlignment(Element.ALIGN_TOP);
-        for (int i = 0; i < getactuals().size(); i++) {
-            if (getactuals().get(i).contains(".jpg") ||
-                    getactuals().get(i).contains(".png")) {
-                Image img = Image.getInstance(getactuals().get(i));
-                img.setAlignment(Element.ALIGN_CENTER);
-                img.scalePercent(55000 / img.getWidth());
-                actualCell.addElement(img);
-            } else {
-                actualCell.addElement(new Phrase(setFont(getactuals().get(i) + ", ", 11, BaseColor.BLACK, Font.NORMAL)));
-            }
-        }*/
-
         HashMap<String, PdfPCell> actualCells = new HashMap<>();
         int imageCount = 0;
         actualCells.put("imageCount_" + imageCount, new PdfPCell());
-        for (int i = 0; i < actuals.size(); i++) {
+        for (String actual : actuals) {
 
-            if (actuals.get(i).contains(".jpg") ||
-                    actuals.get(i).contains(".png")) {
+            if (actual.contains(".jpg") ||
+                    actual.contains(".png")) {
                 if (actualCells.containsKey("imageCount_" + imageCount)) {
-                    (actualCells.get("imageCount_" + imageCount)).addElement(imageCell(actuals.get(i)));
+                    (actualCells.get("imageCount_" + imageCount)).addElement(imageCell(actual));
                 } else {
                     PdfPCell cell = new PdfPCell();
-                    cell.addElement(imageCell(actuals.get(i)));
+                    cell.addElement(imageCell(actual));
                     actualCells.put("imageCount_" + imageCount, cell);
                 }
                 imageCount++;
             } else {
                 if (actualCells.containsKey("imageCount_" + imageCount)) {
-                    (actualCells.get("imageCount_" + imageCount)).addElement(new Phrase(setFont(actuals.get(i) + ", ", 11, BaseColor.BLACK, Font.NORMAL)));
+                    (actualCells.get("imageCount_" + imageCount)).addElement(new Phrase(setFont(actual + ", ", 11, BaseColor.BLACK, Font.NORMAL)));
                 } else {
                     PdfPCell cell = new PdfPCell();
-                    cell.addElement(new Phrase(setFont(actuals.get(i) + ", ", 11, BaseColor.BLACK, Font.NORMAL)));
+                    cell.addElement(new Phrase(setFont(actual + ", ", 11, BaseColor.BLACK, Font.NORMAL)));
                     actualCells.put("imageCount_" + imageCount, cell);
                 }
             }
@@ -230,7 +190,7 @@ public class PDFTestReportModel {
         }
     }
 
-    public Chapter setTestExecutionTable(int testNumber) {
+    Chapter setTestExecutionTable(int testNumber) {
 
         Chapter testChapter = new Chapter(new Paragraph(setFont("TEST CASE : " + getTestName(), 14, BaseColor.BLACK, Font.NORMAL)), testNumber);
         testChapter.setBookmarkOpen(true);
@@ -246,11 +206,11 @@ public class PDFTestReportModel {
         return testChapter;
     }
 
-    public String getStepNum() {
+    private String getStepNum() {
         return stepNum;
     }
 
-    public void setStepNum(String stepNum) {
+    void setStepNum(String stepNum) {
         this.stepNum = stepNum;
     }
 

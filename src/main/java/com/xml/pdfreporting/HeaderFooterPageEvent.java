@@ -6,14 +6,13 @@ import com.itextpdf.text.pdf.*;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import static com.xml.pdfreporting.Utility.setCellFonts;
 import static com.xml.pdfreporting.Utility.setFont;
 
 
 public class HeaderFooterPageEvent extends PdfPageEventHelper {
 
-    public static Map<String, Integer> index = new LinkedHashMap<String, Integer>();
-    public static int order;
+    static Map<String, Integer> index = new LinkedHashMap<String, Integer>();
+    static int order;
     private PdfTemplate t;
     private Image total;
     private String header;
@@ -26,26 +25,17 @@ public class HeaderFooterPageEvent extends PdfPageEventHelper {
     private int waterMarkTextyPosition;
     private int page;
 
-    public HeaderFooterPageEvent(PdfWriter writer) {
+    HeaderFooterPageEvent(PdfWriter writer) {
         Rectangle rect = new Rectangle(15, 15, 993, 597);
         writer.setBoxSize("art", rect);
     }
 
-    public String getFooter() {
+    private String getFooter() {
         return footer;
     }
 
-    public void setFooter(String footer) {
+    void setFooter(String footer) {
         this.footer = footer;
-    }
-
-    public Phrase companyHeader() {
-        FontSelector selector1 = new FontSelector();
-        Font f1 = FontFactory.getFont(FontFactory.TIMES_BOLDITALIC, 12);
-        f1.setColor(BaseColor.BLUE);
-        selector1.addFont(f1);
-        Phrase ph = selector1.process("DEMO AUTOMATION");
-        return ph;
     }
 
     public void onOpenDocument(PdfWriter writer, Document document) {
@@ -61,10 +51,10 @@ public class HeaderFooterPageEvent extends PdfPageEventHelper {
     @Override
     public void onStartPage(PdfWriter writer, Document document) {
 
-        page++;
-        setborder(writer, document);
         PdfPTable header = new PdfPTable(3);
         try {
+            page++;
+            setborder(writer, document);
             header.setWidths(new int[]{25, 50, 25});
         } catch (DocumentException e) {
             e.printStackTrace();
@@ -81,9 +71,20 @@ public class HeaderFooterPageEvent extends PdfPageEventHelper {
             nameImage.setBorder(Rectangle.BOTTOM);
             nameImage.addElement(img);
 
+            PdfPCell cell = new PdfPCell();
+            cell.setBorder(Rectangle.BOTTOM);
+            cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+            cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+
             header.addCell(nameImage);
-            header.addCell(setCellFonts(setFont(getHeader(), 8, BaseColor.BLACK, Font.NORMAL), Element.ALIGN_CENTER, Element.ALIGN_MIDDLE)).setBorder(Rectangle.BOTTOM);
-            header.addCell(setCellFonts(setFont("\n" + docnumber + "\n" + revnumber, 8, BaseColor.BLACK, Font.NORMAL), Element.ALIGN_RIGHT, Element.ALIGN_MIDDLE)).setBorder(Rectangle.BOTTOM);
+            cell.setPhrase(setFont(getHeader(), 8, BaseColor.BLACK, Font.NORMAL));
+            header.addCell(cell);
+
+
+            cell.setPhrase(setFont("\n" + docnumber + "\n" + revnumber, 8, BaseColor.BLACK, Font.NORMAL));
+            cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+            header.addCell(cell);
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -102,13 +103,7 @@ public class HeaderFooterPageEvent extends PdfPageEventHelper {
         index.put(title.getContent(), page);
     }
 
-/*    @Override
-    public void onSection(PdfWriter writer, Document document,
-                          float paragraphPosition, int depth, Paragraph title) {
-        onChapter(writer, document, paragraphPosition, title);
-    }*/
-
-    private Document setborder(PdfWriter writer, Document document) {
+    private void setborder(PdfWriter writer, Document document) throws DocumentException {
         Rectangle border = writer.getBoxSize("art");
         border.enableBorderSide(1);
         border.enableBorderSide(2);
@@ -116,13 +111,7 @@ public class HeaderFooterPageEvent extends PdfPageEventHelper {
         border.enableBorderSide(8);
         border.setBorderColor(BaseColor.BLACK);
         border.setBorderWidth(2);
-        try {
-            document.add(border);
-        } catch (Exception e) {
-
-        }
-
-        return document;
+        document.add(border);
     }
 
     @Override
@@ -149,7 +138,7 @@ public class HeaderFooterPageEvent extends PdfPageEventHelper {
 
                 footer.addCell(new Phrase(setFont(String.format("Page %d of", writer.getPageNumber()), 8, BaseColor.BLACK, Font.NORMAL)));
             } else {
-                footer.addCell(new Phrase(setFont((String.format("Total Pages ")), 8, BaseColor.BLACK, Font.NORMAL)));
+                footer.addCell(new Phrase(setFont(("Total Pages "), 8, BaseColor.BLACK, Font.NORMAL)));
             }
             //footer.addCell(new Phrase(setFont(String.format("Page %d of", writer.getPageNumber()), 8, BaseColor.BLACK, Font.NORMAL)));
 
@@ -185,35 +174,35 @@ public class HeaderFooterPageEvent extends PdfPageEventHelper {
     }
 
 
-    public String getHeader() {
+    private String getHeader() {
         return header;
     }
 
-    public void setHeader(String header) {
+    void setHeader(String header) {
         this.header = header;
     }
 
-    public void setHeaderimage(String headerimage) {
+    void setHeaderimage(String headerimage) {
         this.headerimage = headerimage;
     }
 
-    public void setRevnumber(String revnumber) {
+    void setRevnumber(String revnumber) {
         this.revnumber = revnumber;
     }
 
-    public void setDocnumber(String docnumber) {
+    void setDocnumber(String docnumber) {
         this.docnumber = docnumber;
     }
 
-    public void setWaterMarkText(String waterMarkText) {
+    void setWaterMarkText(String waterMarkText) {
         this.waterMarkText = waterMarkText;
     }
 
-    public void setWaterMarkTextxPosition(int waterMarkTextxPosition) {
+    void setWaterMarkTextxPosition(int waterMarkTextxPosition) {
         this.waterMarkTextxPosition = waterMarkTextxPosition;
     }
 
-    public void setWaterMarkTextyPosition(int waterMarkTextyPosition) {
+    void setWaterMarkTextyPosition(int waterMarkTextyPosition) {
         this.waterMarkTextyPosition = waterMarkTextyPosition;
     }
 }
