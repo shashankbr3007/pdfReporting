@@ -6,6 +6,8 @@ import com.itextpdf.text.pdf.*;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import static com.xml.pdfreporting.PDFReporter.totalIndexPages;
+import static com.xml.pdfreporting.Utility.RomanNumerals;
 import static com.xml.pdfreporting.Utility.setFont;
 
 
@@ -13,6 +15,8 @@ public class HeaderFooterPageEvent extends PdfPageEventHelper {
 
     static Map<String, Integer> index = new LinkedHashMap<String, Integer>();
     static int order;
+    static int firstChapterPN;
+    static int finishorder;
     private PdfTemplate t;
     private Image total;
     private String header;
@@ -48,6 +52,13 @@ public class HeaderFooterPageEvent extends PdfPageEventHelper {
         }
     }
 
+    /**
+     * this is overriden method which sets the page widths, the header image
+     * the document and revision numbers on the header of the page
+     *
+     * @param writer
+     * @param document
+     */
     @Override
     public void onStartPage(PdfWriter writer, Document document) {
 
@@ -103,6 +114,18 @@ public class HeaderFooterPageEvent extends PdfPageEventHelper {
         index.put(title.getContent(), page);
     }
 
+   /* @Override
+    public void onSection(PdfWriter writer, Document document,
+                          float paragraphPosition, int depth, Paragraph title) {
+        onChapter(writer, document, paragraphPosition, title);
+    }*/
+
+    /**
+     * @param writer
+     * @param document
+     * @throws DocumentException
+     * @fucntion creates a page border for each the PDF page
+     */
     private void setborder(PdfWriter writer, Document document) throws DocumentException {
         Rectangle border = writer.getBoxSize("art");
         border.enableBorderSide(1);
@@ -114,6 +137,11 @@ public class HeaderFooterPageEvent extends PdfPageEventHelper {
         document.add(border);
     }
 
+    /**
+     * this method has all the code to set the  page numbers, footer texts, watermark     *
+     * @param writer
+     * @param document
+     */
     @Override
     public void onEndPage(PdfWriter writer, Document document) {
 
@@ -132,21 +160,45 @@ public class HeaderFooterPageEvent extends PdfPageEventHelper {
             footer.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
             footer.addCell(new Phrase(getFooter(), new Font(Font.FontFamily.TIMES_ROMAN, 8)));
 
-            // add current page count
-            footer.getDefaultCell().setHorizontalAlignment(Element.ALIGN_RIGHT);
-            if (order == 0) {
-
-                footer.addCell(new Phrase(setFont(String.format("Page %d of", writer.getPageNumber()), 8, BaseColor.BLACK, Font.NORMAL)));
-            } else {
-                footer.addCell(new Phrase(setFont(("Total Pages "), 8, BaseColor.BLACK, Font.NORMAL)));
-            }
-            //footer.addCell(new Phrase(setFont(String.format("Page %d of", writer.getPageNumber()), 8, BaseColor.BLACK, Font.NORMAL)));
 
             // add placeholder for total page count
+            footer.getDefaultCell().setHorizontalAlignment(Element.ALIGN_RIGHT);
             PdfPCell totalPageCount = new PdfPCell(total);
             totalPageCount.setBorder(Rectangle.TOP);
             totalPageCount.setBorderColor(BaseColor.BLACK);
-            footer.addCell(totalPageCount);
+
+            // add blank cell for the Roman numerals page numbers
+            PdfPCell blank = new PdfPCell();
+            blank.addElement(new Phrase(" "));
+            blank.setBorder(Rectangle.TOP);
+            blank.setBorderColor(BaseColor.BLACK);
+
+
+            //writing Roman numerals on the page number until the first chapter
+            if (order == 0 && firstChapterPN == 0 && finishorder == 0) {
+                footer.addCell(new Phrase(setFont(RomanNumerals(writer.getPageNumber()), 8, BaseColor.BLACK, Font.NORMAL)));
+                footer.addCell(blank);
+            }
+            //writing page x of y number from the first chapter until the last chapter
+            else if (order == 0 && firstChapterPN < writer.getPageNumber() && finishorder == 0) {
+                footer.addCell(new Phrase(setFont(String.format("Page %s of", writer.getPageNumber() - firstChapterPN), 8, BaseColor.BLACK, Font.NORMAL)));
+                footer.addCell(totalPageCount);
+            }
+            //writing Roman numerals on the page for first page of TOC
+            else if (order > 0 && firstChapterPN > 0 && finishorder == 0) {
+                footer.addCell(new Phrase(setFont(RomanNumerals(writer.getPageNumber() - (order - firstChapterPN - 1)), 8, BaseColor.BLACK, Font.NORMAL)));
+                footer.addCell(blank);
+            }
+            //writing Roman numerals on the page until the last page of TOC
+            else if (order == 0 && firstChapterPN == writer.getPageNumber() && finishorder == 0) {
+                footer.addCell(new Phrase(setFont(RomanNumerals(writer.getPageNumber()), 8, BaseColor.BLACK, Font.NORMAL)));
+                footer.addCell(blank);
+            }
+            //writing page x of y number from the last page of TOC until the end of the document
+            else if (order > 0 && firstChapterPN > 0 && finishorder > 0) {
+                footer.addCell(new Phrase(setFont(String.format("Page %s of", writer.getPageNumber() - firstChapterPN - totalIndexPages), 8, BaseColor.BLACK, Font.NORMAL)));
+                footer.addCell(totalPageCount);
+            }
 
             // write page
             PdfContentByte canvas1 = writer.getDirectContent();
@@ -157,8 +209,8 @@ public class HeaderFooterPageEvent extends PdfPageEventHelper {
             throw new ExceptionConverter(de);
         }
 
-
-        ColumnText.showTextAligned(writer.getDirectContentUnder(), Element.ALIGN_CENTER, new Phrase(setFont(waterMarkText, 25, BaseColor.LIGHT_GRAY, Font.NORMAL)), waterMarkTextxPosition, waterMarkTextyPosition, 45);
+        //text to write the watermark on each page of the PDF document
+        ColumnText.showTextAligned(writer.getDirectContentUnder(), Element.ALIGN_CENTER, new Phrase(setFont(waterMarkText, 50, BaseColor.LIGHT_GRAY, Font.NORMAL)), waterMarkTextxPosition, waterMarkTextyPosition, 45);
     }
 
     @Override
@@ -167,12 +219,10 @@ public class HeaderFooterPageEvent extends PdfPageEventHelper {
         int totalLength = String.valueOf(writer.getPageNumber()).length();
         int totalWidth = totalLength * 5;
         ColumnText.showTextAligned(t, Element.ALIGN_RIGHT,
-                new Phrase(setFont(String.valueOf(writer.getPageNumber()), 8, BaseColor.BLACK, Font.NORMAL)),
+                new Phrase(setFont(String.valueOf(writer.getPageNumber() - firstChapterPN - totalIndexPages), 8, BaseColor.BLACK, Font.NORMAL)),
                 totalWidth, 6, 0);
 
-
     }
-
 
     private String getHeader() {
         return header;

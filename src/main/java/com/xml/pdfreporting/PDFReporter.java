@@ -21,11 +21,11 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.IntStream;
 
-import static com.xml.pdfreporting.Utility.imageCell;
 import static com.xml.pdfreporting.Utility.setFont;
 
 class PDFReporter {
 
+    static int totalIndexPages;
     private String fileName;
     private int firstChapterPageNum;
     private PdfWriter writer;
@@ -42,6 +42,11 @@ class PDFReporter {
     private List<JSONObject> signatureDetails;
     private JSONObject testcasesummary;
 
+    /**
+     * @param document
+     * @throws DocumentException
+     * @function this method has the framework to set the review table on the PDF document
+     */
     private static void setReviewcommentTable(Document document) throws DocumentException {
         PdfPTable review = new PdfPTable(new float[]{10F, 40F});
 
@@ -51,15 +56,15 @@ class PDFReporter {
         PdfPCell header = new PdfPCell();
         header.setBorder(Rectangle.BOX);
         header.setFixedHeight(30);
-        header.setPhrase(new Paragraph(setFont("\t\tREVIEW COMMENTS:", 12, BaseColor.BLACK, Font.NORMAL)));
+        header.setPhrase(new Paragraph(setFont("\t\tREVIEW COMMENTS:", 12, BaseColor.DARK_GRAY, Font.BOLD)));
         header.setColspan(2);
         header.setBackgroundColor(BaseColor.LIGHT_GRAY);
         review.addCell(header);
 
-        line.setPhrase(new Paragraph(setFont("\t\tCommented By", 11, BaseColor.BLACK, Font.NORMAL)));
+        line.setPhrase(new Paragraph(setFont("\t\tCommented By", 11, BaseColor.DARK_GRAY, Font.BOLD)));
         review.addCell(line);
 
-        line.setPhrase(new Paragraph(setFont("Comments", 11, BaseColor.BLACK, Font.NORMAL)));
+        line.setPhrase(new Paragraph(setFont("Comments", 11, BaseColor.DARK_GRAY, Font.BOLD)));
         review.addCell(line);
 
         line.setFixedHeight(180);
@@ -74,6 +79,12 @@ class PDFReporter {
 
     }
 
+    /**
+     * @param details
+     * @return
+     * @function this method has the framework to set the model details table on the PDF document
+     * Also it will set the execution details on the PDF document
+     */
     private static PdfPTable setModelDetails(JSONObject details) {
 
         PdfPTable modelDetails = new PdfPTable(new float[]{10, 25, 40});
@@ -100,6 +111,12 @@ class PDFReporter {
         return modelDetails;
     }
 
+    /**
+     * @param document
+     * @throws DocumentException
+     * @throws IOException
+     * @function this method read the signature names and images from the prop file and set the signature table acoordingly
+     */
     private void setSignatureTable(Document document) throws DocumentException, IOException {
 
         PdfPTable signature = new PdfPTable(new float[]{25F, 15F, 10F, 40F});
@@ -126,10 +143,13 @@ class PDFReporter {
         for (JSONObject approver : signatureDetails) {
             signature.addCell(horizontalgap);
 
+            Image img = Image.getInstance(String.valueOf(approver.get("image")));
+            img.scalePercent(20);
+            img.setAlignment(Element.ALIGN_CENTER);
             PdfPCell nameImage = new PdfPCell();
             nameImage.setFixedHeight((tableHeight / 2) / signatureDetails.size());
             nameImage.setBorder(Rectangle.TOP);
-            nameImage.addElement(imageCell(String.valueOf(approver.get("image"))));
+            nameImage.addElement(img);
 
             names.setPhrase(new Phrase(setFont(String.valueOf(approver.get("approver")), 11, BaseColor.BLACK, Font.NORMAL)));
             signature.addCell(names);
@@ -143,34 +163,45 @@ class PDFReporter {
         document.add(signature);
     }
 
+    /**
+     * @param document
+     * @throws DocumentException
+     * @function this method reads the data from template properties and sets the execution details of the model
+     */
     private void setExecutionModelDetails(Document document) throws DocumentException {
 
-        Chapter executionModelDetails = new Chapter(new Paragraph("ENVIRONMENT DETAILS "), 1);
+        Chapter executionModelDetails = new Chapter(new Paragraph(setFont("ENVIRONMENT DETAILS ", 14, BaseColor.DARK_GRAY, Font.BOLD)), 1);
 
         if (modeldetails != null) {
             executionModelDetails.add(new Paragraph("\n"));
-            Section modelDetail = executionModelDetails.addSection(new Paragraph(setFont("AUTOMATION MODEL VERSION RELEASE DETAILS", 12, BaseColor.BLACK, Font.NORMAL)));
+            Section modelDetail = executionModelDetails.addSection(new Paragraph(setFont("AUTOMATION MODEL VERSION RELEASE DETAILS", 12, BaseColor.DARK_GRAY, Font.BOLD)));
             modelDetail.add(new Paragraph("\n"));
             modelDetail.add(setModelDetails(modeldetails));
         }
 
         if (executiondetails != null) {
             executionModelDetails.add(new Paragraph("\n"));
-            Section executionDetail = executionModelDetails.addSection(new Paragraph(setFont("TEST EXECUTION ENVIRONMENT DETAILS ", 12, BaseColor.BLACK, Font.NORMAL)));
+            Section executionDetail = executionModelDetails.addSection(new Paragraph(setFont("TEST EXECUTION ENVIRONMENT DETAILS ", 12, BaseColor.DARK_GRAY, Font.BOLD)));
             executionDetail.add(new Paragraph("\n"));
             executionDetail.add(setModelDetails(executiondetails));
         }
 
         if (executionstats != null) {
             executionModelDetails.add(new Paragraph("\n"));
-            Section executionStats = executionModelDetails.addSection(new Paragraph(setFont("EXECUTION STATISTICS", 12, BaseColor.BLACK, Font.NORMAL)));
+            Section executionStats = executionModelDetails.addSection(new Paragraph(setFont("EXECUTION STATISTICS", 12, BaseColor.DARK_GRAY, Font.BOLD)));
             executionStats.add(new Paragraph("\n"));
             executionStats.add(setModelDetails(executionstats));
 
         }
+
         document.add(executionModelDetails);
     }
 
+    /**
+     * @param document
+     * @throws DocumentException
+     * @function this method sets the conditions and benchmarks on which the execution results are being published
+     */
     private void setPostExecutionApprovals(Document document) throws DocumentException {
 
         PdfPTable comments = new PdfPTable(1);
@@ -179,7 +210,7 @@ class PDFReporter {
         PdfPCell header = new PdfPCell();
         header.setBorder(Rectangle.BOX);
         header.setFixedHeight(30);
-        header.setPhrase(new Paragraph(setFont("\t\tPOST EXECUTION APPROVALS:", 11, BaseColor.BLACK, Font.NORMAL)));
+        header.setPhrase(new Paragraph(setFont("\t\tPOST EXECUTION APPROVALS:", 11, BaseColor.DARK_GRAY, Font.BOLD)));
         header.setBackgroundColor(BaseColor.LIGHT_GRAY);
         comments.addCell(header);
 
@@ -198,6 +229,12 @@ class PDFReporter {
         document.add(new Paragraph("\n\n"));
     }
 
+    /**
+     * @return
+     * @throws Exception
+     * @function this is the Main method which drives the PDF template design,
+     * this has all the steps in sequence to prepare the PDF template
+     */
     Document PDFReporter() throws Exception {
 
         setTemplateProps();
@@ -230,8 +267,9 @@ class PDFReporter {
         setPostExecutionApprovals(document);
         setReviewcommentTable(document);
         setSignatureTable(document);
-
+        HeaderFooterPageEvent.firstChapterPN = writer.getPageNumber();
         setExecutionModelDetails(document);
+
         if (testcasesummary != null) {
             setTestSummaryDetails(document);
         }
@@ -239,6 +277,12 @@ class PDFReporter {
         return document;
     }
 
+    /**
+     * @param document
+     * @throws IOException
+     * @throws DocumentException
+     * @function this methods sets the Test Summary report with a sequence daigram
+     */
     private void setTestSummaryDetails(Document document) throws IOException, DocumentException {
 
         JSONArray testsummary = (JSONArray) testcasesummary.get("testcasesummary");
@@ -294,13 +338,18 @@ class PDFReporter {
         summaryTable.addCell(seqImage);
 
         Chapter summaryChapter = new Chapter(2);
-        summaryChapter.setTitle(new Paragraph("TEST EXECUTION SUMMARY "));
+        summaryChapter.setTitle(new Paragraph(setFont("TEST EXECUTION SUMMARY ", 14, BaseColor.DARK_GRAY, Font.BOLD)));
         summaryChapter.add(new Paragraph("\n"));
         summaryChapter.add(summaryTable);
 
         document.add(summaryChapter);
     }
 
+    /**
+     * @param document
+     * @throws Exception
+     * @function this method sets the Report Logo on all the pages of the document header
+     */
     private void setReportLogo(Document document) throws Exception {
         PdfPTable logo = new PdfPTable(1);
         logo.setWidthPercentage(100);
@@ -326,6 +375,10 @@ class PDFReporter {
         document.newPage();
     }
 
+    /**
+     * @throws IOException
+     * @function this method read the template properties from the JSON property files
+     */
     private void setTemplateProps() throws IOException {
 
 
@@ -392,6 +445,11 @@ class PDFReporter {
 
     }
 
+    /**
+     * @param document
+     * @throws DocumentException
+     * @function this method creates a table of content and enters at the end of the document
+     */
     void setTOC(Document document) throws DocumentException {
         Set<String> indexkeys = HeaderFooterPageEvent.index.keySet();
         firstChapterPageNum = HeaderFooterPageEvent.index.get(HeaderFooterPageEvent.index.keySet().toArray()[0]);
@@ -412,31 +470,41 @@ class PDFReporter {
         }
 
         reOrderPages(document);
+        HeaderFooterPageEvent.finishorder = writer.getPageNumber();
     }
 
+    /**
+     * @param document
+     * @function this method is designed to re-order Table of Content Pages
+     * from the end of the document to the  beginning of the PDF
+     */
     private void reOrderPages(Document document) {
         try {
             //When you add your table of contents, get its page number for the reordering:
 
             int firstIndexPage = HeaderFooterPageEvent.order;
-            int totalIndexPages = (writer.getPageNumber() - HeaderFooterPageEvent.order + 1);
+            totalIndexPages = (writer.getPageNumber() - HeaderFooterPageEvent.order + 1);
 
             // always add to a new page before reordering pages.
             document.newPage();
-            Paragraph toc = new Paragraph(setFont("Intentionally left blank for reviews and comments", 14, BaseColor.DARK_GRAY, Font.NORMAL));
+            Paragraph toc = new Paragraph(setFont("Intentionally left blank", 18, BaseColor.DARK_GRAY, Font.NORMAL));
             toc.setAlignment(Element.ALIGN_CENTER);
             document.add(toc);
 
             // get the total number of pages that needs to be reordered
             int total = writer.reorderPages(null);
 
-            // change the order
+            // instantiate an array with the total number of pages
             int[] order = new int[total];
+            //array one contains pages from 1 to the first chapter page
             int[] rangeOne = IntStream.rangeClosed(1, firstChapterPageNum - 1).toArray();
+            //array two contains pages from first TOC page to the last TOC page
             int[] rangeTwo = IntStream.rangeClosed(firstIndexPage, firstIndexPage + totalIndexPages - 1).toArray();
+            //array one contains pages from first Chapter page until the last chapter page
             int[] rangeThree = IntStream.rangeClosed(firstChapterPageNum, firstIndexPage - 1).toArray();
             int[] rangeFour = IntStream.rangeClosed(firstIndexPage + totalIndexPages, total).toArray();
 
+            //merge all the above int arrays to form the final ordered PDF page array
             System.arraycopy(rangeOne, 0, order, 0, rangeOne.length);
             System.arraycopy(rangeTwo, 0, order, rangeOne.length, rangeTwo.length);
             System.arraycopy(rangeThree, 0, order, rangeOne.length + rangeTwo.length, rangeThree.length);

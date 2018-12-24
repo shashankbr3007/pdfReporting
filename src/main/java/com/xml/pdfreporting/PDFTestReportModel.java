@@ -55,6 +55,10 @@ class PDFTestReportModel {
         this.actuals = actuals;
     }
 
+    /**
+     *this method defines the test execution table with all the template values
+     * and placeholders for acutal execution values
+     */
     private void defineTestExecutionTable() {
         float[] columnWidth = {2, 15, 20, 75};
         objtable = new PdfPTable(columnWidth);
@@ -105,7 +109,7 @@ class PDFTestReportModel {
         header.setPhrase(new Phrase(setFont("STEP DESCRIPTION", 10, BaseColor.DARK_GRAY, Font.BOLD)));
         table.addCell(header);
 
-        header.setPhrase(new Phrase(setFont("EXEPCTED RESULT", 10, BaseColor.DARK_GRAY, Font.BOLD)));
+        header.setPhrase(new Phrase(setFont("EXPECTED RESULT", 10, BaseColor.DARK_GRAY, Font.BOLD)));
         table.addCell(header);
 
         header.setPhrase(new Phrase(setFont("ACTUAL RESULT", 10, BaseColor.DARK_GRAY, Font.BOLD)));
@@ -114,6 +118,11 @@ class PDFTestReportModel {
 
     }
 
+    /**
+     * @throws IOException
+     * @throws BadElementException
+     * @function this is the primary table with the sequence test execution placeholders and values from test case logs
+     */
     void setTestResultTable() throws IOException, BadElementException {
 
         table.setHorizontalAlignment(Element.ALIGN_CENTER);
@@ -190,16 +199,22 @@ class PDFTestReportModel {
         }
     }
 
+    /**
+     *
+     * @param testNumber
+     * @return
+     * @function this is method which sets the chapter and section for all the execution tables
+     */
     Chapter setTestExecutionTable(int testNumber) {
 
-        Chapter testChapter = new Chapter(new Paragraph(setFont("TEST CASE : " + getTestName(), 14, BaseColor.BLACK, Font.NORMAL)), testNumber);
+        Chapter testChapter = new Chapter(new Paragraph(setFont("TEST CASE : " + getTestName(), 14, BaseColor.DARK_GRAY, Font.BOLD)), testNumber);
         testChapter.setBookmarkOpen(true);
         testChapter.add(new Phrase(""));
 
-        Section testObj = testChapter.addSection(new Paragraph(setFont("Test Execution Benchmarks ", 12, BaseColor.BLACK, Font.NORMAL)));
+        Section testObj = testChapter.addSection(new Paragraph(setFont("Test Execution Benchmarks ", 12, BaseColor.DARK_GRAY, Font.BOLD)));
         testObj.add(this.objtable);
 
-        Section testExec = testChapter.addSection(new Paragraph(setFont("Test Execution Details ", 12, BaseColor.BLACK, Font.NORMAL)));
+        Section testExec = testChapter.addSection(new Paragraph(setFont("Test Execution Details ", 12, BaseColor.DARK_GRAY, Font.BOLD)));
         testExec.add(new Phrase(""));
         testExec.add(this.table);
 

@@ -10,10 +10,19 @@ import org.json.simple.parser.ParseException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Utility {
 
+    /**
+     * @param text - the text that needs to be formatted
+     * @param size - font size of the expected text
+     * @param color - font color of the text
+     * @param style - font style, namely Normal, Bold, Italics, BoldItalics
+     * @return - a PDF Phrase that can be added directly to a cell
+     */
     static Phrase setFont(String text, int size, BaseColor color, int style) {
         FontSelector selector1 = new FontSelector();
         Font f1 = FontFactory.getFont(FontFactory.HELVETICA, size);
@@ -56,6 +65,12 @@ public class Utility {
         pdf.close();
     }
 
+    /**
+     *
+     * @return
+     * @throws IOException
+     * @throws ParseException
+     */
     private static JSONArray gettestcases() throws IOException, ParseException {
 
         String content = new String(Files.readAllBytes(Paths.get(("properties/testcase_logs.txt"))));
@@ -66,6 +81,13 @@ public class Utility {
         return (JSONArray) logs.get("testcases");
     }
 
+    /**
+     *
+     * @param imagePath
+     * @return
+     * @throws IOException
+     * @throws BadElementException
+     */
     static Image imageCell(String imagePath) throws IOException, BadElementException {
 
         Image img = Image.getInstance(imagePath);
@@ -74,5 +96,45 @@ public class Utility {
 
         return img;
 
+    }
+
+    /**
+     *
+     * @param Int
+     * @return
+     */
+    public static String RomanNumerals(int Int) {
+        LinkedHashMap<String, Integer> roman_numerals = new LinkedHashMap<String, Integer>();
+        roman_numerals.put("M", 1000);
+        roman_numerals.put("CM", 900);
+        roman_numerals.put("D", 500);
+        roman_numerals.put("CD", 400);
+        roman_numerals.put("C", 100);
+        roman_numerals.put("XC", 90);
+        roman_numerals.put("L", 50);
+        roman_numerals.put("XL", 40);
+        roman_numerals.put("X", 10);
+        roman_numerals.put("IX", 9);
+        roman_numerals.put("V", 5);
+        roman_numerals.put("IV", 4);
+        roman_numerals.put("I", 1);
+        String res = "";
+        for (Map.Entry<String, Integer> entry : roman_numerals.entrySet()) {
+            int matches = Int / entry.getValue();
+            res += repeat(entry.getKey(), matches);
+            Int = Int % entry.getValue();
+        }
+        return res;
+    }
+
+    public static String repeat(String s, int n) {
+        if (s == null) {
+            return null;
+        }
+        final StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < n; i++) {
+            sb.append(s);
+        }
+        return sb.toString();
     }
 }
